@@ -1,0 +1,33 @@
+# 대회 원본 데이터 — 용량이 커서 저장소에 올리지 않는다 (총 690MB)
+data/train.csv
+data/trackman_history.csv
+
+# 형식 확인용 5행 샘플(data/test.csv, data/sample_submission.csv)은 커밋한다.
+
+# 제출 ZIP / 모델 아티팩트
+*.zip
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.onnx
+*.parquet
+
+# 실행 산출물
+output/
+submit/*/output/
+**/smoke_outputs/
+**/seed_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+
+# 에디터 / OS
+.vscode/
+.idea/
+.DS_Store
