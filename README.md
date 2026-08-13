@@ -15,7 +15,8 @@ LG Aimers 9기 Phase 2 — **투구 제구 성공 확률 예측**
 | --- | --- | --- |
 | [`cowork/task.jsonl`](cowork/task.jsonl) | **원본 로그.** 누가 언제 뭘 했는지 계속 쌓인다 | 작업할 때마다 |
 | [`cowork/plan.md`](cowork/plan.md) | **현재 요약.** 지금 상태 + 다음 할 일 | 리뷰할 때만 |
-| [`AGENTS.md`](AGENTS.md) | **규칙.** 협업 방식 + 대회 제출 규칙 | 세션 시작할 때 |
+| [`AGENTS.md`](AGENTS.md) | **규칙.** 협업 방식 + 제출 작업 절차 | 세션 시작할 때 |
+| [`cowork/RULES.md`](cowork/RULES.md) | **대회 규정 원본.** 공식 페이지 + 재공지 정리 | 제출본 만들 때 |
 
 `task.jsonl`은 지우지 않고 계속 쌓는 일기장, `plan.md`는 그 일기장을 읽고 다시 쓰는 요약본이라고 보면 된다.
 
@@ -28,6 +29,7 @@ LA9elephantmiracle/
 ├── data_description.md  ← 대회 데이터 설명서
 ├── data/                ← 원본 데이터 (대용량 파일은 .gitignore)
 ├── cowork/
+│   ├── RULES.md         ← 대회 규정 원본 (PR로만 수정)
 │   ├── plan.md          ← 공용 (PR로만 수정)
 │   ├── task.jsonl       ← 공용 (PR로만 수정)
 │   └── sj/ ye/ cw/ yn/ hw/   ← 각자 폴더 (자유 푸시)
@@ -101,23 +103,45 @@ reviewed against task.jsonl up to 2026-08-13T14:32:10Z-sj
 - **확률로 낸다.** 0/1 라벨이 아니라 0~1 실수. AUC 말고 **calibration**을 본다.
 - **결과는 항상 같이 적는다.** Brier, 전체 BSS, R/F별 BSS, 월별 Brier, prediction mean.
 
-## 8. 제출할 때
+## 8. 제출할 때 — 규정 점검은 건너뛸 수 없다
 
 ZIP 루트에 딱 세 개만 넣는다.
 
 ```text
 submit_NNN.zip
-├── model/
-├── script.py
+├── model/            # 학습된 가중치·lookup 전부
+├── script.py         # 추론 전용 (학습 코드 금지)
 └── requirements.txt
 ```
 
 - 저장 위치: `submit/<날짜>/submit_NNN.zip` — **기존 파일을 덮어쓰지 말고 새 번호로.**
 - 결과는 `output/submission.csv`에 `row_id`, `control_success` 순서로.
-- 평가 서버는 **인터넷이 없고** 추론 10분 제한이다. 필요한 자산은 전부 `model/`에 넣는다.
-- 제출 전 [`AGENTS.md`](AGENTS.md) B8 체크리스트를 훑는다.
+- 평가 서버는 **인터넷이 없고** 추론 10분 제한(245,789행)이다. 필요한 자산은 전부 `model/`에 넣는다.
+- **1일 제출 5회 제한.** smoke test 없이 올려서 런타임 에러가 나면 횟수를 그냥 버린다.
 
-## 9. 자주 하는 실수
+**제출 패키지를 만들 때마다 [`AGENTS.md`](AGENTS.md) B1의 6단계 점검을 처음부터 끝까지 밟는다.** "지난번에 통과했으니 괜찮다"는 근거가 아니다.
+
+1. [`cowork/RULES.md`](cowork/RULES.md) 전문 재독
+2. 행 독립성 기계 검증 — `predict(단독 행) == predict(전체)[i]`
+3. `script.py` 금지 패턴 전수 스캔 (groupby·rolling·통계량 보정·네트워크·학습 코드·절대경로)
+4. 패키지 구조 + 오프라인 smoke test
+5. 근거 문서화 — 상수값의 출처가 학습 데이터임을 설명
+6. 체크리스트 두 개(RULES.md 부록 + AGENTS.md B11) 통과
+
+결과는 `submit/<날짜>/SUBMISSION_LOG.md`에 남긴다. **09.11 코드 검증에서 사람이 코드를 읽는다.** 기록이 없으면 방어할 수 없다.
+
+## 9. 마감이 4개다
+
+| 날짜 | 마감 |
+| --- | --- |
+| 08.26 | 팀 병합 |
+| **09.01** | 리더보드 제출 |
+| **09.07** | 코드 및 PPT 제출 |
+| **09.11** | 코드 검증 |
+
+09.01과 09.07은 별개다. 점수가 높아도 09.07 제출과 09.11 검증을 통과하지 못하면 Phase 3에 못 간다. 09.07에는 **`model/`을 raw data에서 재현하는 학습 파이프라인 전체**가 필요하다.
+
+## 10. 자주 하는 실수
 
 | 실수 | 왜 문제인가 |
 | --- | --- |
@@ -127,4 +151,6 @@ submit_NNN.zip
 | 남의 폴더 직접 푸시 | PR 없이는 금지 |
 | test 5행 샘플에 맞춘 하드코딩 | 실제 평가는 245,789행이다 |
 | `script.py`에 절대경로 하드코딩 | 서버 경로가 다르다. `Path(__file__).resolve().parent` 사용 |
+| 리더보드 점수 보고 상수 재조정 | "전체 평가 데이터 평균을 이용한 보정"이라 8/13 재공지 위반이다 |
+| 안 쓰는 분기라고 위험 코드 방치 | 09.11 검증에서 사람이 읽는다. 죽은 코드도 지운다 |
 | `data/` 원본 커밋 | 두 파일 합쳐 690MB다. `.gitignore`에 있으니 강제 add 하지 않는다 |
