@@ -114,6 +114,83 @@ tasks.sort(key=lambda t: t["ts"])
 - 커밋: `[<initial>] <type>: <description>` — 예) `[sj] feat: add cache TTL config`
 - `type`은 `task.jsonl`과 동일한 어휘를 쓴다: `feat`, `fix`, `exp`, `doc`, `chore`
 
+## A6. ★ 저장소에 없는 것 — 데이터·가중치는 각자 관리한다
+
+**이 저장소에는 코드와 문서만 있다.** 데이터셋, 모델 가중치, 제출 ZIP은 `git clone`으로 따라오지 않는다.
+
+| 분류 | 용량 | 저장소 | 어떻게 얻나 |
+| --- | --- | --- | --- |
+| 대회 원본 데이터 | 689 MB | ❌ | 대회 페이지에서 각자 내려받아 `data/`에 배치 |
+| 모델 가중치 (`.ubj` `.cbm` `.pt` 등) | 76 MB | ❌ | **학습 코드로 재생성** |
+| 제출 ZIP | 2.1 GB | ❌ | 빌드 스크립트로 재생성 |
+| 중간 산출물 (parquet, csv) | 294 MB | ❌ | 피처 스크립트로 재생성 |
+| 코드 · 문서 · `SUBMISSION_LOG.md` | 16 MB | ✅ | `git clone` |
+
+### 가중치는 올리지 않는다 — 대신 학습 방법을 올린다
+
+`model/` 산출물은 커밋하지 않는다. **재현 경로는 파일이 아니라 코드다.**
+
+- 가중치를 만들어내는 **학습 스크립트를 반드시 커밋한다.** `.py`로 두고, 노트북은 설명용으로만 쓴다.
+- 시드를 고정하고, 실행 순서와 소요 시간을 스크립트 상단 주석이나 README에 남긴다.
+- 학습에 쓴 라이브러리 버전을 명시한다 (09.07 제출물 필수 항목).
+- **가중치만 있고 그걸 만든 코드가 없는 상태를 만들지 않는다.** 지금 `submit_023`(Public 916.700)이 정확히 그 상태다 — `model/` 78~80개를 재생성하는 파이프라인이 없다. [`RULES.md`](cowork/RULES.md) §10-F, [`plan.md`](cowork/plan.md) 우선순위 4.
+
+> 09.11 코드 검증은 **"Private Score 재현용 학습 코드"**를 본다. 가중치 파일을 제출하는 게 아니라, 그 가중치를 raw data에서 다시 만들어내는 코드를 제출한다.
+
+### 세션 시작할 때 경로를 확인한다
+
+작업 전에 **데이터가 제자리에 있는지 먼저 확인한다.** 없는데 스크립트부터 돌리면 엉뚱한 에러로 시간을 버린다.
+
+```bash
+cd <저장소 루트>
+ls -l data/
+python - <<'PY'
+from pathlib import Path
+EXPECT = {
+    "data/train.csv":              368_527_723,
+    "data/trackman_history.csv":   353_823_031,
+    "data/test.csv":                     1_894,   # 형식 확인용 5행 샘플
+    "data/sample_submission.csv":          112,   # 형식 확인용 5행 샘플
+}
+for p, size in EXPECT.items():
+    f = Path(p)
+    if not f.exists():
+        print(f"없음      {p}")
+    elif f.stat().st_size != size:
+        print(f"크기불일치 {p}  {f.stat().st_size} != {size}")
+    else:
+        print(f"OK        {p}")
+PY
+```
+
+`test.csv`와 `sample_submission.csv`는 저장소에 들어 있다. **`train.csv`와 `trackman_history.csv` 두 개만 각자 채워 넣으면 된다.**
+
+### 경로는 하드코딩하지 않는다
+
+사람마다 컨테이너와 마운트가 다르다. 실험 스크립트에서도 저장소 루트 기준 상대 경로를 쓴다.
+
+```python
+from pathlib import Path
+REPO = Path(__file__).resolve().parents[N]   # 저장소 루트까지 올라간다
+DATA = REPO / "data"
+```
+
+`/home/workspace/...` 같은 절대 경로를 코드에 박으면 다른 사람 환경에서 그대로 깨진다. 제출 `script.py`는 특히 금지 사항이다 (B4).
+
+### 참고 — sj 작업 환경
+
+| | 경로 |
+| --- | --- |
+| 컨테이너 | `lsj_pytorch` |
+| 저장소 (컨테이너) | `/home/workspace/LA9elephantmiracle` |
+| 저장소 (호스트) | `/home/lsj_pytorch/workspace/LA9elephantmiracle` |
+| 공용 데이터셋 (컨테이너) | `/home/dataset` — 17T 중 8.9T 여유 |
+| 공용 데이터셋 (호스트) | `/data/hdd2` |
+
+저장소가 있는 `/home/workspace` 볼륨은 **1.8T 중 183G만 남았다 (90% 사용).** 대용량 산출물은 `/home/dataset` 쪽에 두고, 저장소 안에는 코드만 남긴다.
+
+**가중치와 제출 ZIP은 저장소에 없으므로 백업 책임이 각자에게 있다.** 컨테이너가 날아가면 복구 경로가 없다. 재학습 파이프라인이 완성되기 전까지는 `/home/dataset` 같은 별도 볼륨에 사본을 둔다.
+
 ---
 
 # Part B. 제출 규칙

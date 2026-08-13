@@ -4,13 +4,15 @@ data/trackman_history.csv
 # 형식 확인용 5행 샘플(data/test.csv, data/sample_submission.csv)은 커밋한다.
 
 # ── 제출 산출물 ────────────────────────────────────────────
-# ZIP과 모델은 제외하고 SUBMISSION_LOG.md 등 기록 문서만 남긴다.
+# ZIP과 가중치는 제외하고 기록 문서(.md)와 빌드 코드(.py)는 남긴다.
 cowork/*/submit/**
 !cowork/*/submit/**/
 !cowork/*/submit/**/*.md
+!cowork/*/submit/**/*.py
 submit/**
 !submit/**/
 !submit/**/*.md
+!submit/**/*.py
 
 # ── 임시 / 폐기 예정 폴더 ──────────────────────────────────
 **/_tmp_export/
