@@ -1,0 +1,20 @@
+{
+  "pid": 38876,
+  "started_at": "2026-08-06T15:47:32.876048+09:00",
+  "command": [
+    "C:\\Users\\isj67\\anaconda3\\python.exe",
+    "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\run_optuna_enhanced.py",
+    "--family",
+    "xgboost",
+    "--trials",
+    "159",
+    "--folds",
+    "2023,2024",
+    "--study-name",
+    "xgboost_v2r200_tm500_robust"
+  ],
+  "cwd": "C:\\Users\\isj67\\Desktop\\LGAIMERS",
+  "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\xgboost_v2r200_tm500_robust.out.log",
+  "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\xgboost_v2r200_tm500_robust.err.log",
+  "study_database": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\xgboost_v2r200_tm500_robust.db"
+}

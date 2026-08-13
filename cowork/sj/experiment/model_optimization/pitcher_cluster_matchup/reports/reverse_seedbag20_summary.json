@@ -1,0 +1,1473 @@
+{
+  "created_at": "2026-08-13T08:38:25.170769+09:00",
+  "seeds": [
+    17,
+    2026,
+    4099,
+    43,
+    97,
+    311,
+    503,
+    719,
+    887,
+    1237,
+    1429,
+    1699,
+    1877,
+    2131,
+    2389,
+    2683,
+    3001,
+    3253,
+    3529,
+    3851
+  ],
+  "strict_cutoffs": [
+    2022,
+    2023,
+    2024
+  ],
+  "batter_k_by_hand": {
+    "left": 4,
+    "right": 6
+  },
+  "smoothing": 1000.0,
+  "half_life": 1.0,
+  "ridge_alpha": 1000.0,
+  "success_scale": 0.25,
+  "outer_weight": 0.6085,
+  "audit": [
+    {
+      "seed": 17,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 179
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 2026,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 178
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 11,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 144
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 4099,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 179
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 43,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 179
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 163
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 97,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 178
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 11,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 182
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 9,
+              "max_cluster_size": 168
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 311,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 179
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 147
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 174
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 503,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 182
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 163
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 181
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 719,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 173
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 161
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 144
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 185
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 8,
+              "max_cluster_size": 169
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 201
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 887,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 180
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 163
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 144
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 185
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 1237,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 180
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 174
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 1429,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 182
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 162
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 185
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 1699,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 179
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 9,
+              "max_cluster_size": 168
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 196
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 1877,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 179
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 161
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 145
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 9,
+              "max_cluster_size": 168
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 2131,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 173
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 164
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 2389,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 173
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 163
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 189
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 2683,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 171
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 144
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 3001,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 182
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 175
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 3253,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 171
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 11,
+              "max_cluster_size": 162
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 145
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 181
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 3529,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 178
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 164
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 145
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 176
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 3851,
+      "cached": false,
+      "rows": 746504,
+      "coverage": 0.7522544860839844,
+      "audits": [
+        {
+          "cutoff": 2022,
+          "coverage": 0.749110996723175,
+          "pair_cells": 119,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 240,
+              "min_cluster_size": 12,
+              "max_cluster_size": 180
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 362,
+              "min_cluster_size": 12,
+              "max_cluster_size": 158
+            }
+          ]
+        },
+        {
+          "cutoff": 2023,
+          "coverage": 0.7806781530380249,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 272,
+              "min_cluster_size": 11,
+              "max_cluster_size": 146
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 421,
+              "min_cluster_size": 13,
+              "max_cluster_size": 176
+            }
+          ]
+        },
+        {
+          "cutoff": 2024,
+          "coverage": 0.7277945280075073,
+          "pair_cells": 120,
+          "cluster_audit": [
+            {
+              "hand": 1,
+              "k": 4,
+              "batters": 303,
+              "min_cluster_size": 10,
+              "max_cluster_size": 167
+            },
+            {
+              "hand": 2,
+              "k": 6,
+              "batters": 463,
+              "min_cluster_size": 13,
+              "max_cluster_size": 195
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "full_bag": {
+    "bag_size": 20,
+    "seeds": "17,2026,4099,43,97,311,503,719,887,1237,1429,1699,1877,2131,2389,2683,3001,3253,3529,3851",
+    "reverse_scale": 0.75,
+    "val2023_brier": 0.25015095057765696,
+    "val2023_bss": -60.380963059802895,
+    "val2024_brier": 0.24777440051550778,
+    "val2024_bss": 813.63886408925,
+    "both_positive": false,
+    "robust_objective": 0.9947875756558536
+  },
+  "elapsed_seconds": 172.489759683609
+}

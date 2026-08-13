@@ -1,0 +1,53 @@
+{
+  "study": "xgboost_v2r200_tm500_local_2024",
+  "trial": 93,
+  "feature_version": "INSIGHT_SUCCESS_ADJUSTED",
+  "validation_rule": "train seasons strictly before validation season",
+  "trackman_rule": "strictly before validation season; pitcher-season >=500",
+  "half_life": 0.5259510182777523,
+  "early_stopping_rounds": 600,
+  "candidates": [
+    {
+      "name": "anchor_logloss",
+      "eval_metric": "logloss",
+      "params": {
+        "n_estimators": 4431,
+        "learning_rate": 0.0030626837708062128,
+        "max_depth": 7,
+        "min_child_weight": 626.0593077812514,
+        "subsample": 0.9736716317454049,
+        "colsample_bytree": 0.7907533296928133,
+        "colsample_bylevel": 0.8524268909223828,
+        "gamma": 0.11551620567906469,
+        "reg_alpha": 0.2421771226109747,
+        "reg_lambda": 505.8374114397891,
+        "max_bin": 512,
+        "max_leaves": 18
+      }
+    },
+    {
+      "name": "moderate24_diverse",
+      "eval_metric": "rmse",
+      "params": {
+        "n_estimators": 9000,
+        "learning_rate": 0.002784257973460193,
+        "max_depth": 8,
+        "min_child_weight": 626.0593077812514,
+        "subsample": 0.9,
+        "colsample_bytree": 0.7,
+        "colsample_bylevel": 0.8524268909223828,
+        "gamma": 0.11551620567906469,
+        "reg_alpha": 0.2421771226109747,
+        "reg_lambda": 556.421152583768,
+        "max_bin": 512,
+        "max_leaves": 24
+      }
+    }
+  ],
+  "folds": [
+    2022
+  ],
+  "seed_offsets": [
+    0
+  ]
+}

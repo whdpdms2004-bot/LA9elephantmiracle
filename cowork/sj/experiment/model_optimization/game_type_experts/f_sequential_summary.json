@@ -1,0 +1,37 @@
+{
+  "cutoffs": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "valid_months": [
+    6,
+    7,
+    8,
+    9
+  ],
+  "top_trials": [
+    31,
+    57,
+    48,
+    63,
+    24
+  ],
+  "best": {
+    "trial": 31.0,
+    "alpha": 0.6,
+    "mean_fold_normalized_brier": 0.9986153121,
+    "std_fold_normalized_brier": 0.0016384679,
+    "robust_objective": 0.9990249291,
+    "pooled_brier": 0.2485581424,
+    "pooled_normalized_brier": 0.9986187368,
+    "pooled_bss": 138.1263169962,
+    "pooled_logloss": 0.6902563006,
+    "pooled_auc": 0.5235481205,
+    "pooled_target_mean": 0.4668630339,
+    "pooled_pred_mean": 0.4793368591,
+    "pooled_mean_gap": 0.0124738253
+  },
+  "elapsed_sec": 260.35945677757263
+}

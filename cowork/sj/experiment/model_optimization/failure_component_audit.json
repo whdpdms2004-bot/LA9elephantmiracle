@@ -1,0 +1,64 @@
+{
+  "rows": 1475092,
+  "complete_component_rows": 1473508,
+  "coverage": 0.9989261686728692,
+  "inferred_success_match": 1.0,
+  "component_rates": {
+    "control_success": 0.5237182288796531,
+    "reverse": 0.2290425297996346,
+    "middle": 0.14961574691145213,
+    "outside_only": 0.13172171443928368,
+    "ball": 0.3695310782160667,
+    "strike": 0.44333318855411713
+  },
+  "class4_middle_first_counts": {
+    "0": 771703,
+    "1": 220460,
+    "2": 287252,
+    "3": 194093,
+    "<NA>": 1584
+  },
+  "class4_reverse_first_counts": {
+    "0": 771703,
+    "1": 337496,
+    "2": 170216,
+    "3": 194093,
+    "<NA>": 1584
+  },
+  "class5_counts": {
+    "0": 771703,
+    "1": 170216,
+    "2": 287252,
+    "3": 50244,
+    "4": 194093,
+    "<NA>": 1584
+  },
+  "raw_rounding": {
+    "success": {
+      "rows": 1473508,
+      "mean_abs_rounding_error": 0.0008896527878373379,
+      "max_abs_rounding_error": 0.014615000000048894
+    },
+    "reverse": {
+      "rows": 1473508,
+      "mean_abs_rounding_error": 0.0008799063762937953,
+      "max_abs_rounding_error": 0.015236000000186323
+    },
+    "middle": {
+      "rows": 1473508,
+      "mean_abs_rounding_error": 0.0008760236173810589,
+      "max_abs_rounding_error": 0.014911000000211061
+    },
+    "ball": {
+      "rows": 1473508,
+      "mean_abs_rounding_error": 0.000888375300439548,
+      "max_abs_rounding_error": 0.014737999999852036
+    },
+    "strike": {
+      "rows": 1473508,
+      "mean_abs_rounding_error": 0.0008901019841090187,
+      "max_abs_rounding_error": 0.015034000000014203
+    }
+  },
+  "leakage_note": "The next training row is used only to reconstruct an auxiliary training label. No reconstructed current-pitch component is used as an inference feature."
+}

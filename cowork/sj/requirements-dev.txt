@@ -1,0 +1,29 @@
+# LG Aimers 로컬 EDA·학습 재현 환경 (2026-08-13 기준)
+# Python 3.11 권장. 프로젝트 루트에서 아래 명령으로 설치한다.
+# python -m pip install -r requirements-dev.txt
+#
+# PyTorch는 사용 중인 GPU/CUDA에 맞춰 이 파일보다 먼저 별도 설치한다.
+# 현재 로컬 참고: torch==2.5.1+cu121
+# 평가 서버 기본: torch==2.7.1+cu128
+
+numpy==1.26.4
+pandas==2.2.2
+scipy==1.13.1
+scikit-learn==1.5.1
+joblib==1.4.2
+pyarrow==23.0.1
+
+optuna==4.6.0
+xgboost==3.1.1
+catboost==1.2.8
+lightgbm==4.6.0
+tabm==0.0.3
+rtdl-num-embeddings==0.0.12
+
+matplotlib==3.9.2
+seaborn==0.13.2
+nbformat==5.10.4
+jupyter==1.0.0
+ipykernel==6.28.0
+tqdm==4.66.5
+PyYAML==6.0.1

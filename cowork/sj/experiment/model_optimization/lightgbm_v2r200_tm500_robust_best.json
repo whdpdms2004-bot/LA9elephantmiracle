@@ -1,0 +1,53 @@
+{
+  "study_name": "lightgbm_v2r200_tm500_robust",
+  "feature_version": "V2R200_TM500_ALL",
+  "min_trackman_season_pitches": 500,
+  "best_trial": 55,
+  "best_value": 0.9969598382855367,
+  "best_params": {
+    "max_depth": 10,
+    "n_estimators": 1466,
+    "learning_rate": 0.04762025627448221,
+    "num_leaves": 379,
+    "min_child_samples": 4997,
+    "min_sum_hessian_in_leaf": 0.7044613023842718,
+    "subsample": 0.6194264785003988,
+    "subsample_freq": 3,
+    "colsample_bytree": 0.5733815954548598,
+    "reg_alpha": 1.6177106375663315,
+    "reg_lambda": 6.801710609649452e-06,
+    "min_split_gain": 1.9921535200825797,
+    "max_bin": 63,
+    "extra_trees": false,
+    "half_life": 0.975069113672341
+  },
+  "best_user_attrs": {
+    "best_iteration_2023": 11,
+    "best_iteration_2024": 137,
+    "elapsed_sec": 39.75009059906006,
+    "feature_version": "V2R200_TM500_ALL",
+    "fold_2023": {
+      "brier": 0.2502956037235251,
+      "normalized_brier": 1.0011824222183034,
+      "bss": 0.0,
+      "logloss": 0.693751243707125,
+      "auc": 0.5289444724598749,
+      "target_mean": 0.49995723449750534,
+      "pred_mean": 0.5259111089308376,
+      "mean_gap": 0.025953874433332247
+    },
+    "fold_2024": {
+      "brier": 0.2480645628628747,
+      "normalized_brier": 0.9930251578027313,
+      "bss": 697.4842197268738,
+      "logloss": 0.6892628206545381,
+      "auc": 0.5480824958432355,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.4952068903015183,
+      "mean_gap": 0.009101970121799419
+    },
+    "min_trackman_season_pitches": 500,
+    "trackman_cutoff_rule": "season_strict"
+  },
+  "complete_trials": 60
+}

@@ -1,0 +1,45 @@
+{
+  "family": "xgboost",
+  "study": "xgboost_v2r200_tm500_local_2024",
+  "trial": 31,
+  "objective": 0.9922730193166185,
+  "params": {
+    "half_life": 0.5792122022637421,
+    "n_estimators": 4768,
+    "learning_rate": 0.004128881349008691,
+    "max_depth": 6,
+    "min_child_weight": 364.90726259909945,
+    "subsample": 0.9297755488464,
+    "colsample_bytree": 0.71212042226286,
+    "colsample_bylevel": 0.9210032522845577,
+    "gamma": 0.08743814980693504,
+    "reg_alpha": 1.7588298280115124,
+    "reg_lambda": 245.99284591122216,
+    "max_bin": 512,
+    "max_leaves": 20
+  },
+  "model_name": "xgb_local_t31_seedbag3",
+  "fold": 2024,
+  "train_through": 2023,
+  "feature_version": "V2R200_TM500_ALL",
+  "feature_count": 209,
+  "seeds": [
+    4081,
+    104081,
+    204081
+  ],
+  "best_iterations": [
+    2233,
+    1962,
+    2155
+  ],
+  "elapsed_sec": 108.36520028114319,
+  "brier": 0.24791269348794917,
+  "normalized_brier": 0.9924172107898231,
+  "bss": 758.2789210176854,
+  "logloss": 0.6889567468106824,
+  "auc": 0.5495371877740866,
+  "target_mean": 0.4861049201797189,
+  "pred_mean": 0.4937869098533277,
+  "mean_gap": 0.00768198967360878
+}

@@ -1,0 +1,23 @@
+{
+  "best_params": {
+    "n_estimators": 300,
+    "learning_rate": 0.04262044646011899,
+    "num_leaves": 59,
+    "min_child_samples": 148,
+    "subsample": 0.6635878334582078,
+    "colsample_bytree": 0.644150056465722,
+    "reg_lambda": 0.9310837957239839,
+    "reg_alpha": 0.0032444014897709482
+  },
+  "best_val_prauc": 0.3871,
+  "history": [
+    0.3688,
+    0.3691,
+    0.3766,
+    0.3839,
+    0.3861,
+    0.3808,
+    0.3864,
+    0.3871
+  ]
+}

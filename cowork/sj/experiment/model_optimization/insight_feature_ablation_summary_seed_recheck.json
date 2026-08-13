@@ -1,0 +1,59 @@
+{
+  "base_feature_count": 209,
+  "trial": 93,
+  "study": "xgboost_v2r200_tm500_local_2024",
+  "variant_feature_counts": {
+    "INSIGHT_BASE": 209,
+    "INSIGHT_GAP": 223,
+    "INSIGHT_PRIOR": 251,
+    "INSIGHT_MOMENTUM": 233,
+    "INSIGHT_CALIB_MOM": 289,
+    "INSIGHT_ALL": 292
+  },
+  "results": [
+    {
+      "experiment": "xgboost_insight_insight_base",
+      "family": "xgboost",
+      "feature_version": "INSIGHT_BASE",
+      "trial": 93,
+      "fold": 2024,
+      "train_through": 2023,
+      "trackman": true,
+      "trackman_cutoff": 2024,
+      "min_trackman_season_pitches": 500,
+      "feature_count": 209,
+      "best_iteration": 2996,
+      "elapsed_sec": 54.958173513412476,
+      "brier": 0.24790152067222182,
+      "normalized_brier": 0.9923724849854894,
+      "bss": 762.7515014510644,
+      "logloss": 0.6889340008751484,
+      "auc": 0.5495109895427384,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.4932315867278515,
+      "mean_gap": 0.007126666548132599
+    },
+    {
+      "experiment": "xgboost_insight_insight_prior",
+      "family": "xgboost",
+      "feature_version": "INSIGHT_PRIOR",
+      "trial": 93,
+      "fold": 2024,
+      "train_through": 2023,
+      "trackman": true,
+      "trackman_cutoff": 2024,
+      "min_trackman_season_pitches": 500,
+      "feature_count": 251,
+      "best_iteration": 2869,
+      "elapsed_sec": 63.93822479248047,
+      "brier": 0.24788448585020464,
+      "normalized_brier": 0.9923042930332552,
+      "bss": 769.570696674482,
+      "logloss": 0.6888996696676872,
+      "auc": 0.5494193404725314,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.49150486228471274,
+      "mean_gap": 0.005399942104993838
+    }
+  ]
+}

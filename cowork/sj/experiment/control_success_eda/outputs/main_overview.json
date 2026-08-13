@@ -1,0 +1,35 @@
+{
+  "train_shape": [
+    1475092,
+    49
+  ],
+  "test_sample_shape": [
+    5,
+    48
+  ],
+  "submission_sample_shape": [
+    5,
+    2
+  ],
+  "train_memory_mb": 818.7329063415527,
+  "test_memory_mb": 0.0028533935546875,
+  "target_success_n": 772603,
+  "target_failure_n": 702489,
+  "target_success_rate": 0.5237659752747625,
+  "seasons": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "row_id_unique": true,
+  "train_input_columns_equal_test_columns": true,
+  "train_only_columns": [],
+  "test_only_columns": [],
+  "test_sample_seasons": [
+    2025
+  ],
+  "submission_row_ids_match_test_sample": true
+}

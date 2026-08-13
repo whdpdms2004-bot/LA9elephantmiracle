@@ -1,0 +1,12 @@
+{
+  "reverse_auc": 0.5656363947964861,
+  "reverse_logloss": 0.5544835575646975,
+  "middle_conditional_auc": 0.5618838678947592,
+  "middle_conditional_logloss": 0.4858040209555066,
+  "far_conditional_auc": 0.5827631591007516,
+  "far_conditional_logloss": 0.49555393521536556,
+  "success_auc": 0.5405112141061219,
+  "success_logloss": 0.691431351782724,
+  "success_brier": 0.2491376093394682,
+  "valid_rows": 100000
+}

@@ -1,0 +1,43 @@
+{
+  "created_at": "2026-08-12T18:33:22.635092+09:00",
+  "context": {
+    "keys": [
+      "balls_before",
+      "strikes_before",
+      "inning_bucket",
+      "pitcher_hand",
+      "batter_hand"
+    ],
+    "source_oof_seasons": [
+      2023,
+      2024
+    ],
+    "older_weight": 1.0,
+    "smoothing": 5000.0,
+    "scale": 1.15,
+    "game_type": "R",
+    "trackman_used": false
+  },
+  "records": [
+    {
+      "filename": "submit_015.zip",
+      "filename_length": 14,
+      "base": "submit_013.zip",
+      "size_bytes": 109715788,
+      "sha256": "9C1A7CD81A1627E8E81BAC5757E6EB0D1E4E5F293E9B196B4B83A717F903D450",
+      "inference_sec_245789": 17.458433151245117,
+      "validation_bss_2024": 830.5234166493314,
+      "validation_r_bss_2024": 832.8604276582885
+    },
+    {
+      "filename": "submit_016.zip",
+      "filename_length": 14,
+      "base": "submit_014.zip",
+      "size_bytes": 111650301,
+      "sha256": "377587AFC00D5CF06645B69BAFD09C7A96E51A6894629405FC6B19A2617AA612",
+      "inference_sec_245789": 18.49545431137085,
+      "validation_bss_2024": 831.3205849446725,
+      "validation_r_bss_2024": 833.4656864893542
+    }
+  ]
+}

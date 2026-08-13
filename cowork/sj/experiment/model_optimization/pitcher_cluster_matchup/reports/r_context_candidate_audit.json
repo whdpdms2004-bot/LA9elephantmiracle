@@ -1,0 +1,293 @@
+{
+  "metrics": [
+    {
+      "candidate": "robust_hands",
+      "season": 2023,
+      "group": "ALL",
+      "n": 245525,
+      "base_brier": 0.25014993490625487,
+      "new_brier": 0.25006608680518505,
+      "delta_brier": -8.384810106981666e-05,
+      "base_bss": -59.97469449599002,
+      "new_bss": -26.43545382270407,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2023,
+      "group": "R",
+      "n": 219839,
+      "base_brier": 0.2496932482833362,
+      "new_brier": 0.24959960336585027,
+      "delta_brier": -9.36449174859244e-05,
+      "base_bss": 118.81606157032599,
+      "new_bss": 156.2754854538939,
+      "optimal_scale_r": 1.376400126566026
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2023,
+      "group": "F",
+      "n": 25686,
+      "base_brier": 0.2540585828271385,
+      "new_brier": 0.2540585828271385,
+      "delta_brier": 0.0,
+      "base_bss": -1922.7675946004829,
+      "new_bss": -1922.7675946004829,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2024,
+      "group": "ALL",
+      "n": 253507,
+      "base_brier": 0.2477767357504593,
+      "new_brier": 0.2477532175306377,
+      "delta_brier": -2.3518219821605513e-05,
+      "base_bss": 812.7040481568648,
+      "new_bss": 822.1186068830599,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2024,
+      "group": "R",
+      "n": 223497,
+      "base_brier": 0.24786327244239806,
+      "new_brier": 0.24783659631988939,
+      "delta_brier": -2.6676122508673128e-05,
+      "base_bss": 812.655414964103,
+      "new_bss": 823.3303880223808,
+      "optimal_scale_r": 0.4371737356927518
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2024,
+      "group": "F",
+      "n": 30010,
+      "base_brier": 0.24713226087414383,
+      "new_brier": 0.24713226087414383,
+      "delta_brier": 0.0,
+      "base_bss": 487.0866572807553,
+      "new_bss": 487.0866572807553,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2023,
+      "group": "ALL",
+      "n": 245525,
+      "base_brier": 0.25014993490625487,
+      "new_brier": 0.25009721629823556,
+      "delta_brier": -5.271860801930872e-05,
+      "base_bss": -59.97469449599002,
+      "new_bss": -38.88725113398994,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2023,
+      "group": "R",
+      "n": 219839,
+      "base_brier": 0.2496932482833362,
+      "new_brier": 0.24963437003046055,
+      "delta_brier": -5.8878252875649295e-05,
+      "base_bss": 118.81606157032599,
+      "new_bss": 142.36827872428083,
+      "optimal_scale_r": 1.2966035006731131
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2023,
+      "group": "F",
+      "n": 25686,
+      "base_brier": 0.2540585828271385,
+      "new_brier": 0.2540585828271385,
+      "delta_brier": 0.0,
+      "base_bss": -1922.7675946004829,
+      "new_bss": -1922.7675946004829,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2024,
+      "group": "ALL",
+      "n": 253507,
+      "base_brier": 0.2477767357504593,
+      "new_brier": 0.2477451376985637,
+      "delta_brier": -3.159805189559273e-05,
+      "base_bss": 812.7040481568648,
+      "new_bss": 825.353037640797,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2024,
+      "group": "R",
+      "n": 223497,
+      "base_brier": 0.24786327244239806,
+      "new_brier": 0.24782743157052106,
+      "delta_brier": -3.584087187699647e-05,
+      "base_bss": 812.655414964103,
+      "new_bss": 826.997842037147,
+      "optimal_scale_r": 0.7059943294524462
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2024,
+      "group": "F",
+      "n": 30010,
+      "base_brier": 0.24713226087414383,
+      "new_brier": 0.24713226087414383,
+      "delta_brier": 0.0,
+      "base_bss": 487.0866572807553,
+      "new_bss": 487.0866572807553,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2023,
+      "group": "ALL",
+      "n": 245525,
+      "base_brier": 0.25014993490625487,
+      "new_brier": 0.2500989242893033,
+      "delta_brier": -5.101061695156339e-05,
+      "base_bss": -59.97469449599002,
+      "new_bss": -39.57044756610628,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2023,
+      "group": "R",
+      "n": 219839,
+      "base_brier": 0.2496932482833362,
+      "new_brier": 0.24963627758329193,
+      "delta_brier": -5.697070004426208e-05,
+      "base_bss": 118.81606157032599,
+      "new_bss": 141.60522791479835,
+      "optimal_scale_r": 0.7970651483952728
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2023,
+      "group": "F",
+      "n": 25686,
+      "base_brier": 0.2540585828271385,
+      "new_brier": 0.2540585828271385,
+      "delta_brier": 0.0,
+      "base_bss": -1922.7675946004829,
+      "new_bss": -1922.7675946004829,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2024,
+      "group": "ALL",
+      "n": 253507,
+      "base_brier": 0.2477767357504593,
+      "new_brier": 0.2477451777729322,
+      "delta_brier": -3.155797752710243e-05,
+      "base_bss": 812.7040481568648,
+      "new_bss": 825.3369955041667,
+      "optimal_scale_r": NaN
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2024,
+      "group": "R",
+      "n": 223497,
+      "base_brier": 0.24786327244239806,
+      "new_brier": 0.24782747702586463,
+      "delta_brier": -3.5795416533423996e-05,
+      "base_bss": 812.655414964103,
+      "new_bss": 826.9796521908623,
+      "optimal_scale_r": 0.4244124470009454
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2024,
+      "group": "F",
+      "n": 30010,
+      "base_brier": 0.24713226087414383,
+      "new_brier": 0.24713226087414383,
+      "delta_brier": 0.0,
+      "base_bss": 487.0866572807553,
+      "new_bss": 487.0866572807553,
+      "optimal_scale_r": NaN
+    }
+  ],
+  "stability": [
+    {
+      "candidate": "robust_hands",
+      "cells_2022": 192,
+      "cells_2023": 192,
+      "shared_cells": 192,
+      "stable_cells": 154,
+      "correction_pearson_all": 0.3957324315392876,
+      "correction_pearson_n100": 0.3859107337573545,
+      "sign_agreement_all": 0.578125,
+      "sign_agreement_n100": 0.6103896103896104
+    },
+    {
+      "candidate": "recent_exact",
+      "cells_2022": 144,
+      "cells_2023": 144,
+      "shared_cells": 144,
+      "stable_cells": 122,
+      "correction_pearson_all": 0.3445963699257233,
+      "correction_pearson_n100": 0.3218050697300941,
+      "sign_agreement_all": 0.6666666666666666,
+      "sign_agreement_n100": 0.6967213114754098
+    },
+    {
+      "candidate": "balanced_runners",
+      "cells_2022": 192,
+      "cells_2023": 192,
+      "shared_cells": 192,
+      "stable_cells": 146,
+      "correction_pearson_all": 0.21307190751509683,
+      "correction_pearson_n100": 0.22772000914719726,
+      "sign_agreement_all": 0.5885416666666666,
+      "sign_agreement_n100": 0.6027397260273972
+    }
+  ],
+  "month_improvement_counts": [
+    {
+      "candidate": "balanced_runners",
+      "season": 2023,
+      "sum": 6,
+      "count": 7
+    },
+    {
+      "candidate": "balanced_runners",
+      "season": 2024,
+      "sum": 5,
+      "count": 8
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2023,
+      "sum": 7,
+      "count": 7
+    },
+    {
+      "candidate": "recent_exact",
+      "season": 2024,
+      "sum": 7,
+      "count": 8
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2023,
+      "sum": 7,
+      "count": 7
+    },
+    {
+      "candidate": "robust_hands",
+      "season": 2024,
+      "sum": 4,
+      "count": 8
+    }
+  ]
+}

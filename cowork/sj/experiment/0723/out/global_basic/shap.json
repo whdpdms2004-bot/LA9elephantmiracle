@@ -1,0 +1,19 @@
+{
+  "top10": {
+    "strikes": 0.30992,
+    "batter_te": 0.09996,
+    "pitcher_te": 0.09273,
+    "base_state": 0.06107,
+    "two_strike": 0.0591,
+    "balls": 0.05431,
+    "n_priorpa_thisgame_player_at_bat": 0.04456,
+    "pitcher_ahead": 0.04199,
+    "outs_when_up": 0.03981,
+    "same_handed_matchup": 0.03802
+  },
+  "category": {
+    "situation": 0.78481,
+    "basic_history": 0.26504,
+    "ids": 0.19268
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "study": "xgb_game_type_f_postbreak",
+  "game_type": "F",
+  "feature_version": "INSIGHT_SUCCESS_ADJUSTED_LOCAL",
+  "feature_count": 210,
+  "complete_trials": 80,
+  "best_trial": 31,
+  "best_value": 0.995905930740445,
+  "best_params": {
+    "n_estimators": 1099,
+    "learning_rate": 0.025989783298449365,
+    "max_depth": 5,
+    "max_leaves": 7,
+    "min_child_weight": 27.9016450874107,
+    "subsample": 0.9105679506841354,
+    "colsample_bytree": 0.8441953243342811,
+    "colsample_bylevel": 0.9942622872410861,
+    "gamma": 1.1792894537680696,
+    "reg_alpha": 0.2387627769941717,
+    "reg_lambda": 63.03488454717929,
+    "max_bin": 256
+  },
+  "best_user_attrs": {
+    "best_iteration_2024": 96,
+    "elapsed_sec": 1.6573455333709717,
+    "feature_version": "INSIGHT_SUCCESS_ADJUSTED_LOCAL",
+    "fold_2024": {
+      "brier": 0.24732517219571665,
+      "normalized_brier": 0.995905930740445,
+      "bss": 409.40692595550223,
+      "logloss": 0.6877750883540728,
+      "auc": 0.5376851015637396,
+      "target_mean": 0.45928023992002664,
+      "pred_mean": 0.46116206851235153,
+      "mean_gap": 0.0018818285923248856
+    },
+    "game_type": "F",
+    "trackman_rule": "strictly before validation; pitcher-season >=500",
+    "training_regime": "post-break 2023 only -> Val2024"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "study_name": "xgboost_v2r200_tm500_robust",
+  "feature_version": "V2R200_TM500_ALL",
+  "min_trackman_season_pitches": 500,
+  "best_trial": 136,
+  "best_value": 0.9968211480206398,
+  "best_params": {
+    "grow_policy": "depthwise",
+    "n_estimators": 4803,
+    "learning_rate": 0.03911942914237367,
+    "max_depth": 4,
+    "min_child_weight": 15.886184409533266,
+    "subsample": 0.882197234460472,
+    "colsample_bytree": 0.6147179506860557,
+    "colsample_bylevel": 0.77436069876223,
+    "gamma": 8.660611662370714,
+    "reg_alpha": 27.020795710102387,
+    "reg_lambda": 1.174553886322864,
+    "max_bin": 128,
+    "half_life": 0.340786135684011
+  },
+  "best_user_attrs": {
+    "best_iteration_2023": 10,
+    "best_iteration_2024": 266,
+    "elapsed_sec": 16.980907917022705,
+    "feature_version": "V2R200_TM500_ALL",
+    "fold_2023": {
+      "brier": 0.2503573681104679,
+      "normalized_brier": 1.001429479767882,
+      "bss": 0.0,
+      "logloss": 0.6938693728348548,
+      "auc": 0.5266270766710687,
+      "target_mean": 0.49995723449750534,
+      "pred_mean": 0.5253134530751747,
+      "mean_gap": 0.025356218577669398
+    },
+    "fold_2024": {
+      "brier": 0.2479401247668132,
+      "normalized_brier": 0.9925270207107095,
+      "bss": 747.2979289290471,
+      "logloss": 0.6890108799750463,
+      "auc": 0.5487827050597588,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.4930075505194455,
+      "mean_gap": 0.006902630339726601
+    },
+    "min_trackman_season_pitches": 500,
+    "trackman_cutoff_rule": "season_strict"
+  },
+  "complete_trials": 160
+}

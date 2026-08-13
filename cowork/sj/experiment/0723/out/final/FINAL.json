@@ -1,0 +1,104 @@
+{
+  "FULL_single": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.634,
+    "pr_auc": 0.3917,
+    "logloss": 0.5734,
+    "brier": 0.1939,
+    "ece": 0.006
+  },
+  "FULL_decomposed": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6371,
+    "pr_auc": 0.3973,
+    "logloss": 0.5727,
+    "brier": 0.1936,
+    "ece": 0.0166
+  },
+  "FULL_ensemble_best": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6378,
+    "pr_auc": 0.3977,
+    "logloss": 0.5722,
+    "brier": 0.1934,
+    "ece": 0.0129
+  },
+  "ensemble_weight_single": 0.30000000000000004,
+  "baselines": {
+    "league_mean": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5,
+      "pr_auc": 0.2829,
+      "logloss": 0.5957,
+      "brier": 0.2029,
+      "ece": 0.0016
+    },
+    "count_only": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6142,
+      "pr_auc": 0.3679,
+      "logloss": 0.579,
+      "brier": 0.196,
+      "ece": 0.0062
+    },
+    "pitcher_te": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5295,
+      "pr_auc": 0.3038,
+      "logloss": 0.5947,
+      "brier": 0.2025,
+      "ece": 0.0008
+    }
+  },
+  "importance_by_group": {
+    "situation": 644,
+    "basic_history": 137,
+    "ids": 110,
+    "pitcher_hist": 1348,
+    "arsenal": 606,
+    "release_rep": 92,
+    "batter_scout": 595,
+    "batter_hist": 929,
+    "gameflow": 156,
+    "prior_ab": 22,
+    "lineup": 59,
+    "workload": 202
+  },
+  "top20": {
+    "strikes": 140,
+    "batter_te": 100,
+    "same_handed_matchup": 87,
+    "b_whiffB_bl200": 79,
+    "base_state": 74,
+    "b_whiffB_bcar": 70,
+    "b_whiffB_bszn": 70,
+    "balls": 70,
+    "p_whiff_rate_day": 61,
+    "lineup_slot": 59,
+    "p_csw_rate_szn": 58,
+    "b_whiff_off": 56,
+    "p_whiff_rate_szn": 56,
+    "two_strike": 52,
+    "p_l15_stk": 51,
+    "p_called_rate_l100": 51,
+    "p_called_rate_day": 48,
+    "b_swing_off_n": 48,
+    "p_si_velo_car": 48,
+    "b_calledB_bl200": 47
+  },
+  "n_feats": 311,
+  "history": {
+    "A/B_205feat": 0.576,
+    "E_full_optuna": 0.5734,
+    "F_decomp": 0.5722,
+    "G_batter_decomp": 0.572,
+    "FINAL_all_decomp": 0.5727,
+    "FINAL_ensemble": 0.5722
+  }
+}

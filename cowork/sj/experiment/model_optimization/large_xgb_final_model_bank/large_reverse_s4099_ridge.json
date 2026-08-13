@@ -1,0 +1,44 @@
+{
+  "feature_order": [
+    "reverse_pair_delta",
+    "reverse_pair_delta_reliability",
+    "reverse_pair_rate",
+    "reverse_pair_known"
+  ],
+  "imputer_statistics": [
+    0.0,
+    0.7086300253868103,
+    0.24178774654865265,
+    1.0
+  ],
+  "scaler_mean": [
+    0.00047237113060684773,
+    0.5463459322474119,
+    0.2418987579557937,
+    0.7277944987712371
+  ],
+  "scaler_scale": [
+    0.011594221975717854,
+    0.3748448466934213,
+    0.023805998241129618,
+    0.44509512054117245
+  ],
+  "ridge_coef": [
+    0.002778705907985568,
+    0.008660401217639446,
+    -0.00582019193097949,
+    -0.00959288701415062
+  ],
+  "ridge_alpha": 1000.0,
+  "correction_clip": [
+    -0.05,
+    0.05
+  ],
+  "train_season": 2024,
+  "rows": 253507,
+  "base_model": "anchor_plus_0.90_times_large_minus_anchor",
+  "train_residual_mean": -0.005980621858733371,
+  "train_correction_mean": 1.5988181265025325e-11,
+  "train_correction_std": 0.0047201658599078655,
+  "manual_max_abs_diff": 2.6119018475823097e-09
+}

@@ -1,0 +1,58 @@
+{
+  "updated_at": "2026-08-12T22:46:29.056433+09:00",
+  "study": "xgb_failure_middle_robust",
+  "head": "middle",
+  "feature_count": 211,
+  "selection_folds": [
+    2022,
+    2023
+  ],
+  "attempted_trials": 151,
+  "complete_trials": 118,
+  "pruned_trials": 32,
+  "best_trial": 93,
+  "best_value": 0.9964905511887446,
+  "best_params": {
+    "n_estimators": 7931,
+    "learning_rate": 0.011846946457296347,
+    "max_depth": 3,
+    "max_leaves": 18,
+    "min_child_weight": 752.690571158155,
+    "subsample": 0.7920242542856532,
+    "colsample_bytree": 0.6928179077423288,
+    "colsample_bylevel": 0.8113762190258825,
+    "gamma": 3.986896558526153,
+    "reg_alpha": 0.5543768627797511,
+    "reg_lambda": 43.46510106843488,
+    "max_bin": 256,
+    "half_life": 3.488178502931665
+  },
+  "best_user_attrs": {
+    "best_iteration_2022": 600,
+    "best_iteration_2023": 1304,
+    "elapsed_sec": 25.37837839126587,
+    "fold_2022": {
+      "brier": 0.12678911422709663,
+      "normalized_brier": 0.9971814436884427,
+      "bss": 281.8556311557252,
+      "logloss": 0.42046701808634473,
+      "auc": 0.5441479173559903,
+      "target_mean": 0.1494967711673534,
+      "pred_mean": 0.1472337559614332,
+      "mean_gap": -0.0022630152059202047
+    },
+    "fold_2023": {
+      "brier": 0.12914831080364206,
+      "normalized_brier": 0.9949012285141299,
+      "bss": 509.87714858701236,
+      "logloss": 0.42584690245098966,
+      "auc": 0.5564900805902594,
+      "target_mean": 0.1533159698870561,
+      "pred_mean": 0.15160836145028947,
+      "mean_gap": -0.0017076084367666222
+    },
+    "head": "middle",
+    "robust_objective": 0.9964905511887446,
+    "trackman_rule": "strictly before validation; pitcher-season >=500"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "exp": "pitcher_basic",
+  "n_features_raw": 36,
+  "eval_protocol": "prequential/online (history features updated with 2019 past; model params frozen on 2017-18)",
+  "min_train_perpitcher": 4500,
+  "perpitcher": {
+    "coverage_per_pitcher": 1.0,
+    "fallback_global": 0.0,
+    "n_eligible_pitchers": 40,
+    "weighted_all": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5936,
+      "pr_auc": 0.3534,
+      "logloss": 0.6097,
+      "brier": 0.2073,
+      "ece": 0.0736
+    },
+    "per_pitcher_only": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5936,
+      "pr_auc": 0.3534,
+      "logloss": 0.6097,
+      "brier": 0.2073,
+      "ece": 0.0736
+    },
+    "global_fallback_only": null
+  },
+  "globalref": {
+    "global_reference_test": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6232,
+      "pr_auc": 0.3855,
+      "logloss": 0.5783,
+      "brier": 0.1958,
+      "ece": 0.0177
+    },
+    "baselines": {
+      "league_mean": {
+        "n": 94150,
+        "base": 0.2829,
+        "roc_auc": 0.5,
+        "pr_auc": 0.2829,
+        "logloss": 0.5957,
+        "brier": 0.2029,
+        "ece": 0.0016
+      },
+      "count_only": {
+        "n": 94150,
+        "base": 0.2829,
+        "roc_auc": 0.6142,
+        "pr_auc": 0.3679,
+        "logloss": 0.579,
+        "brier": 0.196,
+        "ece": 0.0062
+      },
+      "pitcher_te": {
+        "n": 94150,
+        "base": 0.2829,
+        "roc_auc": 0.5295,
+        "pr_auc": 0.3038,
+        "logloss": 0.5947,
+        "brier": 0.2025,
+        "ece": 0.0008
+      }
+    }
+  }
+}

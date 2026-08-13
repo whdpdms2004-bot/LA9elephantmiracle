@@ -1,0 +1,36 @@
+{
+  "family": "lgbm",
+  "best_params": {
+    "n_estimators": 150,
+    "learning_rate": 0.02383820063670487,
+    "num_leaves": 15,
+    "min_child_samples": 502,
+    "subsample": 0.9112627003799402,
+    "colsample_bytree": 0.9090085037727733,
+    "reg_lambda": 25.279858460034948
+  },
+  "best_val_logloss": 0.57608,
+  "n_trials": 10,
+  "history": [
+    0.61857,
+    0.63276,
+    0.57608,
+    0.59562,
+    0.58516,
+    0.58816,
+    0.58043,
+    0.58251,
+    0.58299,
+    0.57834
+  ],
+  "test": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6345,
+    "pr_auc": 0.396,
+    "logloss": 0.573,
+    "brier": 0.1937,
+    "ece": 0.0042
+  },
+  "n_feats": 311
+}

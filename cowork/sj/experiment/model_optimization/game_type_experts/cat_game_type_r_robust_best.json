@@ -1,0 +1,45 @@
+{
+  "study": "cat_game_type_r_robust",
+  "game_type": "R",
+  "feature_count": 210,
+  "complete_trials": 4,
+  "best_trial": 3,
+  "best_value": 0.9952993285262673,
+  "best_params": {
+    "iterations": 3046,
+    "learning_rate": 0.02042994136411631,
+    "depth": 6,
+    "l2_leaf_reg": 58.27791040871727,
+    "random_strength": 1.1996953687980902,
+    "bagging_temperature": 1.24807810600809,
+    "border_count": 128,
+    "half_life": 1.0610942203898721
+  },
+  "best_user_attrs": {
+    "best_iteration_2023": 129,
+    "best_iteration_2024": 568,
+    "elapsed_sec": 73.35966897010803,
+    "fold_2023": {
+      "brier": 0.24895283548162023,
+      "normalized_brier": 0.9958500729870475,
+      "bss": 414.992701295247,
+      "logloss": 0.6910481500130705,
+      "auc": 0.5364483141641389,
+      "target_mean": 0.5031181910398064,
+      "pred_mean": 0.5024151544102448,
+      "mean_gap": -0.0007030366295616153
+    },
+    "fold_2024": {
+      "brier": 0.2481433225921009,
+      "normalized_brier": 0.992994121391594,
+      "bss": 700.5878608405958,
+      "logloss": 0.6894210542904319,
+      "auc": 0.5477087934197151,
+      "target_mean": 0.4897067969592433,
+      "pred_mean": 0.4965306539459204,
+      "mean_gap": 0.00682385698667709
+    },
+    "game_type": "R",
+    "training_regime": "strict two-fold"
+  }
+}

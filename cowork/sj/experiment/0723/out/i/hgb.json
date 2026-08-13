@@ -1,0 +1,34 @@
+{
+  "family": "hgb",
+  "best_params": {
+    "max_iter": 400,
+    "learning_rate": 0.030558189894130977,
+    "max_leaf_nodes": 19,
+    "min_samples_leaf": 103,
+    "l2_regularization": 0.04249885438049232
+  },
+  "best_val_logloss": 0.57682,
+  "n_trials": 10,
+  "history": [
+    0.57923,
+    0.57718,
+    0.57916,
+    0.57825,
+    0.57942,
+    0.57899,
+    0.58029,
+    0.57818,
+    0.57924,
+    0.57682
+  ],
+  "test": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6329,
+    "pr_auc": 0.3922,
+    "logloss": 0.5736,
+    "brier": 0.1939,
+    "ece": 0.0032
+  },
+  "n_feats": 311
+}

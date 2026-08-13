@@ -1,0 +1,26 @@
+[
+  {
+    "cutoff": 2020,
+    "trained_through_season": 2019,
+    "min_season_pitches": 500,
+    "eligible_pitcher_seasons": 180,
+    "eligible_trackman_pitchers": 180,
+    "eligible_trackman_rows": 210407,
+    "crosswalk_pitchers": 130,
+    "crosswalk_main_past_row_coverage": 0.7577933811543597,
+    "crosswalk_evidence_max_season": 2019,
+    "stats_pitchers": 180
+  },
+  {
+    "cutoff": 2021,
+    "trained_through_season": 2020,
+    "min_season_pitches": 500,
+    "eligible_pitcher_seasons": 380,
+    "eligible_trackman_pitchers": 266,
+    "eligible_trackman_rows": 436884,
+    "crosswalk_pitchers": 190,
+    "crosswalk_main_past_row_coverage": 0.8017445482866044,
+    "crosswalk_evidence_max_season": 2020,
+    "stats_pitchers": 266
+  }
+]

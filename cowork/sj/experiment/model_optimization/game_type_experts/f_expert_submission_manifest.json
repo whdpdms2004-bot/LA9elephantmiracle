@@ -1,0 +1,55 @@
+{
+  "created_at": "2026-08-12T21:31:15+09:00",
+  "training": {
+    "rows": 55696,
+    "seasons": [2023, 2024],
+    "game_type": "F",
+    "target_mean": 0.46556305659293307,
+    "feature_count": 210,
+    "xgb_trial": 31,
+    "xgb_iterations": 97,
+    "xgb_seed": 2057,
+    "xgb_train_sec": 0.6148374080657959,
+    "cat_trial": 9,
+    "cat_iterations": 487,
+    "cat_seed": 2035,
+    "cat_train_sec": 11.78085708618164,
+    "trackman_rule": "row-wise strictly past; pitcher-season >=500"
+  },
+  "weights": {
+    "xgboost": 0.15,
+    "catboost": 0.19,
+    "global_reference": 0.66
+  },
+  "validation": {
+    "sequential_2023_f_bss": 128.24206504048473,
+    "val2024_f_bss": 507.6399908947926,
+    "selection_rule": "joint temporal validation, then 50% shrink"
+  },
+  "records": [
+    {
+      "filename": "submit_017.zip",
+      "base": "submit_015.zip",
+      "size_bytes": 113235938,
+      "sha256": "B2EB26A982358CECBF2AEFE2353D60F2BE77992FEAB705AB4D26F82D091FB206",
+      "base_val2024_bss": 830.5234166493314,
+      "projected_val2024_bss": 833.329,
+      "inference_sec": 19.596527814865112,
+      "smoke_rows": 245789,
+      "smoke_f_rows": 122894,
+      "smoke_r_rows": 122895
+    },
+    {
+      "filename": "submit_018.zip",
+      "base": "submit_016.zip",
+      "size_bytes": 115170474,
+      "sha256": "2D9339069E449A598E11014EBE5DFEBCC04AB3B602975B5221CC58B0A761809E",
+      "base_val2024_bss": 831.3205849446725,
+      "projected_val2024_bss": 834.127,
+      "inference_sec": 21.20830535888672,
+      "smoke_rows": 245789,
+      "smoke_f_rows": 122894,
+      "smoke_r_rows": 122895
+    }
+  ]
+}

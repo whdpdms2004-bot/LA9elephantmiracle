@@ -1,0 +1,28 @@
+{
+  "family": "et",
+  "best_params": {
+    "n_estimators": 80,
+    "max_depth": 18,
+    "min_samples_leaf": 205,
+    "max_features": 0.7090085037727735
+  },
+  "best_val_logloss": 0.57743,
+  "n_trials": 5,
+  "history": [
+    0.57752,
+    0.57851,
+    0.57764,
+    0.57885,
+    0.57743
+  ],
+  "test": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6278,
+    "pr_auc": 0.3861,
+    "logloss": 0.576,
+    "brier": 0.1949,
+    "ece": 0.0096
+  },
+  "n_feats": 311
+}

@@ -1,0 +1,53 @@
+{
+  "created_at": "2026-08-12T09:53:39.828553+09:00",
+  "records": [
+    {
+      "track": "performance",
+      "number": 7,
+      "path": "submit\\2026-08-12\\submit_007.zip",
+      "filename_length": 14,
+      "feature_version": "INSIGHT_SUCCESS_ADJUSTED",
+      "feature_count": 211,
+      "single_bss_2024": 784.5568275342663,
+      "blend_bss_2024": 801.1471125329517,
+      "outer_insight_weight": 0.5284093304636978,
+      "model_count": 3,
+      "artifact_count": 7,
+      "inference_sec": 16.346174955368042,
+      "size_bytes": 109623341,
+      "sha256": "365948ADEF9AF3382CF33E175874E341BD929BBE2E904E2678AF91A1B675E737"
+    },
+    {
+      "track": "robust",
+      "number": 8,
+      "path": "submit\\2026-08-12\\submit_008.zip",
+      "filename_length": 14,
+      "feature_version": "INSIGHT_PRIOR_SUCCESS",
+      "feature_count": 221,
+      "single_bss_2024": 783.5233530519071,
+      "blend_bss_2024": 799.6296600295549,
+      "outer_insight_weight": 0.6089911948398207,
+      "model_count": 3,
+      "artifact_count": 7,
+      "inference_sec": 16.005342483520508,
+      "size_bytes": 109592044,
+      "sha256": "FC4BE7EBA1000D51561BD50F7D58930C6298F68A3373578092FACC96B5036C6C"
+    }
+  ],
+  "prior_constants_2025": {
+    "pitcher_success": {
+      "source_season": 2024,
+      "prior_last": 0.4861049201797189,
+      "prior_ewm1": 0.5007488345121336,
+      "prior_ewm2": 0.5106204599441693,
+      "gap_logit_last": -0.10119062050679606
+    },
+    "batter_success": {
+      "source_season": 2024,
+      "prior_last": 0.4861049201797189,
+      "prior_ewm1": 0.5007488345121336,
+      "prior_ewm2": 0.5106204599441693,
+      "gap_logit_last": -0.12548683571135733
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "global_constant_all_rows": {
+    "n": 1475092,
+    "coverage_pct": 100.0,
+    "mean_prediction": 0.5237659752747609,
+    "actual_rate": 0.5237659752747625,
+    "brier": 0.24943517841923935,
+    "logloss": 0.6920171116489928,
+    "auc": 0.5
+  },
+  "asof_pitcher_success_rate_nonmissing": {
+    "n": 1474300,
+    "coverage_pct": 99.94630843364347,
+    "mean_prediction": 0.5352282200662011,
+    "actual_rate": 0.5237509326460015,
+    "brier": 0.2481830877048723,
+    "logloss": 0.6957000118813743,
+    "auc": 0.5488496154178099
+  },
+  "asof_pitcher_success_rate_global_fill": {
+    "n": 1475092,
+    "coverage_pct": 100.0,
+    "mean_prediction": 0.5352220658074326,
+    "actual_rate": 0.5237659752747625,
+    "brier": 0.24818304535040023,
+    "logloss": 0.6956966041535562,
+    "auc": 0.5488288529920116
+  },
+  "asof_batter_success_rate_global_fill": {
+    "n": 1475092,
+    "coverage_pct": 100.0,
+    "mean_prediction": 0.5397221180695699,
+    "actual_rate": 0.5237659752747625,
+    "brier": 0.24931627195788159,
+    "logloss": 0.6982131282171745,
+    "auc": 0.5305511611870892
+  },
+  "2024_prior_seasons_constant": {
+    "n": 253507,
+    "coverage_pct": 100.0,
+    "mean_prediction": 0.5315815109059128,
+    "actual_rate": 0.4861049201797189,
+    "brier": 0.25187504706086583,
+    "logloss": 0.6969036043721832,
+    "auc": 0.5
+  },
+  "2024_asof_pitcher_success_rate_prior_fill": {
+    "n": 253507,
+    "coverage_pct": 100.0,
+    "mean_prediction": 0.5114034717001241,
+    "actual_rate": 0.4861049201797189,
+    "brier": 0.2502744576014392,
+    "logloss": 0.6974406737091509,
+    "auc": 0.5341709326123419
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "study_name": "xgboost_v2r200_tm500_local_2024",
+  "feature_version": "V2R200_TM500_ALL",
+  "min_trackman_season_pitches": 500,
+  "best_trial": 93,
+  "best_value": 0.9922551626675231,
+  "best_params": {
+    "half_life": 0.5259510182777523,
+    "n_estimators": 4431,
+    "learning_rate": 0.0030626837708062128,
+    "max_depth": 7,
+    "min_child_weight": 626.0593077812514,
+    "subsample": 0.9736716317454049,
+    "colsample_bytree": 0.7907533296928133,
+    "colsample_bylevel": 0.8524268909223828,
+    "gamma": 0.11551620567906469,
+    "reg_alpha": 0.2421771226109747,
+    "reg_lambda": 505.8374114397891,
+    "max_bin": 512,
+    "max_leaves": 18
+  },
+  "best_user_attrs": {
+    "best_iteration_2024": 2468,
+    "elapsed_sec": 45.39497470855713,
+    "feature_version": "V2R200_TM500_ALL",
+    "fold_2024": {
+      "brier": 0.2478722127445307,
+      "normalized_brier": 0.9922551626675231,
+      "bss": 774.4837332476884,
+      "logloss": 0.6888748477498876,
+      "auc": 0.5498648560385618,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.4933620692411558,
+      "mean_gap": 0.007257149061436874
+    },
+    "min_trackman_season_pitches": 500,
+    "trackman_cutoff_rule": "season_strict"
+  },
+  "complete_trials": 100
+}

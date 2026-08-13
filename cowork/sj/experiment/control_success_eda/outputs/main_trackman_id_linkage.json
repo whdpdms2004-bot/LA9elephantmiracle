@@ -1,0 +1,21 @@
+{
+  "pitcher_direct_id_overlap_n": 0,
+  "batter_direct_id_overlap_n": 0,
+  "main_pitcher_id_example": [
+    "20700",
+    "20938",
+    "21095",
+    "21170",
+    "21178"
+  ],
+  "trackman_pitcher_id_example": [
+    "13515155",
+    "21325157",
+    "21825151",
+    "41245155",
+    "41345157"
+  ],
+  "main_pitcher_id_count": 792,
+  "trackman_pitcher_id_count": 906,
+  "conclusion": "No player-level join is assumed unless an explicit or independently validated crosswalk is built."
+}

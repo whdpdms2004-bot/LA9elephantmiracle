@@ -1,0 +1,89 @@
+{
+  "created_at": "2026-08-12T14:07:17.921052+09:00",
+  "base_submission": "submit\\2026-08-12\\submit_013.zip",
+  "record": {
+    "filename": "submit_014.zip",
+    "filename_length": 14,
+    "size_bytes": 111639243,
+    "sha256": "1CD029F0081AA4765BB45080CE0A91952E094123C42F3701D06D9BACEF24F730",
+    "model_count": 4,
+    "artifact_count": 22,
+    "inference_sec": 17.037832498550415,
+    "validation_bss_2024": 815.0097790904587,
+    "previous_submit013_bss_2024": 812.704034
+  },
+  "large_xgb_validation": {
+    "selection": "strict rolling 2022->2023 and 2023->2024",
+    "feature_version": "INSIGHT_SUCCESS_ADJUSTED",
+    "trackman_cutoff": "strictly before validation season",
+    "trackman_min_pitcher_season_pitches": 500,
+    "anchor_max_leaves": 18,
+    "large_max_leaves": 24,
+    "large_subsample": 0.9,
+    "large_colsample_bytree": 0.7,
+    "distribution_match": "probability mean/std, target-free",
+    "success_scale": 0.225,
+    "reverse_scale": 0.5,
+    "reverse_seeds": [
+      17,
+      2026,
+      4099
+    ],
+    "f23_correction_delta_brier": -1.4211006064641804e-05,
+    "f24_correction_delta_brier": -3.707442679604289e-05,
+    "single_corrected_bss_2024": 806.1618320071684,
+    "outer_insight_weight": 0.6644423261411784,
+    "outer_blend_bss_2024": 815.0097790904587,
+    "previous_submit013_bss_2024": 812.704034
+  },
+  "models": [
+    {
+      "model_name": "xgb_insight_anchor_t93",
+      "family": "xgboost",
+      "feature_version": "insight_adjusted",
+      "trial": 93,
+      "study": "large_xgb_capacity_search",
+      "filenames": [
+        "large_anchor_t93.ubj"
+      ],
+      "seeds": [
+        4051
+      ],
+      "iterations": [
+        2642
+      ],
+      "half_life": 0.5259510182777523,
+      "weight": 1.0,
+      "train_elapsed_sec": 49.803454875946045,
+      "max_leaves": 18,
+      "max_depth": 7
+    },
+    {
+      "model_name": "xgb_insight_large_m24d",
+      "family": "xgboost",
+      "feature_version": "insight_adjusted",
+      "trial": 93,
+      "study": "large_xgb_capacity_search",
+      "filenames": [
+        "large_m24d_t93.ubj"
+      ],
+      "seeds": [
+        4051
+      ],
+      "iterations": [
+        2398
+      ],
+      "half_life": 0.5259510182777523,
+      "weight": 1.0,
+      "train_elapsed_sec": 52.70108246803284,
+      "max_leaves": 24,
+      "max_depth": 8
+    }
+  ],
+  "ridge_files": {
+    "success": "large_success_ridge.json",
+    "17": "large_reverse_s17_ridge.json",
+    "2026": "large_reverse_s2026_ridge.json",
+    "4099": "large_reverse_s4099_ridge.json"
+  }
+}
