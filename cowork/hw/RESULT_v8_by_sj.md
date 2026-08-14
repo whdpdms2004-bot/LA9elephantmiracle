@@ -191,9 +191,43 @@ python train_best_model_v8.py     # Phase 1 전체 건너뜀, Phase 2만 실행
 
 ---
 
+## ⚠️ 버그 하나 — 전부 체크포인트에서 이어받으면 터집니다
+
+`phase1_progress.jsonl`을 받아 재실행하시면 **바로 만나실 버그**라 먼저 적습니다.
+
+```
+[체크포인트 발견] 이미 완료된 Phase1 멤버 15개 -- 이어서 실행합니다.
+  [CatBoost 1/5 seed=2026] (체크포인트에서 이어받음) best_iter=283 BSS=  614.29
+  ... 15개 전부 이어받음 ...
+ValueError: need at least one array to concatenate
+  File "train_best_model_v8.py", line 335, in main
+    cb_mean_p1 = np.mean(np.vstack(cb_preds_p1), axis=0)
+```
+
+**원인**: 15개 전부를 체크포인트에서 이어받으면 이번 실행에서 학습한 멤버가 없어 `cb_preds_p1` / `lgb_preds_p1`이 빈 리스트가 됩니다. `np.vstack([])`이 터집니다. 부분 재개는 처리되는데 **완전 재개**가 안 됩니다.
+
+스크립트가 그 직전에 *"이번에 실제로 돌린 멤버만 반영한 '부분' 수치일 수 있음"* 이라고 경고까지 하는 걸 보면 의도는 있었는데 빈 리스트 경계만 빠진 것 같습니다.
+
+**수정안** (335행 근처, Phase 1 앙상블 검증 블록을 가드):
+
+```python
+if not cb_preds_p1 or not lgb_preds_p1:
+    print("  전 멤버를 체크포인트에서 이어받아 Phase 1 앙상블 검증을 건너뜁니다.")
+    print("  best_iteration 은 정상 재사용되므로 Phase 2 는 그대로 진행합니다.")
+else:
+    cb_mean_p1 = np.mean(np.vstack(cb_preds_p1), axis=0)
+    ...  # 기존 검증 블록
+```
+
+제 원 실행은 체크포인트가 없는 상태에서 시작해 끝까지 정상 완료했습니다(29.7분). 이 버그는 **재실행할 때만** 나타납니다.
+
+`train_best_model_v8.py`는 정희원님 PR에 올라가 있는 파일이라 제가 직접 고치지 않았습니다. 원하시면 고쳐서 올리겠습니다.
+
+---
+
 ## 이어받으실 때
 
-1. `git pull` 후 위 방식으로 Phase 2만 재실행 (20~25분)
+1. `git pull` 후 위 방식으로 Phase 2만 재실행 (20~25분) — **위 가드를 먼저 넣으세요**
 2. `script.py` 붙이실 때 팀 체크리스트는 `AGENTS.md` B1 6단계입니다. sj가 오늘 `submit_024`에서 밟은 항목이 참고가 될 겁니다 → [`cowork/sj/submit/2026-08-14/SUBMISSION_LOG.md`](../sj/submit/2026-08-14/SUBMISSION_LOG.md)
    - 특히 **행 독립성 기계 검증**(`predict(단독 행) == predict(전체)[i]`)과 **6 vCPU 환산 추론시간**은 꼭 재보세요
 3. **Val2024 공통 split 예측 CSV**를 `cowork/hw/val2024_pred.csv`로 올려주시면 팀 결합을 바로 시작할 수 있습니다. 규격은 [`cowork/sj/claude/16_ENSEMBLE_HANDOFF.md`](../sj/claude/16_ENSEMBLE_HANDOFF.md)에 정리해뒀습니다
