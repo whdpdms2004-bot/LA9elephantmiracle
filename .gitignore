@@ -44,6 +44,11 @@ lgb_*.txt
 cowork/**/*.csv
 *.pdf
 
+# 팀 결합(Phase E)용 공통 Val2024 예측만 예외.
+# 253,507행 x 2컬럼 = 약 2.5MB. 상관 행렬과 결합 가중치 산출에 필요하다.
+# 규격은 cowork/sj/claude/16_ENSEMBLE_HANDOFF.md 참고.
+!cowork/*/val2024_pred.csv
+
 # ── 로그 ──────────────────────────────────────────────────
 *.log
 
