@@ -59,28 +59,69 @@ def make_spec(train: pd.DataFrame) -> dict:
     return spec
 
 
-def make_platoon_table(train: pd.DataFrame, K: int = PLATOON_K) -> pd.DataFrame:
-    """split(p,h) = EB(투수 p, 타자손 h) - EB(투수 p 전체).
+def _eb_split(actor: pd.Series, opp_hand: pd.Series, y: pd.Series,
+              K: int) -> pd.DataFrame:
+    """split(actor, opp_hand) = EB(actor x 상대손) - EB(actor 전체).
 
-    주효과를 빼는 것이 핵심 — 안 빼면 asof_pitcher_success_rate 와 중복된다
-    (찬우 실험: 투수 주효과 단독 기여 정확히 0.0).
+    주효과를 빼는 것이 핵심이다. 안 빼면 asof_*_success_rate 와 중복이고,
+    정적 테이블에서는 자기 라벨이 그대로 샌다.
+    실측: V1 에서 정적 '레벨'을 넣으니 direct_bss 705.7 -> 187.5 붕괴.
+          V12 에서 타자 성분 '프로파일'도 748.4 -> 626.5 붕괴.
+          '차이(split)'는 주효과가 상쇄돼 이 문제가 없다.
     """
-    d = train[["pitcher_id", "batter_hand", TARGET]].rename(
-        columns={TARGET: "y"})
+    d = pd.DataFrame({"a": actor.to_numpy(), "h": opp_hand.to_numpy(),
+                      "y": y.to_numpy()})
     league = float(d["y"].mean())
-    g_all = d.groupby("pitcher_id")["y"].agg(["sum", "size"])
-    eb_all = (g_all["sum"] + K * league) / (g_all["size"] + K)
-    g_ph = d.groupby(["pitcher_id", "batter_hand"])["y"].agg(["sum", "size"])
-    eb_ph = (g_ph["sum"] + K * league) / (g_ph["size"] + K)
+    g_a = d.groupby("a")["y"].agg(["sum", "size"])
+    eb_a = (g_a["sum"] + K * league) / (g_a["size"] + K)
+    g_ah = d.groupby(["a", "h"])["y"].agg(["sum", "size"])
+    eb_ah = (g_ah["sum"] + K * league) / (g_ah["size"] + K)
     out = pd.DataFrame({
-        "platoon_split": eb_ph - eb_ph.index.get_level_values(0).map(eb_all),
-        "platoon_rel": g_ph["size"] / (g_ph["size"] + K),
+        "split": eb_ah - eb_ah.index.get_level_values(0).map(eb_a),
+        "rel": g_ah["size"] / (g_ah["size"] + K),
     }).reset_index()
     out.attrs["league_mean"] = league
     return out
 
 
-def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame) -> pd.DataFrame:
+def make_platoon_table(train: pd.DataFrame, K: int = PLATOON_K) -> pd.DataFrame:
+    """투수 플래툰. split(p,h) = EB(투수 p, 타자손 h) - EB(투수 p 전체)."""
+    out = _eb_split(train["pitcher_id"], train["batter_hand"], train[TARGET], K)
+    out = out.rename(columns={"a": "pitcher_id", "h": "batter_hand",
+                              "split": "platoon_split", "rel": "platoon_rel"})
+    out.attrs["league_mean"] = float(train[TARGET].mean())
+    return out
+
+
+def make_batter_platoon_table(train: pd.DataFrame, components: dict,
+                              K: int = PLATOON_K) -> pd.DataFrame:
+    """타자 플래툰 (V12 G4). 전역 + 성분별을 한 테이블로 낸다.
+
+    투수 쪽은 전역 스플릿이 이미 있어서 성분별로 쪼개도 이득이 없었지만(V8 +0.16),
+    타자 쪽은 전역조차 없던 상태라 성분별 정보가 그대로 새 정보다(V12 +1.22).
+
+    components: {tag: 0/1 라벨 배열}. NaN 행은 해당 성분 집계에서 제외한다.
+    """
+    base = _eb_split(train["batter_id"], train["pitcher_hand"], train[TARGET], K)
+    base = base.rename(columns={"a": "batter_id", "h": "pitcher_hand",
+                                "split": "bat_platoon_split",
+                                "rel": "bat_platoon_rel"})
+    for tag, arr in components.items():
+        m = ~np.isnan(arr)
+        sub = _eb_split(train["batter_id"][m], train["pitcher_hand"][m],
+                        pd.Series(arr[m]), K)
+        sub = sub.rename(columns={"a": "batter_id", "h": "pitcher_hand",
+                                  "split": f"bat_pl_{tag}"})[
+            ["batter_id", "pitcher_hand", f"bat_pl_{tag}"]]
+        base = base.merge(sub, on=["batter_id", "pitcher_hand"], how="left")
+    return base
+
+
+BAT_COMPONENTS = ["m", "r", "mr", "ob", "oz"]
+
+
+def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame,
+          bat_platoon: pd.DataFrame | None = None) -> pd.DataFrame:
     """행 단위 피처 생성. frame 은 train/test 어느 쪽이든 입력 48컬럼 구조."""
     pri = spec["priors"]
     st = float(spec["strength"])
@@ -152,6 +193,18 @@ def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame) -> pd.DataFram
     out["platoon_split"] = sp
     out["platoon_rel"] = rel
     out["platoon_split_w"] = sp * rel
+
+    if bat_platoon is not None:
+        bkey = pd.MultiIndex.from_arrays(
+            [pd.to_numeric(x["batter_id"]), pd.to_numeric(x["pitcher_hand"])])
+        bt = bat_platoon.set_index(["batter_id", "pitcher_hand"]).reindex(bkey)
+        bsp = bt["bat_platoon_split"].fillna(0.0).to_numpy(np.float64)
+        brel = bt["bat_platoon_rel"].fillna(0.0).to_numpy(np.float64)
+        out["bat_platoon_split"] = bsp
+        out["bat_platoon_rel"] = brel
+        out["bat_platoon_split_w"] = bsp * brel
+        for tag in BAT_COMPONENTS:
+            out[f"bat_pl_{tag}"] = bt[f"bat_pl_{tag}"].fillna(0.0).to_numpy(np.float64)
 
     return pd.DataFrame(out)
 
