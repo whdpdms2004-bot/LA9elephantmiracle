@@ -41,9 +41,13 @@ N_ROUNDS = 400
 WS = [0.10, 0.15, 0.20, 0.25, 0.30, 0.35, 0.40]
 EPS = 1e-7
 
-# V1 결과로 확정 — 실행 전 반드시 갱신
-PLATOON_MODE = "static"      # none / static / rowasof / seasonasof
-USE_LEVEL, USE_SPLIT = True, True
+# V1 결과로 확정 (outputs/v1_platoon_form.csv)
+#   V1_static_split  +13.81  direct 705.7  corr 0.8508   <- 채택
+#   V4_static_level  -13.62  direct 187.5                <- 레벨은 반드시 제외.
+#     EB(투수x타자손)은 투수 성공률을 그대로 담아 정적 테이블이면 자기 라벨이 샌다.
+#     split 은 주효과가 상쇄돼 이 문제가 없다 (팀통합 1-1 주효과 차감).
+PLATOON_MODE = "static"
+USE_LEVEL, USE_SPLIT = False, True
 K_LEVEL, K_SPLIT = 20, 300
 
 RATES = ["asof_pitcher_success_rate", "asof_pitcher_reverse_rate",

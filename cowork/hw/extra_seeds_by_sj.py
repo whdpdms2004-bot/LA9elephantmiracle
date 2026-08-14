@@ -65,14 +65,16 @@ done = V8.load_progress()
 # ---- 기존 5시드 재사용 + 15시드 추가 학습
 cat_preds, cat_bss = {}, {}
 for seed in V8.CAT_SEEDS + EXTRA_CAT_SEEDS:
-    p, best_iter = V8.train_cb_member(seed, x_fit_cb, y_fit, x_val_cb, y_val)
+    model, best_iter = V8.train_cb_member(seed, x_fit_cb, y_fit, x_val_cb, y_val)
+    p = model.predict_proba(x_val_cb)[:, 1]
     cat_preds[seed] = p
     cat_bss[seed] = V8.score(y_val, p)[1]
     V8.log(f"CatBoost seed={seed} best_iter={best_iter} BSS={cat_bss[seed]:8.2f}", t0)
 
 lgb_preds, lgb_bss = {}, {}
 for seed in V8.LGB_SEEDS:
-    p, best_iter = V8.train_lgb_member(seed, x_fit_lg, y_fit, x_val_lg, y_val)
+    model, best_iter = V8.train_lgb_member(seed, x_fit_lg, y_fit, x_val_lg, y_val)
+    p = model.predict(x_val_lg, num_iteration=model.best_iteration)
     lgb_preds[seed] = p
     lgb_bss[seed] = V8.score(y_val, p)[1]
 V8.log(f"LightGBM {len(lgb_preds)}개 준비", t0)
