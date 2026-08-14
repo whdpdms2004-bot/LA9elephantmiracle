@@ -158,9 +158,41 @@ def make_count_platoon_table(train: pd.DataFrame, K: int = PLATOON_K) -> pd.Data
                 "count_platoon_split", "count_platoon_rel"]]
 
 
+def inning_bucket(frame: pd.DataFrame) -> np.ndarray:
+    """이닝 4군: 1-3 / 4-6 / 7-9 / 연장."""
+    return np.digitize(pd.to_numeric(frame["inning"]).to_numpy(), [4, 7, 10])
+
+
+def make_inning_platoon_table(train: pd.DataFrame, K: int = PLATOON_K) -> pd.DataFrame:
+    """이닝별 플래툰 (V22 J_P_hi). 카운트별과 같은 2단계 차감.
+
+        split(p, h, inning) = EB(투수 x 타자손 x 이닝군) - EB(투수 x 타자손)
+    """
+    d = pd.DataFrame({"p": train["pitcher_id"].to_numpy(),
+                      "h": train["batter_hand"].to_numpy(),
+                      "i": inning_bucket(train),
+                      "y": train[TARGET].to_numpy()})
+    league = float(d["y"].mean())
+    g2 = d.groupby(["p", "h"])["y"].agg(["sum", "size"])
+    g3 = d.groupby(["p", "h", "i"])["y"].agg(["sum", "size"])
+    eb2 = (g2["sum"] + K * league) / (g2["size"] + K)
+    eb3 = (g3["sum"] + K * league) / (g3["size"] + K)
+    out = eb3.rename("eb3").reset_index().merge(
+        eb2.rename("eb2").reset_index(), on=["p", "h"], how="left")
+    idx = pd.MultiIndex.from_arrays([out["p"], out["h"], out["i"]])
+    sz = g3["size"].reindex(idx).to_numpy()
+    out["inning_platoon_split"] = out["eb3"] - out["eb2"]
+    out["inning_platoon_rel"] = sz / (sz + K)
+    out = out.rename(columns={"p": "pitcher_id", "h": "batter_hand",
+                              "i": "inning_bucket"})
+    return out[["pitcher_id", "batter_hand", "inning_bucket",
+                "inning_platoon_split", "inning_platoon_rel"]]
+
+
 def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame,
           bat_platoon: pd.DataFrame | None = None,
-          count_platoon: pd.DataFrame | None = None) -> pd.DataFrame:
+          count_platoon: pd.DataFrame | None = None,
+          inning_platoon: pd.DataFrame | None = None) -> pd.DataFrame:
     """행 단위 피처 생성. frame 은 train/test 어느 쪽이든 입력 48컬럼 구조."""
     pri = spec["priors"]
     st = float(spec["strength"])
@@ -256,6 +288,18 @@ def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame,
         out["count_platoon_split"] = csp
         out["count_platoon_rel"] = crel
         out["count_platoon_w"] = csp * crel
+
+    if inning_platoon is not None:
+        ikey = pd.MultiIndex.from_arrays(
+            [pd.to_numeric(x["pitcher_id"]), pd.to_numeric(x["batter_hand"]),
+             inning_bucket(x)])
+        it = inning_platoon.set_index(
+            ["pitcher_id", "batter_hand", "inning_bucket"]).reindex(ikey)
+        isp = it["inning_platoon_split"].fillna(0.0).to_numpy(np.float64)
+        irel = it["inning_platoon_rel"].fillna(0.0).to_numpy(np.float64)
+        out["inning_platoon_split"] = isp
+        out["inning_platoon_rel"] = irel
+        out["inning_platoon_w"] = isp * irel
 
     return pd.DataFrame(out)
 
