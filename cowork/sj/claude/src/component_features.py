@@ -120,8 +120,47 @@ def make_batter_platoon_table(train: pd.DataFrame, components: dict,
 BAT_COMPONENTS = ["m", "r", "mr", "ob", "oz"]
 
 
+def count_bucket(frame: pd.DataFrame) -> np.ndarray:
+    """볼카운트 3군: 투수우세(0) / 중립(1) / 타자우세(2)."""
+    b = pd.to_numeric(frame["balls_before"]).to_numpy()
+    s = pd.to_numeric(frame["strikes_before"]).to_numpy()
+    return np.where(s > b, 0, np.where(b > s, 2, 1))
+
+
+def make_count_platoon_table(train: pd.DataFrame, K: int = PLATOON_K) -> pd.DataFrame:
+    """카운트별 플래툰 (V19 H2). 2단계 차감이 핵심이다.
+
+        split(p, h, count) = EB(투수 x 타자손 x 카운트군) - EB(투수 x 타자손)
+
+    전역 플래툰을 명시적으로 빼야 새 정보만 남는다. V8 에서 성분별 플래툰이
+    리그평균만 빼고 실패한 이유(+0.16)가 전역 플래툰과 중복이었기 때문이다.
+    같은 형태인데 2단계로 빼니 +8.44 가 됐다.
+    """
+    d = pd.DataFrame({"p": train["pitcher_id"].to_numpy(),
+                      "h": train["batter_hand"].to_numpy(),
+                      "c": count_bucket(train),
+                      "y": train[TARGET].to_numpy()})
+    league = float(d["y"].mean())
+    g2 = d.groupby(["p", "h"])["y"].agg(["sum", "size"])
+    g3 = d.groupby(["p", "h", "c"])["y"].agg(["sum", "size"])
+    eb2 = (g2["sum"] + K * league) / (g2["size"] + K)
+    eb3 = (g3["sum"] + K * league) / (g3["size"] + K)
+    out = eb3.rename("eb3").reset_index()
+    out = out.merge(eb2.rename("eb2").reset_index(), on=["p", "h"], how="left")
+    out["count_platoon_split"] = out["eb3"] - out["eb2"]
+    out["count_platoon_rel"] = (g3["size"].reindex(
+        pd.MultiIndex.from_arrays([out["p"], out["h"], out["c"]])).to_numpy()
+        / (g3["size"].reindex(
+            pd.MultiIndex.from_arrays([out["p"], out["h"], out["c"]])).to_numpy() + K))
+    out = out.rename(columns={"p": "pitcher_id", "h": "batter_hand", "c": "count_bucket"})
+    out.attrs["league_mean"] = league
+    return out[["pitcher_id", "batter_hand", "count_bucket",
+                "count_platoon_split", "count_platoon_rel"]]
+
+
 def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame,
-          bat_platoon: pd.DataFrame | None = None) -> pd.DataFrame:
+          bat_platoon: pd.DataFrame | None = None,
+          count_platoon: pd.DataFrame | None = None) -> pd.DataFrame:
     """행 단위 피처 생성. frame 은 train/test 어느 쪽이든 입력 48컬럼 구조."""
     pri = spec["priors"]
     st = float(spec["strength"])
@@ -205,6 +244,18 @@ def build(frame: pd.DataFrame, spec: dict, platoon: pd.DataFrame,
         out["bat_platoon_split_w"] = bsp * brel
         for tag in BAT_COMPONENTS:
             out[f"bat_pl_{tag}"] = bt[f"bat_pl_{tag}"].fillna(0.0).to_numpy(np.float64)
+
+    if count_platoon is not None:
+        ckey = pd.MultiIndex.from_arrays(
+            [pd.to_numeric(x["pitcher_id"]), pd.to_numeric(x["batter_hand"]),
+             count_bucket(x)])
+        ct = count_platoon.set_index(
+            ["pitcher_id", "batter_hand", "count_bucket"]).reindex(ckey)
+        csp = ct["count_platoon_split"].fillna(0.0).to_numpy(np.float64)
+        crel = ct["count_platoon_rel"].fillna(0.0).to_numpy(np.float64)
+        out["count_platoon_split"] = csp
+        out["count_platoon_rel"] = crel
+        out["count_platoon_w"] = csp * crel
 
     return pd.DataFrame(out)
 
