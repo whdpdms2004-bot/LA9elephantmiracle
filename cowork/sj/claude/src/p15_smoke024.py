@@ -66,6 +66,16 @@ check("성분 라벨 미포함", "y_middle" not in script and "y_reverse" not in
       "추론 경로에 라벨 유도 코드 없음")
 check("경로 기준 __file__", "Path(__file__).resolve().parent" in script)
 
+# 주입식 빌드는 이전 ZIP 의 script.py 에 블록을 끼워 넣는다. 훅 지점이 주입 후에도
+# 남아 있으면 다음 빌드가 또 끼워 넣어 정의와 호출이 중복 누적된다. submit_027/028/029
+# 가 그렇게 됐고(훅 2/3/4회), 혼합이 연쇄 적용돼 w 0.25 가 실효 0.68 이 됐다.
+# 라벨 없는 test 로는 BSS 를 못 재므로 이 검사가 유일한 방어선이다.
+DUP = ["def component_features", "def component_blend",
+       "prediction = component_blend"]
+for tag in DUP:
+    n = script.count(tag)
+    check(f"'{tag}' 1회", n == 1, f"{n}회")
+
 print("=" * 84)
 print("3~4. 오프라인 실행 (245,789행)")
 print("=" * 84)
