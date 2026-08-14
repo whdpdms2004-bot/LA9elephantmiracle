@@ -49,6 +49,14 @@ cowork/**/*.csv
 # 규격은 cowork/sj/claude/16_ENSEMBLE_HANDOFF.md 참고.
 !cowork/*/val2024_pred.csv
 
+# hw v8 production 가중치 예외 (33MB).
+# 정희원이 "cowork/hw/submission_v8/ 그대로 커밋해서 올려주세요"라고 직접 요청했고
+# 본인 노트북(12코어 CPU)으로는 4시간+ 걸려 sj가 대신 실행한 산출물이다.
+# 네이티브 포맷(.cbm/.txt)이라 pickle 금지 규칙은 지킨다.
+# 일반 원칙(가중치 대신 학습 코드)의 예외이며 다른 폴더로 확대하지 않는다.
+!cowork/hw/submission_v8/model/*.cbm
+!cowork/hw/submission_v8/model/lgb_*.txt
+
 # ── 로그 ──────────────────────────────────────────────────
 *.log
 
