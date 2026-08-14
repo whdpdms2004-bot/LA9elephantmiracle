@@ -20,9 +20,10 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-ZIP = ROOT / "submit" / "2026-08-14" / "submit_024.zip"
-WORK = Path(os.environ.get("SMOKE_DIR",
-                           r"C:\Users\isj67\AppData\Local\Temp\claude\smoke024"))
+ZIP = (Path(sys.argv[1]) if len(sys.argv) > 1
+       else ROOT / "submit" / "2026-08-14" / "submit_024.zip")
+WORK = Path(os.environ.get(
+    "SMOKE_DIR", r"C:\Users\isj67\AppData\Local\Temp\claude\smoke")) / ZIP.stem
 N_ROWS = 245_789
 fails = []
 
