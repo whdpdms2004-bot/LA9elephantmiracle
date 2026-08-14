@@ -1,0 +1,384 @@
+{
+  "rule": "Every target-season row uses component priors and calibration gaps from strictly earlier seasons only.",
+  "max_source_before_target": true,
+  "records": [
+    {
+      "prefix": "pitcher_success",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.5,
+      "prior_ewm1": 0.5,
+      "prior_ewm2": 0.5,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "pitcher_success",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.5646700054335694,
+      "prior_ewm1": 0.5646700054335694,
+      "prior_ewm2": 0.5646700054335694,
+      "gap_logit_last": 0.019703208085186774
+    },
+    {
+      "prefix": "pitcher_success",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.5327116970588356,
+      "prior_ewm1": 0.5433644665170801,
+      "prior_ewm2": 0.5459492618181521,
+      "gap_logit_last": -0.058513283732918864
+    },
+    {
+      "prefix": "pitcher_success",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.5327616072006734,
+      "prior_ewm1": 0.5373056897648477,
+      "prior_ewm2": 0.5399741750077218,
+      "gap_logit_last": -0.01084107706714621
+    },
+    {
+      "prefix": "pitcher_success",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.5289204435249241,
+      "prior_ewm1": 0.5328335584368884,
+      "prior_ewm2": 0.5356574243491935,
+      "gap_logit_last": -0.02603289363378103
+    },
+    {
+      "prefix": "pitcher_success",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.49995723449750534,
+      "prior_ewm1": 0.515865133177852,
+      "prior_ewm2": 0.5229557145480113,
+      "gap_logit_last": -0.0951642570659883
+    },
+    {
+      "prefix": "pitcher_reverse",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.23,
+      "prior_ewm1": 0.23,
+      "prior_ewm2": 0.23,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "pitcher_reverse",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.18145377367646004,
+      "prior_ewm1": 0.18145377367646004,
+      "prior_ewm2": 0.18145377367646004,
+      "gap_logit_last": -0.005471336641507563
+    },
+    {
+      "prefix": "pitcher_reverse",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.20924826579642172,
+      "prior_ewm1": 0.19998343508976782,
+      "prior_ewm2": 0.1977354102010615,
+      "gap_logit_last": 0.10808049275298792
+    },
+    {
+      "prefix": "pitcher_reverse",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.24449403436014158,
+      "prior_ewm1": 0.2254180632442671,
+      "prior_ewm2": 0.2189208936392223,
+      "gap_logit_last": 0.12964686313479867
+    },
+    {
+      "prefix": "pitcher_reverse",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.232779222249629,
+      "prior_ewm1": 0.22934401471379345,
+      "prior_ewm2": 0.22433290760465774,
+      "gap_logit_last": 0.05347415397120159
+    },
+    {
+      "prefix": "pitcher_reverse",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.2558214418181892,
+      "prior_ewm1": 0.24300978354186867,
+      "prior_ewm2": 0.23553615961274083,
+      "gap_logit_last": 0.12352027546207767
+    },
+    {
+      "prefix": "pitcher_middle",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.15,
+      "prior_ewm1": 0.15,
+      "prior_ewm2": 0.15,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "pitcher_middle",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.12502689907467182,
+      "prior_ewm1": 0.12502689907467182,
+      "prior_ewm2": 0.12502689907467182,
+      "gap_logit_last": 0.0014179028131970917
+    },
+    {
+      "prefix": "pitcher_middle",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.1481821610718444,
+      "prior_ewm1": 0.1404637404061202,
+      "prior_ewm2": 0.13859093751231322,
+      "gap_logit_last": 0.08892580674472828
+    },
+    {
+      "prefix": "pitcher_middle",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.1437383056448804,
+      "prior_ewm1": 0.1423349205425546,
+      "prior_ewm2": 0.14092311653348405,
+      "gap_logit_last": 0.022554074322432394
+    },
+    {
+      "prefix": "pitcher_middle",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.1494967711673534,
+      "prior_ewm1": 0.14615457420911396,
+      "prior_ewm2": 0.14427133693709587,
+      "gap_logit_last": 0.04593307984778283
+    },
+    {
+      "prefix": "pitcher_middle",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.1533159698870561,
+      "prior_ewm1": 0.1498507784299873,
+      "prior_ewm2": 0.14748931150434239,
+      "gap_logit_last": 0.045474603237053435
+    },
+    {
+      "prefix": "pitcher_ball",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.5,
+      "prior_ewm1": 0.5,
+      "prior_ewm2": 0.5,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "pitcher_ball",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.3655573699245138,
+      "prior_ewm1": 0.3655573699245138,
+      "prior_ewm2": 0.3655573699245138,
+      "gap_logit_last": -0.014566957010350712
+    },
+    {
+      "prefix": "pitcher_ball",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.3726979779924236,
+      "prior_ewm1": 0.3703177753031203,
+      "prior_ewm2": 0.3697402412871047,
+      "gap_logit_last": 0.011689317848786018
+    },
+    {
+      "prefix": "pitcher_ball",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.3810314522465312,
+      "prior_ewm1": 0.3764398764136408,
+      "prior_ewm2": 0.374856083916774,
+      "gap_logit_last": 0.01568144418227846
+    },
+    {
+      "prefix": "pitcher_ball",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.36378046364176736,
+      "prior_ewm1": 0.36968818960197497,
+      "prior_ewm2": 0.370530785153171,
+      "gap_logit_last": -0.04033218866246435
+    },
+    {
+      "prefix": "pitcher_ball",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.36844336296531793,
+      "prior_ewm1": 0.3690456984346681,
+      "prior_ewm2": 0.3697881047648367,
+      "gap_logit_last": -0.011988397136316609
+    },
+    {
+      "prefix": "pitcher_strike",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.5,
+      "prior_ewm1": 0.5,
+      "prior_ewm2": 0.5,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "pitcher_strike",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.439478136854053,
+      "prior_ewm1": 0.439478136854053,
+      "prior_ewm2": 0.439478136854053,
+      "gap_logit_last": -0.007830863847084202
+    },
+    {
+      "prefix": "pitcher_strike",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.43954476131127107,
+      "prior_ewm1": 0.439522553158865,
+      "prior_ewm2": 0.43951716455750567,
+      "gap_logit_last": 0.0003882451313882429
+    },
+    {
+      "prefix": "pitcher_strike",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.4376017560770147,
+      "prior_ewm1": 0.4384249548263791,
+      "prior_ewm2": 0.43864932776011184,
+      "gap_logit_last": -0.00848810707825165
+    },
+    {
+      "prefix": "pitcher_strike",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.4489795918367347,
+      "prior_ewm1": 0.4440540945652354,
+      "prior_ewm2": 0.44268354682223854,
+      "gap_logit_last": 0.027564786070106484
+    },
+    {
+      "prefix": "pitcher_strike",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.4442392894845176,
+      "prior_ewm1": 0.4441496790397036,
+      "prior_ewm2": 0.4432370618568554,
+      "gap_logit_last": 0.00011955393084084331
+    },
+    {
+      "prefix": "batter_success",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.5,
+      "prior_ewm1": 0.5,
+      "prior_ewm2": 0.5,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "batter_success",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.5646700054335694,
+      "prior_ewm1": 0.5646700054335694,
+      "prior_ewm2": 0.5646700054335694,
+      "gap_logit_last": 0.01271790345452195
+    },
+    {
+      "prefix": "batter_success",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.5327116970588356,
+      "prior_ewm1": 0.5433644665170801,
+      "prior_ewm2": 0.5459492618181521,
+      "gap_logit_last": -0.0699495969689935
+    },
+    {
+      "prefix": "batter_success",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.5327616072006734,
+      "prior_ewm1": 0.5373056897648477,
+      "prior_ewm2": 0.5399741750077218,
+      "gap_logit_last": -0.03986659945408355
+    },
+    {
+      "prefix": "batter_success",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.5289204435249241,
+      "prior_ewm1": 0.5328335584368884,
+      "prior_ewm2": 0.5356574243491935,
+      "gap_logit_last": -0.054554064748835174
+    },
+    {
+      "prefix": "batter_success",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.49995723449750534,
+      "prior_ewm1": 0.515865133177852,
+      "prior_ewm2": 0.5229557145480113,
+      "gap_logit_last": -0.10280604947865024
+    },
+    {
+      "prefix": "batter_middle",
+      "target_season": 2019,
+      "source_season": null,
+      "prior_last": 0.15,
+      "prior_ewm1": 0.15,
+      "prior_ewm2": 0.15,
+      "gap_logit_last": 0.0
+    },
+    {
+      "prefix": "batter_middle",
+      "target_season": 2020,
+      "source_season": 2019,
+      "prior_last": 0.12502689907467182,
+      "prior_ewm1": 0.12502689907467182,
+      "prior_ewm2": 0.12502689907467182,
+      "gap_logit_last": 0.011488106050438152
+    },
+    {
+      "prefix": "batter_middle",
+      "target_season": 2021,
+      "source_season": 2020,
+      "prior_last": 0.1481821610718444,
+      "prior_ewm1": 0.1404637404061202,
+      "prior_ewm2": 0.13859093751231322,
+      "gap_logit_last": 0.09552143208511898
+    },
+    {
+      "prefix": "batter_middle",
+      "target_season": 2022,
+      "source_season": 2021,
+      "prior_last": 0.1437383056448804,
+      "prior_ewm1": 0.1423349205425546,
+      "prior_ewm2": 0.14092311653348405,
+      "gap_logit_last": 0.02370236238996193
+    },
+    {
+      "prefix": "batter_middle",
+      "target_season": 2023,
+      "source_season": 2022,
+      "prior_last": 0.1494967711673534,
+      "prior_ewm1": 0.14615457420911396,
+      "prior_ewm2": 0.14427133693709587,
+      "gap_logit_last": 0.051022227611589255
+    },
+    {
+      "prefix": "batter_middle",
+      "target_season": 2024,
+      "source_season": 2023,
+      "prior_last": 0.1533159698870561,
+      "prior_ewm1": 0.1498507784299873,
+      "prior_ewm2": 0.14748931150434239,
+      "gap_logit_last": 0.05918651160423671
+    }
+  ]
+}

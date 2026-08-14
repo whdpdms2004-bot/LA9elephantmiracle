@@ -1,0 +1,39 @@
+{
+  "top_cat_trials": [
+    3,
+    9,
+    29
+  ],
+  "xgb_trial": 59,
+  "best": {
+    "cat_trial": 9.0,
+    "xgb_trial": 59.0,
+    "xgb_weight": 0.16,
+    "cat_weight": 0.33,
+    "brier": 0.2470525699,
+    "normalized_brier": 0.9948082414,
+    "bss": 519.1758603904,
+    "logloss": 0.6872238593,
+    "auc": 0.5444245117,
+    "target_mean": 0.4592802399,
+    "pred_mean": 0.4651090511,
+    "mean_gap": 0.0058288112
+  },
+  "correlations": [
+    {
+      "cat_trial": 3,
+      "corr_xgb_cat_prediction": 0.7968504520268912,
+      "corr_xgb_cat_residual": 0.6393624653638673
+    },
+    {
+      "cat_trial": 9,
+      "corr_xgb_cat_prediction": 0.8086899893847063,
+      "corr_xgb_cat_residual": 0.6389735823162994
+    },
+    {
+      "cat_trial": 29,
+      "corr_xgb_cat_prediction": 0.7912673383634162,
+      "corr_xgb_cat_residual": 0.6241352981587929
+    }
+  ]
+}

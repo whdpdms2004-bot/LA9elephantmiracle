@@ -1,0 +1,42 @@
+{
+  "updated_at": "2026-08-12T22:51:50.583952+09:00",
+  "study": "xgb_failure_middle_robust",
+  "head": "middle",
+  "selection_folds": [
+    2022,
+    2023
+  ],
+  "gate_folds": [
+    2023,
+    2024
+  ],
+  "top_count": 8,
+  "selected_trials": [
+    93,
+    103,
+    150,
+    126,
+    96,
+    97,
+    60,
+    35
+  ],
+  "best_gate_2024": {
+    "head": "middle",
+    "trial": 97,
+    "selection_rank": 6,
+    "selection_objective": 0.9965006605866845,
+    "fold": 2024,
+    "train_through": 2023,
+    "best_iteration": 1584,
+    "elapsed_sec": 21.348206043243408,
+    "brier": 0.14441073180632888,
+    "normalized_brier": 0.9944751461501957,
+    "bss": 552.4853849804279,
+    "logloss": 0.4628475317549954,
+    "auc": 0.570253834518038,
+    "target_mean": 0.17629181733752247,
+    "pred_mean": 0.1568795016811273,
+    "mean_gap": -0.019412315656395174
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "study_name": "catboost_v1_full_2023_2024",
+  "family": "catboost",
+  "folds": [
+    2023,
+    2024
+  ],
+  "trials_total": 141,
+  "best_trial": 71,
+  "best_value": 0.9960823422536643,
+  "best_params": {
+    "half_life": 1.7324464557492558,
+    "bootstrap_type": "Bayesian",
+    "iterations": 5033,
+    "learning_rate": 0.052174195504507255,
+    "depth": 7,
+    "l2_leaf_reg": 2.307063893837121,
+    "random_strength": 0.00036572808713951604,
+    "border_count": 128,
+    "one_hot_max_size": 32,
+    "leaf_estimation_iterations": 6,
+    "bagging_temperature": 1.4079455448710927
+  },
+  "elapsed_sec": 7254.6578006744385
+}

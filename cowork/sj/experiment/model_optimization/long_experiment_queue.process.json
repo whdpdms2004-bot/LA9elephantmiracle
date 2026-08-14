@@ -1,0 +1,10 @@
+{
+  "launcher_pid": 10876,
+  "started_at": "2026-08-06T16:43:58.104025+09:00",
+  "command": [
+    "C:\\Users\\isj67\\anaconda3\\python.exe",
+    "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\continue_long_experiments.py"
+  ],
+  "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\long_experiment_queue.out.log",
+  "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\long_experiment_queue.err.log"
+}

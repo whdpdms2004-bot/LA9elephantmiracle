@@ -1,0 +1,36 @@
+{
+  "family": "xgb",
+  "best_params": {
+    "n_estimators": 150,
+    "learning_rate": 0.02383820063670487,
+    "max_depth": 3,
+    "min_child_weight": 15,
+    "subsample": 0.9112627003799402,
+    "colsample_bytree": 0.9090085037727733,
+    "reg_lambda": 25.279858460034948
+  },
+  "best_val_logloss": 0.57573,
+  "n_trials": 10,
+  "history": [
+    0.63337,
+    0.6231,
+    0.57573,
+    0.59689,
+    0.5818,
+    0.59843,
+    0.5807,
+    0.58794,
+    0.63337,
+    0.6231
+  ],
+  "test": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6337,
+    "pr_auc": 0.396,
+    "logloss": 0.5736,
+    "brier": 0.1939,
+    "ece": 0.0072
+  },
+  "n_feats": 311
+}

@@ -1,0 +1,220 @@
+{
+  "per_family": {
+    "et": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6278,
+      "pr_auc": 0.3861,
+      "logloss": 0.576,
+      "brier": 0.1949,
+      "ece": 0.0096
+    },
+    "hgb": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6329,
+      "pr_auc": 0.3922,
+      "logloss": 0.5736,
+      "brier": 0.1939,
+      "ece": 0.0032
+    },
+    "lgbm": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6345,
+      "pr_auc": 0.396,
+      "logloss": 0.573,
+      "brier": 0.1937,
+      "ece": 0.0042
+    },
+    "logreg": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6198,
+      "pr_auc": 0.3746,
+      "logloss": 0.5806,
+      "brier": 0.1967,
+      "ece": 0.0211
+    },
+    "rf": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6255,
+      "pr_auc": 0.3839,
+      "logloss": 0.5765,
+      "brier": 0.1951,
+      "ece": 0.013
+    },
+    "xgb": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6337,
+      "pr_auc": 0.396,
+      "logloss": 0.5736,
+      "brier": 0.1939,
+      "ece": 0.0072
+    }
+  },
+  "params": {
+    "et": {
+      "n_estimators": 80,
+      "max_depth": 18,
+      "min_samples_leaf": 205,
+      "max_features": 0.7090085037727735
+    },
+    "hgb": {
+      "max_iter": 400,
+      "learning_rate": 0.030558189894130977,
+      "max_leaf_nodes": 19,
+      "min_samples_leaf": 103,
+      "l2_regularization": 0.04249885438049232
+    },
+    "lgbm": {
+      "n_estimators": 150,
+      "learning_rate": 0.02383820063670487,
+      "num_leaves": 15,
+      "min_child_samples": 502,
+      "subsample": 0.9112627003799402,
+      "colsample_bytree": 0.9090085037727733,
+      "reg_lambda": 25.279858460034948
+    },
+    "logreg": {
+      "C": 0.04950159553733195
+    },
+    "rf": {
+      "n_estimators": 160,
+      "max_depth": 16,
+      "min_samples_leaf": 121,
+      "max_features": 0.48141822809782786
+    },
+    "xgb": {
+      "n_estimators": 150,
+      "learning_rate": 0.02383820063670487,
+      "max_depth": 3,
+      "min_child_weight": 15,
+      "subsample": 0.9112627003799402,
+      "colsample_bytree": 0.9090085037727733,
+      "reg_lambda": 25.279858460034948
+    }
+  },
+  "trials": {
+    "et": 5,
+    "hgb": 10,
+    "lgbm": 10,
+    "logreg": 8,
+    "rf": 5,
+    "xgb": 10
+  },
+  "val_logloss": {
+    "et": 0.57743,
+    "hgb": 0.57682,
+    "lgbm": 0.57608,
+    "logreg": 0.59091,
+    "rf": 0.57775,
+    "xgb": 0.57573
+  },
+  "ensembles": {
+    "top2_lgbm+hgb": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6357,
+      "pr_auc": 0.3968,
+      "logloss": 0.5727,
+      "brier": 0.1935,
+      "ece": 0.005
+    },
+    "top3_lgbm+hgb+xgb": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6356,
+      "pr_auc": 0.3974,
+      "logloss": 0.5728,
+      "brier": 0.1936,
+      "ece": 0.0058
+    },
+    "top4_lgbm+hgb+xgb+et": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6352,
+      "pr_auc": 0.397,
+      "logloss": 0.573,
+      "brier": 0.1937,
+      "ece": 0.0063
+    },
+    "top5_lgbm+hgb+xgb+et+rf": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6344,
+      "pr_auc": 0.3955,
+      "logloss": 0.5734,
+      "brier": 0.1938,
+      "ece": 0.007
+    },
+    "top6_lgbm+hgb+xgb+et+rf+logreg": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6346,
+      "pr_auc": 0.3941,
+      "logloss": 0.5732,
+      "brier": 0.1937,
+      "ece": 0.0045
+    },
+    "lgbm+decomp(w=0.3)": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6377,
+      "pr_auc": 0.3986,
+      "logloss": 0.5721,
+      "brier": 0.1933,
+      "ece": 0.0121
+    },
+    "lgbm+decomp(w=0.5)": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6375,
+      "pr_auc": 0.3989,
+      "logloss": 0.5721,
+      "brier": 0.1933,
+      "ece": 0.0093
+    },
+    "lgbm+decomp(w=0.7)": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6368,
+      "pr_auc": 0.3984,
+      "logloss": 0.5723,
+      "brier": 0.1934,
+      "ece": 0.0063
+    }
+  },
+  "baselines": {
+    "league_mean": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5,
+      "pr_auc": 0.2829,
+      "logloss": 0.5957,
+      "brier": 0.2029,
+      "ece": 0.0016
+    },
+    "count_only": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6142,
+      "pr_auc": 0.3679,
+      "logloss": 0.579,
+      "brier": 0.196,
+      "ece": 0.0062
+    },
+    "pitcher_te": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5295,
+      "pr_auc": 0.3038,
+      "logloss": 0.5947,
+      "brier": 0.2025,
+      "ece": 0.0008
+    }
+  },
+  "n_feats": 311
+}

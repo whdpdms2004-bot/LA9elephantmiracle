@@ -1,0 +1,27 @@
+{
+  "study_name": "smoke_xgb_v1",
+  "family": "xgboost",
+  "folds": [
+    2024
+  ],
+  "trials_total": 1,
+  "best_trial": 0,
+  "best_value": 0.9986290241696907,
+  "best_params": {
+    "half_life": 0.8459947768394047,
+    "grow_policy": "lossguide",
+    "n_estimators": 1394,
+    "learning_rate": 0.018797592694649933,
+    "max_depth": 10,
+    "min_child_weight": 26.988148544458475,
+    "subsample": 0.9664517691012044,
+    "colsample_bytree": 0.8233000459463433,
+    "colsample_bylevel": 0.9349688405427283,
+    "gamma": 5.275811941891793e-06,
+    "reg_alpha": 0.00023332898745640282,
+    "reg_lambda": 1.069336129741749,
+    "max_bin": 128,
+    "max_leaves": 75
+  },
+  "elapsed_sec": 6.520354747772217
+}

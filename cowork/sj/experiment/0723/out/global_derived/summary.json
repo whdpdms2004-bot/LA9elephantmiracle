@@ -1,0 +1,227 @@
+{
+  "exp": "global_derived",
+  "n_features_raw": 135,
+  "eval_protocol": "prequential/online (history features updated with 2019 past; model params frozen on 2017-18)",
+  "min_train_perpitcher": 4500,
+  "compare": {
+    "logreg": {
+      "n": 172727,
+      "base": 0.2823,
+      "roc_auc": 0.6283,
+      "pr_auc": 0.3831,
+      "logloss": 0.5769,
+      "brier": 0.1946,
+      "ece": 0.0099
+    },
+    "hgb": {
+      "n": 172727,
+      "base": 0.2823,
+      "roc_auc": 0.6302,
+      "pr_auc": 0.3924,
+      "logloss": 0.5738,
+      "brier": 0.1939,
+      "ece": 0.0076
+    },
+    "lgbm": {
+      "n": 172727,
+      "base": 0.2823,
+      "roc_auc": 0.6143,
+      "pr_auc": 0.3761,
+      "logloss": 0.5884,
+      "brier": 0.199,
+      "ece": 0.0443
+    },
+    "xgb": {
+      "n": 172727,
+      "base": 0.2823,
+      "roc_auc": 0.6221,
+      "pr_auc": 0.3821,
+      "logloss": 0.5791,
+      "brier": 0.196,
+      "ece": 0.0225
+    }
+  },
+  "optuna": {
+    "best_params": {
+      "n_estimators": 200,
+      "learning_rate": 0.04967032004367704,
+      "num_leaves": 69,
+      "min_child_samples": 202,
+      "subsample": 0.9953495352236905,
+      "colsample_bytree": 0.6408179242992113,
+      "reg_lambda": 0.0423282455862012,
+      "reg_alpha": 0.003950745627050187
+    },
+    "best_val_prauc": 0.3861,
+    "history": [
+      0.3715,
+      0.3718,
+      0.3761,
+      0.3836,
+      0.3855,
+      0.3812,
+      0.3861,
+      0.386
+    ]
+  },
+  "final": {
+    "test_metrics_tuned_lgbm": {
+      "n": 131798,
+      "base": 0.2824,
+      "roc_auc": 0.632,
+      "pr_auc": 0.3922,
+      "logloss": 0.5736,
+      "brier": 0.1939,
+      "ece": 0.0088
+    },
+    "baselines": {
+      "league_mean": {
+        "n": 131798,
+        "base": 0.2824,
+        "roc_auc": 0.5,
+        "pr_auc": 0.2824,
+        "logloss": 0.5952,
+        "brier": 0.2026,
+        "ece": 0.0032
+      },
+      "count_only": {
+        "n": 131798,
+        "base": 0.2824,
+        "roc_auc": 0.6164,
+        "pr_auc": 0.369,
+        "logloss": 0.5779,
+        "brier": 0.1956,
+        "ece": 0.0057
+      },
+      "pitcher_te": {
+        "n": 131798,
+        "base": 0.2824,
+        "roc_auc": 0.5298,
+        "pr_auc": 0.3038,
+        "logloss": 0.5942,
+        "brier": 0.2022,
+        "ece": 0.001
+      }
+    },
+    "calibration": {
+      "pred": [
+        0.1373,
+        0.1767,
+        0.2034,
+        0.2288,
+        0.257,
+        0.2903,
+        0.3272,
+        0.3666,
+        0.4101,
+        0.484
+      ],
+      "obs": [
+        0.148,
+        0.1832,
+        0.2036,
+        0.2265,
+        0.2538,
+        0.2901,
+        0.321,
+        0.3514,
+        0.392,
+        0.4542
+      ]
+    }
+  },
+  "shap": {
+    "top10": {
+      "strikes": 0.26949,
+      "batter_te": 0.09186,
+      "two_strike": 0.08234,
+      "pitcher_ahead": 0.05901,
+      "balls": 0.05725,
+      "base_state": 0.04726,
+      "same_handed_matchup": 0.0394,
+      "outs_when_up": 0.03454,
+      "p_whiff_rate_szn": 0.02983,
+      "n_priorpa_thisgame_player_at_bat": 0.02626
+    },
+    "category": {
+      "situation": 0.70555,
+      "pitcher_hist": 0.39872,
+      "basic_history": 0.14613,
+      "arsenal": 0.12087,
+      "ids": 0.11169,
+      "release_rep": 0.04621
+    }
+  },
+  "ablation": {
+    "count_only": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.616,
+      "pr_auc": 0.3693,
+      "logloss": 0.5781,
+      "brier": 0.1956,
+      "ece": 0.0062,
+      "n_feats": 8.0
+    },
+    "+situation": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.6115,
+      "pr_auc": 0.3771,
+      "logloss": 0.5818,
+      "brier": 0.1969,
+      "ece": 0.02,
+      "n_feats": 71.0
+    },
+    "+basic_hist": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.6136,
+      "pr_auc": 0.3772,
+      "logloss": 0.5817,
+      "brier": 0.1968,
+      "ece": 0.0213,
+      "n_feats": 119.0
+    },
+    "+ids": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.6182,
+      "pr_auc": 0.378,
+      "logloss": 0.5803,
+      "brier": 0.1965,
+      "ece": 0.023,
+      "n_feats": 121.0
+    },
+    "+pitcher_hist": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.6211,
+      "pr_auc": 0.3793,
+      "logloss": 0.5792,
+      "brier": 0.196,
+      "ece": 0.0198,
+      "n_feats": 193.0
+    },
+    "+arsenal": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.6208,
+      "pr_auc": 0.379,
+      "logloss": 0.5793,
+      "brier": 0.1962,
+      "ece": 0.0201,
+      "n_feats": 210.0
+    },
+    "+release_rep(full)": {
+      "n": 131798.0,
+      "base": 0.2824,
+      "roc_auc": 0.6198,
+      "pr_auc": 0.3786,
+      "logloss": 0.5796,
+      "brier": 0.1963,
+      "ece": 0.0202,
+      "n_feats": 220.0
+    }
+  }
+}

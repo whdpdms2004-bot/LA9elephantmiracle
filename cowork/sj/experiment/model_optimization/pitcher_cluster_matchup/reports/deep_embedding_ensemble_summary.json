@@ -1,0 +1,330 @@
+{
+  "multiview_config": "mv_gmm_p16c8w1p0_l2r4_754558ba",
+  "joint_config": {
+    "matrix_lambda": 500.0,
+    "svd_dim": 16,
+    "pitcher_k": [
+      2,
+      4
+    ],
+    "batter_k": [
+      6,
+      8
+    ]
+  },
+  "best": {
+    "current_variant": "current_single17",
+    "joint_variant": "joint_cluster_direct",
+    "success_scale": 0.2,
+    "current_scale": 0.55,
+    "multiview_scale": 0.025,
+    "joint_scale": 0.25,
+    "f23_delta_brier": -3.486981834658308e-05,
+    "f24_delta_brier": -3.5461679775794524e-05,
+    "both_improve": true,
+    "robust_objective": -0.00014121322801886226,
+    "outer_insight_weight": 0.6017194442626324,
+    "outer_brier_2024": 0.24777568136685216,
+    "outer_bss_2024": 813.1261275686863
+  },
+  "exact_f23": {
+    "brier": 0.2506867110031833,
+    "delta_brier": -3.486982379152792e-05,
+    "bss": 0.0
+  },
+  "exact_f24": {
+    "brier": 0.24781158777263063,
+    "delta_brier": -3.5461684633447677e-05,
+    "bss": 798.7524645783783
+  },
+  "blend_2024": {
+    "insight_weight": 0.6015,
+    "brier": 0.24777568137565362,
+    "bss": 813.1261240453824
+  },
+  "best_outer_with_f23_f24_improvement": {
+    "current_variant": "current_seedbag",
+    "joint_variant": "joint_cluster_direct",
+    "success_scale": 0.375,
+    "current_scale": 0.825,
+    "multiview_scale": 0.0,
+    "joint_scale": 0.15,
+    "f23_delta_brier": -2.2181272993587042e-05,
+    "f24_delta_brier": -2.103039056579564e-05,
+    "both_improve": true,
+    "robust_objective": -8.554813306359496e-05,
+    "outer_insight_weight": 0.5579459772394872,
+    "outer_brier_2024": 0.24777270536552756,
+    "outer_bss_2024": 814.3174481470394,
+    "exact_f23_delta_brier": -2.2181275696475655e-05,
+    "exact_f24_delta_brier": -2.1030359969503865e-05
+  },
+  "reconstructed_submit013": {
+    "scales": [
+      0.25,
+      0.55,
+      0.0,
+      0.0
+    ],
+    "f23_delta_brier": -1.4355961479251e-05,
+    "f24_delta_brier": -3.675844777564774e-05,
+    "blend_2024": {
+      "insight_weight": 0.6085,
+      "brier": 0.24777673578536966,
+      "bss": 812.7040341819325
+    }
+  },
+  "correlations": [
+    {
+      "season": 2023,
+      "left": "current_single17",
+      "right": "current_seedbag",
+      "correlation": 0.9996940542190004
+    },
+    {
+      "season": 2023,
+      "left": "current_single17",
+      "right": "multiview",
+      "correlation": 0.7817207440386993
+    },
+    {
+      "season": 2023,
+      "left": "current_single17",
+      "right": "joint_cluster",
+      "correlation": -0.0030472964604480457
+    },
+    {
+      "season": 2023,
+      "left": "current_single17",
+      "right": "joint_direct",
+      "correlation": -0.0285191381630788
+    },
+    {
+      "season": 2023,
+      "left": "current_single17",
+      "right": "joint_cluster_direct",
+      "correlation": -0.11598021032790959
+    },
+    {
+      "season": 2023,
+      "left": "current_seedbag",
+      "right": "multiview",
+      "correlation": 0.7848969579804848
+    },
+    {
+      "season": 2023,
+      "left": "current_seedbag",
+      "right": "joint_cluster",
+      "correlation": -0.0020399995213846974
+    },
+    {
+      "season": 2023,
+      "left": "current_seedbag",
+      "right": "joint_direct",
+      "correlation": -0.027790159427775157
+    },
+    {
+      "season": 2023,
+      "left": "current_seedbag",
+      "right": "joint_cluster_direct",
+      "correlation": -0.11621088362469499
+    },
+    {
+      "season": 2023,
+      "left": "multiview",
+      "right": "joint_cluster",
+      "correlation": 0.059563129023243865
+    },
+    {
+      "season": 2023,
+      "left": "multiview",
+      "right": "joint_direct",
+      "correlation": 0.058029401575648676
+    },
+    {
+      "season": 2023,
+      "left": "multiview",
+      "right": "joint_cluster_direct",
+      "correlation": 0.026174245385775594
+    },
+    {
+      "season": 2023,
+      "left": "joint_cluster",
+      "right": "joint_direct",
+      "correlation": 0.01660343637301703
+    },
+    {
+      "season": 2023,
+      "left": "joint_cluster",
+      "right": "joint_cluster_direct",
+      "correlation": 0.6449816246751517
+    },
+    {
+      "season": 2023,
+      "left": "joint_direct",
+      "right": "joint_cluster_direct",
+      "correlation": 0.6976985064194149
+    },
+    {
+      "season": 2024,
+      "left": "current_single17",
+      "right": "current_seedbag",
+      "correlation": 0.9999849338164564
+    },
+    {
+      "season": 2024,
+      "left": "current_single17",
+      "right": "multiview",
+      "correlation": 0.8867721621895774
+    },
+    {
+      "season": 2024,
+      "left": "current_single17",
+      "right": "joint_cluster",
+      "correlation": 0.057216018850902266
+    },
+    {
+      "season": 2024,
+      "left": "current_single17",
+      "right": "joint_direct",
+      "correlation": -0.02484401136359264
+    },
+    {
+      "season": 2024,
+      "left": "current_single17",
+      "right": "joint_cluster_direct",
+      "correlation": 0.09479295894033764
+    },
+    {
+      "season": 2024,
+      "left": "current_seedbag",
+      "right": "multiview",
+      "correlation": 0.8870479642964577
+    },
+    {
+      "season": 2024,
+      "left": "current_seedbag",
+      "right": "joint_cluster",
+      "correlation": 0.05657933124829791
+    },
+    {
+      "season": 2024,
+      "left": "current_seedbag",
+      "right": "joint_direct",
+      "correlation": -0.0269460981032621
+    },
+    {
+      "season": 2024,
+      "left": "current_seedbag",
+      "right": "joint_cluster_direct",
+      "correlation": 0.09360048592173646
+    },
+    {
+      "season": 2024,
+      "left": "multiview",
+      "right": "joint_cluster",
+      "correlation": 0.01092640152491668
+    },
+    {
+      "season": 2024,
+      "left": "multiview",
+      "right": "joint_direct",
+      "correlation": -0.06296897176466291
+    },
+    {
+      "season": 2024,
+      "left": "multiview",
+      "right": "joint_cluster_direct",
+      "correlation": 0.04603928739280678
+    },
+    {
+      "season": 2024,
+      "left": "joint_cluster",
+      "right": "joint_direct",
+      "correlation": 0.46603981086747526
+    },
+    {
+      "season": 2024,
+      "left": "joint_cluster",
+      "right": "joint_cluster_direct",
+      "correlation": 0.6652251349769494
+    },
+    {
+      "season": 2024,
+      "left": "joint_direct",
+      "right": "joint_cluster_direct",
+      "correlation": 0.8513918921473606
+    }
+  ],
+  "multiview_audit": [
+    {
+      "cutoff": 2022,
+      "pitcher_types": 14,
+      "batter_types": 10,
+      "pair_cells": 119,
+      "coverage": 0.749110996723175,
+      "batter_cluster_audit": [
+        {
+          "hand": 1,
+          "k": 4,
+          "batters": 240,
+          "min_cluster_size": 12,
+          "max_cluster_size": 177
+        },
+        {
+          "hand": 2,
+          "k": 6,
+          "batters": 362,
+          "min_cluster_size": 12,
+          "max_cluster_size": 206
+        }
+      ]
+    },
+    {
+      "cutoff": 2023,
+      "pitcher_types": 14,
+      "batter_types": 10,
+      "pair_cells": 120,
+      "coverage": 0.7806781530380249,
+      "batter_cluster_audit": [
+        {
+          "hand": 1,
+          "k": 4,
+          "batters": 272,
+          "min_cluster_size": 11,
+          "max_cluster_size": 147
+        },
+        {
+          "hand": 2,
+          "k": 6,
+          "batters": 421,
+          "min_cluster_size": 13,
+          "max_cluster_size": 173
+        }
+      ]
+    },
+    {
+      "cutoff": 2024,
+      "pitcher_types": 14,
+      "batter_types": 10,
+      "pair_cells": 120,
+      "coverage": 0.7277945280075073,
+      "batter_cluster_audit": [
+        {
+          "hand": 1,
+          "k": 4,
+          "batters": 303,
+          "min_cluster_size": 10,
+          "max_cluster_size": 172
+        },
+        {
+          "hand": 2,
+          "k": 6,
+          "batters": 463,
+          "min_cluster_size": 12,
+          "max_cluster_size": 198
+        }
+      ]
+    }
+  ]
+}

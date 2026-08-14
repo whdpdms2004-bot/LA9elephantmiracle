@@ -1,0 +1,389 @@
+{
+  "created_at": "2026-08-06T16:29:33.974735+09:00",
+  "resumed_at": "2026-08-06T16:43:58.177541+09:00",
+  "wait_pid": 38876,
+  "status": "completed",
+  "steps": [
+    {
+      "name": "trackman_pitchgroup_fixed_ablation",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\benchmark_trackman_pitchgroup_fixed.py"
+      ],
+      "started_at": "2026-08-06T16:51:48.759052+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T16:57:25.844502+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_trackman_pitchgroup_fixed_ablation.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_trackman_pitchgroup_fixed_ablation.err.log"
+    },
+    {
+      "name": "registry_after_pitchgroup",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T16:57:25.847497+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T16:57:27.477150+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_pitchgroup.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_pitchgroup.err.log"
+    },
+    {
+      "name": "trackman_gated_ablation",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\benchmark_trackman_gated.py"
+      ],
+      "started_at": "2026-08-06T16:57:27.477150+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T16:59:39.492265+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_trackman_gated_ablation.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_trackman_gated_ablation.err.log"
+    },
+    {
+      "name": "registry_after_gated",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T16:59:39.493265+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T16:59:41.076909+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_gated.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_gated.err.log"
+    },
+    {
+      "name": "smoothing_grid_ablation",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\benchmark_smoothing_grid.py"
+      ],
+      "started_at": "2026-08-06T16:59:41.077910+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T17:03:37.444429+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_smoothing_grid_ablation.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_smoothing_grid_ablation.err.log"
+    },
+    {
+      "name": "registry_after_smoothing",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T17:03:37.445429+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T17:03:39.023351+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_smoothing.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_smoothing.err.log"
+    },
+    {
+      "name": "direct_brier_ablation",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\benchmark_direct_brier.py"
+      ],
+      "started_at": "2026-08-06T17:03:39.024352+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T17:05:26.034513+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_direct_brier_ablation.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_direct_brier_ablation.err.log"
+    },
+    {
+      "name": "registry_after_direct_brier",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T17:05:26.035514+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T17:05:27.568277+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_direct_brier.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_direct_brier.err.log"
+    },
+    {
+      "name": "xgb_enhanced_recent_120",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\run_optuna_enhanced.py",
+        "--family",
+        "xgboost",
+        "--trials",
+        "120",
+        "--target-total",
+        "120",
+        "--folds",
+        "2024",
+        "--study-name",
+        "xgboost_v2r200_tm500_2024"
+      ],
+      "started_at": "2026-08-06T17:05:27.568277+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T17:44:33.292723+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_xgb_enhanced_recent_120.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_xgb_enhanced_recent_120.err.log"
+    },
+    {
+      "name": "registry_after_xgb_recent",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T17:44:33.293727+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T17:44:34.873892+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_xgb_recent.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_xgb_recent.err.log"
+    },
+    {
+      "name": "xgb_enhanced_local_100",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\run_optuna_xgb_local.py",
+        "--target-total",
+        "100"
+      ],
+      "started_at": "2026-08-06T17:44:34.874894+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T18:36:53.080147+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_xgb_enhanced_local_100.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_xgb_enhanced_local_100.err.log"
+    },
+    {
+      "name": "registry_after_xgb_local",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T18:36:53.081154+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T18:36:54.724628+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_xgb_local.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_xgb_local.err.log"
+    },
+    {
+      "name": "lightgbm_enhanced_robust_60",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\run_optuna_lightgbm_enhanced.py",
+        "--trials",
+        "60",
+        "--target-total",
+        "60",
+        "--folds",
+        "2023,2024",
+        "--study-name",
+        "lightgbm_v2r200_tm500_robust"
+      ],
+      "started_at": "2026-08-06T18:36:54.725628+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T19:44:11.170585+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_lightgbm_enhanced_robust_60.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_lightgbm_enhanced_robust_60.err.log"
+    },
+    {
+      "name": "registry_after_lightgbm",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T19:44:11.171587+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T19:44:12.912158+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_lightgbm.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_lightgbm.err.log"
+    },
+    {
+      "name": "cat_enhanced_robust_80",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\run_optuna_enhanced.py",
+        "--family",
+        "catboost",
+        "--trials",
+        "80",
+        "--target-total",
+        "80",
+        "--folds",
+        "2023,2024",
+        "--study-name",
+        "catboost_v2r200_tm500_robust"
+      ],
+      "started_at": "2026-08-06T19:44:12.912158+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T21:25:02.459926+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_cat_enhanced_robust_80.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_cat_enhanced_robust_80.err.log"
+    },
+    {
+      "name": "registry_after_cat",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T21:25:02.460926+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T21:25:04.263940+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_cat.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_cat.err.log"
+    },
+    {
+      "name": "strict_embedding_dim16",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\pitcher_embedding\\train_strict_multitask_embedding.py",
+        "--embedding-dim",
+        "16",
+        "--folds",
+        "2022,2023,2024",
+        "--epochs",
+        "8",
+        "--batch-size",
+        "8192"
+      ],
+      "started_at": "2026-08-06T21:25:04.264942+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T21:36:34.242737+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_strict_embedding_dim16.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_strict_embedding_dim16.err.log"
+    },
+    {
+      "name": "strict_embedding_dim32",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\pitcher_embedding\\train_strict_multitask_embedding.py",
+        "--embedding-dim",
+        "32",
+        "--folds",
+        "2022,2023,2024",
+        "--epochs",
+        "8",
+        "--batch-size",
+        "8192"
+      ],
+      "started_at": "2026-08-06T21:36:34.243737+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T21:48:06.016369+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_strict_embedding_dim32.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_strict_embedding_dim32.err.log"
+    },
+    {
+      "name": "strict_embedding_dim64",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\pitcher_embedding\\train_strict_multitask_embedding.py",
+        "--embedding-dim",
+        "64",
+        "--folds",
+        "2022,2023,2024",
+        "--epochs",
+        "8",
+        "--batch-size",
+        "8192"
+      ],
+      "started_at": "2026-08-06T21:48:06.017371+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T21:59:44.492043+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_strict_embedding_dim64.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_strict_embedding_dim64.err.log"
+    },
+    {
+      "name": "registry_after_embeddings",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T21:59:44.493043+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T21:59:46.320116+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_embeddings.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_embeddings.err.log"
+    },
+    {
+      "name": "enhanced_seed_oof",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_enhanced_seed_oof.py"
+      ],
+      "started_at": "2026-08-06T21:59:46.321115+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T23:38:38.438627+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_enhanced_seed_oof.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_enhanced_seed_oof.err.log"
+    },
+    {
+      "name": "registry_after_enhanced_oof",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-06T23:38:38.439627+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-06T23:38:40.261690+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_enhanced_oof.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_enhanced_oof.err.log"
+    },
+    {
+      "name": "optimize_enhanced_oof",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\optimize_enhanced_oof.py"
+      ],
+      "started_at": "2026-08-06T23:38:40.262689+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-07T00:01:13.508234+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_optimize_enhanced_oof.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_optimize_enhanced_oof.err.log"
+    },
+    {
+      "name": "registry_after_enhanced_ensemble",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_validation_registry.py"
+      ],
+      "started_at": "2026-08-07T00:01:13.509237+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-07T00:01:15.312639+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_enhanced_ensemble.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_registry_after_enhanced_ensemble.err.log"
+    },
+    {
+      "name": "build_final_two_submissions",
+      "status": "completed",
+      "command": [
+        "C:\\Users\\isj67\\anaconda3\\python.exe",
+        "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\build_final_two_submissions.py"
+      ],
+      "started_at": "2026-08-07T00:01:15.313639+09:00",
+      "return_code": 0,
+      "finished_at": "2026-08-07T00:06:32.717499+09:00",
+      "stdout": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_build_final_two_submissions.out.log",
+      "stderr": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\queue_build_final_two_submissions.err.log"
+    }
+  ],
+  "robust_xgb_finished_at": "2026-08-06T16:51:48.758049+09:00",
+  "finished_at": "2026-08-07T00:06:32.718500+09:00"
+}

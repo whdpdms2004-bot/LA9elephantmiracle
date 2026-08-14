@@ -1,0 +1,64 @@
+# ── 대회 원본 데이터 (합계 약 690MB) ──────────────────────────
+data/train.csv
+data/trackman_history.csv
+# 형식 확인용 5행 샘플(data/test.csv, data/sample_submission.csv)은 커밋한다.
+
+# ── 제출 산출물 ────────────────────────────────────────────
+# ZIP과 가중치는 제외하고 기록 문서(.md)와 빌드 코드(.py)는 남긴다.
+cowork/*/submit/**
+!cowork/*/submit/**/
+!cowork/*/submit/**/*.md
+!cowork/*/submit/**/*.py
+submit/**
+!submit/**/
+!submit/**/*.md
+!submit/**/*.py
+
+# ── 임시 / 폐기 예정 폴더 ──────────────────────────────────
+**/_tmp_export/
+**/_to_delete/
+**/smoke_outputs/
+**/seed_cache/
+output/
+
+# ── 모델 가중치 · 바이너리 아티팩트 ─────────────────────────
+*.zip
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.onnx
+*.ubj
+*.cbm
+*.npy
+*.npz
+*.db
+*.bin
+*.safetensors
+lgb_*.txt
+*.tmp
+
+# ── 대용량 데이터 파일 ─────────────────────────────────────
+*.parquet
+*.feather
+cowork/**/*.csv
+*.pdf
+
+# ── 로그 ──────────────────────────────────────────────────
+*.log
+
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+*.egg-info/
+
+# ── Node ──────────────────────────────────────────────────
+node_modules/
+
+# ── 에디터 / OS ───────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store

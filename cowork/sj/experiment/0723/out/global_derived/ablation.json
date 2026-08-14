@@ -1,0 +1,72 @@
+{
+  "count_only": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.616,
+    "pr_auc": 0.3693,
+    "logloss": 0.5781,
+    "brier": 0.1956,
+    "ece": 0.0062,
+    "n_feats": 8.0
+  },
+  "+situation": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.6115,
+    "pr_auc": 0.3771,
+    "logloss": 0.5818,
+    "brier": 0.1969,
+    "ece": 0.02,
+    "n_feats": 71.0
+  },
+  "+basic_hist": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.6136,
+    "pr_auc": 0.3772,
+    "logloss": 0.5817,
+    "brier": 0.1968,
+    "ece": 0.0213,
+    "n_feats": 119.0
+  },
+  "+ids": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.6182,
+    "pr_auc": 0.378,
+    "logloss": 0.5803,
+    "brier": 0.1965,
+    "ece": 0.023,
+    "n_feats": 121.0
+  },
+  "+pitcher_hist": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.6211,
+    "pr_auc": 0.3793,
+    "logloss": 0.5792,
+    "brier": 0.196,
+    "ece": 0.0198,
+    "n_feats": 193.0
+  },
+  "+arsenal": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.6208,
+    "pr_auc": 0.379,
+    "logloss": 0.5793,
+    "brier": 0.1962,
+    "ece": 0.0201,
+    "n_feats": 210.0
+  },
+  "+release_rep(full)": {
+    "n": 131798.0,
+    "base": 0.2824,
+    "roc_auc": 0.6198,
+    "pr_auc": 0.3786,
+    "logloss": 0.5796,
+    "brier": 0.1963,
+    "ece": 0.0202,
+    "n_feats": 220.0
+  }
+}

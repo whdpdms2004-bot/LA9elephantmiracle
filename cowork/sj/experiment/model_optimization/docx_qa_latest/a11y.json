@@ -1,0 +1,26 @@
+{
+  "file": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\LG_Aimers_인사이트_성능_요약_2p_20260812_v2.docx",
+  "counts": {
+    "high": 0,
+    "medium": 2,
+    "low": 0
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "kind": "table_no_header_row",
+      "message": "Table first row is not marked as header (w:tblHeader missing)",
+      "context": {
+        "part": "word/document.xml"
+      }
+    },
+    {
+      "severity": "medium",
+      "kind": "table_no_header_row",
+      "message": "Table first row is not marked as header (w:tblHeader missing)",
+      "context": {
+        "part": "word/document.xml"
+      }
+    }
+  ]
+}

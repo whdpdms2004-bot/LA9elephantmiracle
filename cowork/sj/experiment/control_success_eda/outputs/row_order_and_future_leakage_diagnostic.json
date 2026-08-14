@@ -1,0 +1,16 @@
+{
+  "row_seq_missing": 0,
+  "row_seq_unique": true,
+  "row_seq_monotonic_increasing": true,
+  "season_monotonic_by_row_seq": true,
+  "row_seq_season_rank_corr": 0.9859973347697613,
+  "asof_n_equals_dataset_pitcher_cumcount_pct": 100.0,
+  "within_pitcher_n_diff_eq_1_pct": 99.94630843364347,
+  "within_pitcher_n_diff_lt_0_n": 0,
+  "within_pitcher_n_diff_gt_1_n": 0,
+  "future_row_target_recovery_coverage_pct": 99.94630843364347,
+  "future_row_target_recovery_raw_tolerance_accuracy_pct": 34.760835650817334,
+  "future_row_target_recovery_after_rounding_accuracy_pct": 100.0,
+  "future_implied_target_max_rounding_error": 0.014615000000048894,
+  "warning": "The recovery statistic is a leakage diagnostic only. Test rows are independent and may not be used to construct features."
+}

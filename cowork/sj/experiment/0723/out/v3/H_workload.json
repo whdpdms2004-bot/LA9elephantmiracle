@@ -1,0 +1,163 @@
+{
+  "1_no_workload": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6301,
+    "pr_auc": 0.3873,
+    "logloss": 0.5751,
+    "brier": 0.1946,
+    "ece": 0.0097,
+    "n_feats": 299
+  },
+  "2_with_workload": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6314,
+    "pr_auc": 0.3874,
+    "logloss": 0.5743,
+    "brier": 0.1942,
+    "ece": 0.0058,
+    "n_feats": 311
+  },
+  "workload_importance_share": 0.0488,
+  "workload_importance": {
+    "p_workload_z": 51,
+    "p_game_pitch_avg_car": 30,
+    "p_game_pitch_sd_car": 28,
+    "p_workload_excess": 25,
+    "p_season_pitch_cum": 25,
+    "p_workload_ratio_l5": 21,
+    "p_prev_game_pitches": 16,
+    "p_workload_ratio": 16,
+    "p_game_pitch_avg_l5": 14,
+    "p_outing_index": 12,
+    "p_pitches_today": 1,
+    "p_over_usual": 0
+  },
+  "workload_rank": {
+    "p_workload_z": 15,
+    "p_game_pitch_avg_car": 51,
+    "p_game_pitch_sd_car": 55,
+    "p_workload_excess": 63,
+    "p_season_pitch_cum": 68,
+    "p_workload_ratio_l5": 90,
+    "p_prev_game_pitches": 124,
+    "p_workload_ratio": 126,
+    "p_game_pitch_avg_l5": 134,
+    "p_outing_index": 149,
+    "p_pitches_today": 263,
+    "p_over_usual": 380
+  },
+  "delta_workload": -0.0008,
+  "baselines": {
+    "league_mean": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5,
+      "pr_auc": 0.2829,
+      "logloss": 0.5957,
+      "brier": 0.2029,
+      "ece": 0.0016
+    },
+    "count_only": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6142,
+      "pr_auc": 0.3679,
+      "logloss": 0.579,
+      "brier": 0.196,
+      "ece": 0.0062
+    },
+    "pitcher_te": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5295,
+      "pr_auc": 0.3038,
+      "logloss": 0.5947,
+      "brier": 0.2025,
+      "ece": 0.0008
+    }
+  },
+  "eda_pitches_today": {
+    "(0, 15]": {
+      "csw": 0.2749,
+      "n": 53142
+    },
+    "(15, 30]": {
+      "csw": 0.2955,
+      "n": 52130
+    },
+    "(30, 45]": {
+      "csw": 0.2897,
+      "n": 51319
+    },
+    "(45, 60]": {
+      "csw": 0.2755,
+      "n": 50560
+    },
+    "(60, 75]": {
+      "csw": 0.2831,
+      "n": 49119
+    },
+    "(75, 90]": {
+      "csw": 0.268,
+      "n": 43634
+    },
+    "(90, 200]": {
+      "csw": 0.2653,
+      "n": 28733
+    }
+  },
+  "eda_ratio": {
+    "(0.0, 0.25]": {
+      "csw": 0.2819,
+      "n": 81933
+    },
+    "(0.25, 0.5]": {
+      "csw": 0.2912,
+      "n": 81807
+    },
+    "(0.5, 0.75]": {
+      "csw": 0.2791,
+      "n": 79577
+    },
+    "(0.75, 1.0]": {
+      "csw": 0.2711,
+      "n": 66424
+    },
+    "(1.0, 1.25]": {
+      "csw": 0.2594,
+      "n": 14693
+    },
+    "(1.25, 1.5]": {
+      "csw": 0.2105,
+      "n": 399
+    },
+    "(1.5, 10.0]": {
+      "csw": 0.1475,
+      "n": 183
+    }
+  },
+  "eda_z": {
+    "(-10, -1]": {
+      "csw": 0.2837,
+      "n": 253655
+    },
+    "(-1, 0]": {
+      "csw": 0.268,
+      "n": 33748
+    },
+    "(0, 1]": {
+      "csw": 0.2589,
+      "n": 13582
+    },
+    "(1, 2]": {
+      "csw": 0.2286,
+      "n": 1238
+    },
+    "(2, 10]": {
+      "csw": 0.268,
+      "n": 194
+    }
+  }
+}

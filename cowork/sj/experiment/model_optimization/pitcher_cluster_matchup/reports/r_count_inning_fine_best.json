@@ -1,0 +1,57 @@
+{
+  "middle_audit": [
+    {
+      "cutoff": 2022,
+      "pair_cells": 60,
+      "coverage_r": 0.7514007687568665,
+      "batter_audit": "[{\"hand\": 1, \"k\": 2, \"batters\": 188, \"min_cluster_size\": 64}, {\"hand\": 2, \"k\": 3, \"batters\": 250, \"min_cluster_size\": 48}]"
+    },
+    {
+      "cutoff": 2023,
+      "pair_cells": 60,
+      "coverage_r": 0.7895687222480774,
+      "batter_audit": "[{\"hand\": 1, \"k\": 2, \"batters\": 210, \"min_cluster_size\": 72}, {\"hand\": 2, \"k\": 3, \"batters\": 289, \"min_cluster_size\": 66}]"
+    },
+    {
+      "cutoff": 2024,
+      "pair_cells": 60,
+      "coverage_r": 0.7436072826385498,
+      "batter_audit": "[{\"hand\": 1, \"k\": 2, \"batters\": 234, \"min_cluster_size\": 81}, {\"hand\": 2, \"k\": 3, \"batters\": 312, \"min_cluster_size\": 89}]"
+    }
+  ],
+  "evaluated": 80,
+  "both_improve": 80,
+  "r_both_improve": 80,
+  "best": {
+    "variant": "inning4_hands",
+    "keys": "balls_before+strikes_before+inning4+pitcher_hand+batter_hand",
+    "smoothing": 1000.0,
+    "reference_mode": "honest",
+    "centered": false,
+    "middle_scale": 0.0,
+    "context_scale": 0.6,
+    "val2023_delta_brier": -8.384810106981364e-05,
+    "val2024_delta_brier": -2.3518219821679272e-05,
+    "val2023_r_delta_brier": -9.36449174858237e-05,
+    "val2024_r_delta_brier": -2.6676122508733654e-05,
+    "val2023_f_delta_brier": 0.0,
+    "val2024_f_delta_brier": 0.0,
+    "both_improve": true,
+    "r_both_improve": true,
+    "objective": -0.00021329540386806327,
+    "val2023_all_brier": 0.25006608680518505,
+    "val2023_all_bss": -26.43545382270407,
+    "val2023_r_brier": 0.24959960336585027,
+    "val2023_r_bss": 156.2754854538939,
+    "val2023_f_brier": 0.2540585828271385,
+    "val2023_f_bss": -1922.7675946004829,
+    "val2024_all_brier": 0.2477532175306377,
+    "val2024_all_bss": 822.1186068830599,
+    "val2024_r_brier": 0.24783659631988939,
+    "val2024_r_bss": 823.3303880223808,
+    "val2024_f_brier": 0.24713226087414383,
+    "val2024_f_bss": 487.0866572807553,
+    "coverage_val2023_r": 1.0,
+    "coverage_val2024_r": 1.0
+  }
+}

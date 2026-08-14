@@ -1,0 +1,43 @@
+{
+  "family": "catboost",
+  "study": "catboost_v2r200_tm500_robust",
+  "trial": 39,
+  "objective": 0.9959349904715055,
+  "params": {
+    "bootstrap_type": "Bayesian",
+    "iterations": 4371,
+    "learning_rate": 0.02311176948679736,
+    "depth": 8,
+    "l2_leaf_reg": 65.13914396264657,
+    "random_strength": 0.10365717132151266,
+    "border_count": 128,
+    "one_hot_max_size": 32,
+    "leaf_estimation_iterations": 3,
+    "bagging_temperature": 1.0436063563144558,
+    "half_life": 1.4406964295162474
+  },
+  "model_name": "cat_robust_t39_seedbag3",
+  "fold": 2023,
+  "train_through": 2022,
+  "feature_version": "V2R200_TM500_ALL",
+  "feature_count": 209,
+  "seeds": [
+    4088,
+    104088,
+    204088
+  ],
+  "best_iterations": [
+    1,
+    0,
+    1
+  ],
+  "elapsed_sec": 37.68205118179321,
+  "brier": 0.24998710901850868,
+  "normalized_brier": 0.9999484433892105,
+  "bss": 5.15566107894827,
+  "logloss": 0.6931214075061588,
+  "auc": 0.5193291983446849,
+  "target_mean": 0.49995723449750534,
+  "pred_mean": 0.500894856314445,
+  "mean_gap": 0.0009376218169396267
+}

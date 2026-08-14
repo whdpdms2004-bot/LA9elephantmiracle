@@ -1,0 +1,25 @@
+{
+  "cat_trial": 9,
+  "xgb_trial": 31,
+  "best": {
+    "xgb_weight": 0.42,
+    "cat_weight": 0.36,
+    "mean_fold_normalized_brier": 0.9984003003,
+    "std_fold_normalized_brier": 0.0018370768,
+    "robust_objective": 0.9988595695,
+    "pooled_brier": 0.2484949989,
+    "pooled_normalized_brier": 0.9983650487,
+    "pooled_bss": 163.4951250296,
+    "pooled_logloss": 0.6901276055,
+    "pooled_auc": 0.5236893448,
+    "pooled_target_mean": 0.4668630339,
+    "pooled_pred_mean": 0.4789572212,
+    "pooled_mean_gap": 0.0120941873
+  },
+  "cat_iterations": {
+    "5": 81,
+    "6": 55,
+    "7": 116,
+    "8": 454
+  }
+}

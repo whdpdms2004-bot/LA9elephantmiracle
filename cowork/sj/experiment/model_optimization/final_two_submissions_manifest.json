@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-08-07T00:06:32.164057+09:00",
+  "selection": "experiment\\model_optimization\\enhanced_ensemble_selection.json",
+  "records": [
+    {
+      "track": "performance",
+      "number": 5,
+      "filename_length": 14,
+      "model_count": 2,
+      "artifact_count": 6,
+      "inference_sec": 13.196478843688965,
+      "path": "submit\\2026-08-06\\submit_005.zip",
+      "size_bytes": 108053994,
+      "sha256": "91EC4BEDE53F9245448E56976F4D5B739C0FC128225F90C32B4012B6793776C1"
+    },
+    {
+      "track": "robust",
+      "number": 6,
+      "filename_length": 14,
+      "model_count": 2,
+      "artifact_count": 6,
+      "inference_sec": 12.821283340454102,
+      "path": "submit\\2026-08-06\\submit_006.zip",
+      "size_bytes": 108054666,
+      "sha256": "5D9F84B902C1889B3B21BA7635A6C14F4750854C67735BA1FF9D9C44EC78C078"
+    }
+  ]
+}

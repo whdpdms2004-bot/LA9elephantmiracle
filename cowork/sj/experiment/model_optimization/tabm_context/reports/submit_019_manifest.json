@@ -1,0 +1,59 @@
+{
+  "filename": "submit_019.zip",
+  "filename_length": 14,
+  "size_bytes": 114874559,
+  "sha256": "5747E2B1952645604D582F3B9DDF16C00F28591B9AE8CEBDDD22CE9CA5642FE7",
+  "requirements": [
+    "xgboost==3.1.1",
+    "catboost==1.2.8",
+    "tabm==0.0.3",
+    "rtdl-num-embeddings==0.0.12"
+  ],
+  "rows": 245789,
+  "r_rows": 122895,
+  "f_rows": 122894,
+  "inference_seconds_new": 18.481319904327393,
+  "inference_seconds_base017": 15.048789024353027,
+  "r_max_abs_diff_vs_017": 0.0,
+  "f_mean_abs_diff_vs_017": 0.01299006171697982,
+  "prediction_min": 0.394987659245322,
+  "prediction_max": 0.490764843713091,
+  "prediction_mean": 0.45163149827164545,
+  "stderr_tail": "onsider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[f\"pitcher_n_{operator}_{threshold}\"] = getattr(pitcher_n, operator)(\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:73: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[f\"batter_n_{operator}_{threshold}\"] = getattr(batter_n, operator)(\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:90: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_recent_success_mean\"] = success_recent.mean(axis=1).astype(\"float32\")\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:91: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_recent_success_std\"] = success_recent.std(axis=1).astype(\"float32\")\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:92: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_recent_success_range\"] = (\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:95: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_recent_middle_mean\"] = middle_recent.mean(axis=1).astype(\"float32\")\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:96: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_recent_middle_std\"] = middle_recent.std(axis=1).astype(\"float32\")\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:97: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_recent_middle_range\"] = (\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:100: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_failure_rate_sum\"] = (\nC:\\Users\\isj67\\AppData\\Local\\Temp\\lgaimers_tabm_submit_3mebk4az\\script.py:106: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`\n  output[\"pitcher_control_component_gap\"] = (\n",
+  "created_at": "2026-08-13T07:51:52.620810+09:00",
+  "base": "submit\\2026-08-12\\submit_017.zip",
+  "training": {
+    "rows": 55696,
+    "seasons": [
+      2023,
+      2024
+    ],
+    "game_type": "F",
+    "target_mean": 0.4655630588531494,
+    "epochs": 6,
+    "seed": 20260813,
+    "loss": "brier",
+    "lr": 0.0015,
+    "batch_size": 256,
+    "epoch_losses": [
+      0.248702738878377,
+      0.2482858990583945,
+      0.24762334086752813,
+      0.24728668002633875,
+      0.24685922996440066,
+      0.24662335025607993
+    ],
+    "elapsed_seconds": 4.495871067047119
+  },
+  "validation": {
+    "selection_2023_sequential_bss_before": 128.24199225889288,
+    "selection_2023_sequential_bss_after": 145.6557396107616,
+    "selected_tabm_weight": 0.3,
+    "val2024_f_bss_before": 507.6399908947926,
+    "val2024_f_bss_after": 540.5434893668071,
+    "val2024_delta_f_bss": 32.90349847201446,
+    "val2024_used_for_weight_selection": false,
+    "submit017_exact_internal_bss": 833.3417,
+    "projected_internal_bss": 837.2139522553058
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "feature_order": [
+    "match_pair_delta",
+    "match_pair_delta_reliability",
+    "match_pair_delta_rate",
+    "match_pair_known"
+  ],
+  "imputer_statistics": [
+    0.0,
+    0.7753676772117615,
+    0.5140410661697388,
+    1.0
+  ],
+  "scaler_mean": [
+    -0.0006991061280928331,
+    0.5836133585623495,
+    0.5157827077108788,
+    0.7277944987712371
+  ],
+  "scaler_scale": [
+    0.014256883297707692,
+    0.3841915523938373,
+    0.022199939820661794,
+    0.44509512054117245
+  ],
+  "ridge_coef": [
+    0.008607115596532822,
+    0.00989360362291336,
+    -0.003357311012223363,
+    -0.010630086064338684
+  ],
+  "ridge_alpha": 10.0,
+  "correction_clip": [
+    -0.05,
+    0.05
+  ],
+  "train_season": 2024,
+  "rows": 253507,
+  "base_model": "anchor_plus_0.90_times_large_minus_anchor",
+  "train_residual_mean": -0.005980621858733371,
+  "train_correction_mean": 1.0721486198850272e-10,
+  "train_correction_std": 0.006288026925176382,
+  "manual_max_abs_diff": 2.15996124632023e-09
+}
