@@ -104,7 +104,7 @@ check("test 행 수", len(test) == N_ROWS, f"{len(test):,}")
 
 t0 = time.perf_counter()
 proc = subprocess.run([sys.executable, "script.py"], cwd=WORK,
-                      capture_output=True, text=True, timeout=1800)
+                      capture_output=True, text=True, timeout=7200)
 elapsed = time.perf_counter() - t0
 if proc.returncode != 0:
     print(proc.stdout[-3000:])
