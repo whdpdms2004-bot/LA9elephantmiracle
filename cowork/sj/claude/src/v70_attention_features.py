@@ -267,15 +267,17 @@ def train_extract(fit_mask, out_mask, bias):
 
 
 def comp_bias(fit_mask):
+    """성분별 다음 시즌 외삽. 학습 시즌이 하나면 외삽할 기울기가 없으므로
+    마지막 값을 그대로 쓴다 (순방향 내부 분할의 첫 단계가 그 경우다)."""
     out = []
     for t in COMPONENTS:
         a = LAB[t]
         m_ = fit_mask & ~np.isnan(a)
         s = pd.Series(a[m_]).groupby(pd.Series(season[m_])).mean().sort_index()
         last = float(s.iloc[-1])
-        r = float(np.clip(last + (last - float(s.iloc[0]))
-                          / (float(s.index[-1]) - float(s.index[0])), 0.005, 0.995))
-        out.append(np.log(r / (1 - r)))
+        span = float(s.index[-1]) - float(s.index[0])
+        r = last if span <= 0 else last + (last - float(s.iloc[0])) / span
+        out.append(np.log(np.clip(r, 0.005, 0.995) / (1 - np.clip(r, 0.005, 0.995))))
     return np.array(out)
 
 
