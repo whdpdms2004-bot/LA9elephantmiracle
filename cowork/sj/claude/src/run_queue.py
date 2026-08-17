@@ -7,12 +7,11 @@
     CatBoost GPU 학습이 메모리를 크게 잡는 것을 계산에 넣지 않은 것이 원인이다.
     규칙: GPU 작업은 한 번에 하나. 이 스크립트가 그것을 강제한다.
 
-순서 (사용자 지정)
-    V66  TrackMan 물리 요약을 성분 모델에      5 arm x 2 fold   ~50분
-    V69  attention 멤버 (FT-Transformer)      3시드 x 2 fold   ~20분 (미측정)
-    V70  attention 피처 (cross-attention)     att 9회 + GBDT 6회 ~40분 (미측정)
-    V71  2차 확장 (제곱/곱/차비)               5 arm x 2 fold   ~47분
-    V72  학습 방식 스윕 (재개)                 40 arm           ~6.2시간
+순서 (재수행 라운드)
+    V75  season 을 피처로 쓰는가              4 arm x 2 fold   ~40분
+         감사 V74 §1-C 가 남긴 미검증 항목. 검증 시즌 값이 학습 범위 밖이다.
+    V70  attention 피처 (cross-attention)     att 9회 + GBDT 6회 ~40분
+         ZeroDivisionError 로 한 번도 안 돌았다. 분모 가드 추가 후 재수행.
 
 각 단계는 실패해도 다음으로 넘어간다. 로그는 outputs/queue_<이름>.log 에 남는다.
 """
@@ -27,11 +26,9 @@ LOGDIR.mkdir(exist_ok=True)
 PY = sys.executable
 
 JOBS = [
-    ("v66_trackman", ["v66_trackman_components.py"]),
-    ("v69_attention_member", ["v69_attention_member.py"]),
-    ("v70_attention_features", ["v70_attention_features.py"]),
-    ("v71_second_order", ["v71_second_order.py"]),
-    ("v72_learning_sweep", ["v72_learning_sweep.py"]),
+    # 잘못 수행했던 실험 재수행 + 감사가 남긴 미검증 항목
+    ("v75_season_feature", ["v75_season_feature.py"]),      # 감사 V74 §1-C
+    ("v70_attention_features", ["v70_attention_features.py"]),  # 버그로 미수행
 ]
 
 t0 = time.time()
