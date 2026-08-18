@@ -1,0 +1,32 @@
+[
+ {
+  "cutoff": 2023,
+  "pitcher_seasons": 1121,
+  "features": 144,
+  "svd_dim": 16,
+  "explained": 0.9458764454991199,
+  "min_pitches": 300,
+  "eb": 200.0,
+  "sec": 2.3
+ },
+ {
+  "cutoff": 2024,
+  "pitcher_seasons": 1445,
+  "features": 144,
+  "svd_dim": 16,
+  "explained": 0.9441821460889627,
+  "min_pitches": 300,
+  "eb": 200.0,
+  "sec": 2.8
+ },
+ {
+  "cutoff": 2025,
+  "pitcher_seasons": 1777,
+  "features": 144,
+  "svd_dim": 16,
+  "explained": 0.9423102193830383,
+  "min_pitches": 300,
+  "eb": 200.0,
+  "sec": 3.0
+ }
+]

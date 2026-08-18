@@ -1,0 +1,75 @@
+{
+  "fold": 2022,
+  "best_epoch": 2,
+  "overall": {
+    "n": 20000,
+    "target_mean": 0.50285,
+    "prediction_mean": 0.5063259869590402,
+    "brier": 0.24895892288779342,
+    "null_brier": 0.2499918775,
+    "bss": 413.1952695969332
+  },
+  "by_game_type": {
+    "R": {
+      "n": 20000,
+      "target_mean": 0.50285,
+      "prediction_mean": 0.5063259869590402,
+      "brier": 0.24895892288779342,
+      "null_brier": 0.2499918775,
+      "bss": 413.1952695969332
+    }
+  },
+  "preprocessing_seconds": 0.5547749996185303,
+  "training_seconds": 0.45888185501098633,
+  "train_rows": 50000,
+  "valid_rows": 20000,
+  "train_seasons": [
+    2019,
+    2020,
+    2021
+  ],
+  "n_num_features_after_preprocess": 129,
+  "n_cat_features": 10,
+  "cat_cardinalities": [
+    3,
+    2,
+    9,
+    9,
+    8,
+    5,
+    4,
+    4,
+    3,
+    3
+  ],
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.5787817060947418,
+      "steps": 20,
+      "lr": 0.002,
+      "member_probability_std": 0.015470291137695312,
+      "seconds": 0.3233683109283447,
+      "n": 20000,
+      "target_mean": 0.50285,
+      "prediction_mean": 0.5152506679624319,
+      "brier": 0.24934799376822406,
+      "null_brier": 0.2499918775,
+      "bss": 257.56186089522794
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5798624396324158,
+      "steps": 20,
+      "lr": 0.002,
+      "member_probability_std": 0.010717680168151856,
+      "seconds": 0.09951281547546387,
+      "n": 20000,
+      "target_mean": 0.50285,
+      "prediction_mean": 0.5063259869590402,
+      "brier": 0.24895892288779342,
+      "null_brier": 0.2499918775,
+      "bss": 413.1952695969332
+    }
+  ]
+}

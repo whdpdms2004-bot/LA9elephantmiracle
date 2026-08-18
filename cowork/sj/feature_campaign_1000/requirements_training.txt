@@ -1,0 +1,8 @@
+catboost==1.2.8
+numpy==1.26.4
+optuna==4.6.0
+pandas==2.2.2
+pyarrow==23.0.1
+scikit-learn==1.5.1
+scipy==1.13.1
+xgboost==3.1.1
