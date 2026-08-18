@@ -23,9 +23,16 @@ sys.path.insert(0, str(HERE))
 from evaluate_bucketed_residual import EPS, load, logit, sigmoid
 from harness import TARGET, metrics
 
+import os
 ARM, FOLDS, DAMP, K = "F1", (2022, 2023, 2024), 1.00, 50_000
-PRED = (HERE / "outputs" / "single_xgb" /
-        "confirm_xgboost_v2r200_tm500_robust_cuda_efull_s20260818_{a}_{f}.npy")
+FAMILY = os.environ.get("FAMILY", "xgboost")
+WIN = os.environ.get("WIN", "")
+WINDOW = None if WIN in ("", "all") else int(WIN)
+DAMP2 = float(os.environ.get("DAMP", "1.0"))
+PRED = ((HERE / "outputs" / "single_xgb" /
+         "confirm_xgboost_v2r200_tm500_robust_cuda_efull_s20260818_{a}_{f}.npy")
+        if FAMILY == "xgboost" else
+        (HERE / "outputs" / "single_catboost" / "{a}_{f}.npy"))
 
 df = load()
 season = df["season"].to_numpy()
@@ -44,11 +51,13 @@ AX = {
 
 def off(rates, fold):
     s = rates[(rates.index < fold) & (rates > 0.001) & (rates < 0.999)]
+    if WINDOW is not None:
+        s = s.iloc[-WINDOW:]
     if len(s) < 2:
         return None
     z = np.log(s.to_numpy() / (1 - s.to_numpy()))
     a, b = np.polyfit(s.index.to_numpy(float), z, 1)
-    return float(DAMP * ((a * fold + b) - z[-1]))
+    return float(DAMP2 * ((a * fold + b) - z[-1]))
 
 
 P, Y, C, GB = {}, {}, {}, {}
@@ -81,6 +90,7 @@ def score(build):
     return row, min(row)
 
 
+print(f"[{FAMILY}]  window={WIN or 'all'}  damping={DAMP2}")
 print(f"전역 offset  " + "  ".join(f"{f}={GB[f]:.2f}" for f in FOLDS) + f"   최악 {gw:.2f}")
 print(f"{chr(10)}{'='*96}")
 print(f"가산 조합  (K={K:,}, 각 축의 편차를 축소해 더한다)")
@@ -121,7 +131,7 @@ for combo in [("count", "li"), ("count", "outs"), ("count", "li", "outs")]:
     res.append({"kind": "cross", "combo": " x ".join(combo), "worst": w,
                 "vs_global": w - gw, **{str(f): row[i] for i, f in enumerate(FOLDS)}})
 
-pd.DataFrame(res).to_csv(HERE / "outputs" / "combined" / "v83_offset_combo.csv", index=False)
+pd.DataFrame(res).to_csv(HERE / "outputs" / "combined" / f"v83_offset_combo_{FAMILY}_{WIN or 'all'}_d{int(DAMP2*100):03d}.csv", index=False)
 b = max(res, key=lambda r: r["vs_global"])
 print(f"{chr(10)}  최고: {b['combo']} ({b['kind']})   최악 fold {b['worst']:.2f}  "
       f"전역대비 {b['vs_global']:+.2f}")
