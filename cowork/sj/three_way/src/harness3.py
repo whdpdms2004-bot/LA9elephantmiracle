@@ -94,12 +94,14 @@ def bss(y, p, eps: float = 1e-7) -> dict:
     ybar = float(y.mean())
     null = ybar * (1 - ybar)
     brier = float(np.mean((p - y) ** 2))
-    pc = np.clip(p - (float(p.mean()) - ybar), eps, 1 - eps)
+    # centering 은 guards.centered_bss 안에서만 일어나고 float 만 돌아온다.
+    # 이동된 배열이 밖으로 나가지 못하게 하는 것이 요점이다 (RULES 조항 2).
+    from guards import centered_bss
     return {
         "n": int(len(y)), "target_mean": ybar, "pred_mean": float(p.mean()),
         "offset": float(p.mean()) - ybar, "null": null, "brier": brier,
         "bss_raw": 100000.0 * (1 - brier / null),
-        "bss_centered": 100000.0 * (1 - float(np.mean((pc - y) ** 2)) / null),
+        "bss_centered": centered_bss(y, p, null),
         "bss_norm": 1000.0 * (1 - brier / null),
     }
 

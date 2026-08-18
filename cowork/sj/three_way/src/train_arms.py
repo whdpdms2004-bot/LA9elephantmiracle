@@ -32,6 +32,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from guards import (assert_features_clean,
+                    save_prediction, train_season_trend)
 from harness3 import (CAMPAIGN, DECISION_FOLD, LAB, OUT, SUCCESS, TARGETS, bss,
                       load_labeled, seed_noise)
 
@@ -43,8 +45,50 @@ BEST_COMBO = {
     "outside": "drop_ids+no_trackman+rate_multiscale",
     "mr": "id_frequency+no_trackman+temporal_cyclic",
 }
-ARMS = ["base", "fw020", "short05", "treeparam", "interact",
-        "fw020+short05", "all"]
+# 학습 방식 arm 레지스트리. 1WAY 이식분 + CatBoost 로 할 수 있는 것 전부.
+# 시드 배깅은 제외 (보류 중). 단일 시드로 비교한다.
+ARM_SPECS = {
+    "base":        {},
+    # --- 1WAY 이식 ---
+    "fw020":       {"w_f": 0.20},
+    "short05":     {"w_short": 0.50},
+    "treeparam":   {"treeparam": True},
+    "interact":    {"interact": True},
+    "fw020+short05": {"w_f": 0.20, "w_short": 0.50},
+    # --- 불균형 처리 (middle 0.144 / outside 0.13 에 특히) ---
+    "balanced":    {"p": {"auto_class_weights": "Balanced"}},
+    "sqrtbal":     {"p": {"auto_class_weights": "SqrtBalanced"}},
+    "spw2":        {"p": {"scale_pos_weight": 2.0}},
+    # --- 트리 구조 ---
+    "depthwise":   {"p": {"grow_policy": "Depthwise"}},
+    "lossguide":   {"p": {"grow_policy": "Lossguide", "max_leaves": 64}},
+    "deep10":      {"p": {"depth": 10}},
+    "shallow6":    {"p": {"depth": 6}},
+    "border512":   {"p": {"border_count": 512}},
+    # --- 정규화 ---
+    "l2_20":       {"p": {"l2_leaf_reg": 20.0}},
+    "l2_1":        {"p": {"l2_leaf_reg": 1.0}},
+    "rsm07":       {"p": {"rsm": 0.7}},
+    # --- 부트스트랩 ---
+    "bernoulli":   {"p": {"bootstrap_type": "Bernoulli", "subsample": 0.8}},
+    "bayesian":    {"p": {"bootstrap_type": "Bayesian", "bagging_temperature": 1.0}},
+    # --- 손실 ---
+    "crossent":    {"p": {"loss_function": "CrossEntropy"}},
+    # --- 최근성 가중 ---
+    "hl_short":    {"half_life": 1.0},
+    "hl_long":     {"half_life": 8.0},
+    "no_recency":  {"half_life": 1e9},
+    # --- 학습량 ---
+    "lr005_it2000": {"p": {"learning_rate": 0.005, "iterations": 2000}},
+    "lr03_it400":   {"p": {"learning_rate": 0.03, "iterations": 400}},
+}
+ARMS = list(ARM_SPECS)
+
+
+# 행 간 .shift()/groupby 로 만든다 -> 피처가 되면 조항 1 위반. 관문에 등록한다.
+from guards import mark_train_only
+mark_train_only("short_outing_mask",
+                "등판 구간을 .shift()/groupby 로 잡는다. 학습 가중치 전용")
 
 
 def short_outing_mask(frame: pd.DataFrame) -> np.ndarray:
@@ -172,38 +216,56 @@ def main() -> None:
         b0 = None
         for arm in [a.strip() for a in args.arms.split(",") if a.strip()]:
             npy = OUT / f"tr_{target}__{arm}__{args.fold}.npy"
-            parts = set(arm.split("+")) if arm != "all" else {
-                "fw020", "short05", "treeparam", "interact"}
+            spec = ARM_SPECS.get(arm)
+            if spec is None:
+                print(f"  {arm:<16}  모르는 arm — 건너뜀"); continue
             if npy.exists():
                 m, src, nf, ntr = bss(y_va, np.load(npy)), "cache", -1, -1
             else:
-                w = recency_weights(frame.loc[tr_mask, "season"], args.fold, half_life)
-                w = np.asarray(w, np.float64).copy()
-                if "fw020" in parts:
-                    w[is_f[tr_mask]] *= 0.20
-                if "short05" in parts:
-                    w[short[tr_mask]] *= 0.50
+                hl = float(spec.get("half_life", half_life))
+                w = np.asarray(recency_weights(
+                    frame.loc[tr_mask, "season"], args.fold, hl), np.float64).copy()
+                if "w_f" in spec:
+                    w[is_f[tr_mask]] *= spec["w_f"]
+                if "w_short" in spec:
+                    w[short[tr_mask]] *= spec["w_short"]
                 params = dict(P0)
-                if "treeparam" in parts:
+                if spec.get("treeparam"):
                     params.update(tree_params_for(league_tr))
-                fr = M.add_columns(pre_fr, ix) if "interact" in parts else pre_fr
+                params.update(spec.get("p", {}))
+                # grow_policy 별 배타 인자 정리
+                if params.get("grow_policy") == "Lossguide":
+                    params.pop("depth", None)
+                elif "max_leaves" in params:
+                    params.pop("max_leaves", None)
+                if params.get("bootstrap_type") == "Bayesian":
+                    params.pop("subsample", None)
+                if params.get("loss_function") == "CrossEntropy":
+                    params.pop("auto_class_weights", None)
+                fr = M.add_columns(pre_fr, ix) if spec.get("interact") else pre_fr
                 feats = (list(dict.fromkeys(pre_feats + list(ix)))
-                         if "interact" in parts else pre_feats)
+                         if spec.get("interact") else pre_feats)
                 nf, ntr = len(feats), int(tr_mask.sum())
                 if args.dry:
                     print(f"  {arm:<16}{nf:>6}{ntr:>10,}{'':>10}{'':>9}{'':>10}  dry",
                           flush=True)
                     continue
                 t0 = time.time()
+                assert_features_clean(feats, target)
                 p_tr = Pool(fr.loc[tr_mask, feats], yv[tr_mask].astype("int8"),
                             cat_features=pre_cats, weight=w,
                             baseline=np.full(ntr, bl))
                 p_va = Pool(fr.loc[va_mask, feats], y_va, cat_features=pre_cats,
                             baseline=np.full(int(va_mask.sum()), bl))
-                mdl = CatBoostClassifier(**params)
-                mdl.fit(p_tr, eval_set=p_va, use_best_model=True)
+                try:
+                    mdl = CatBoostClassifier(**params)
+                    mdl.fit(p_tr, eval_set=p_va, use_best_model=True)
+                except Exception as exc:                       # noqa: BLE001
+                    print(f"  {arm:<16}  실패: {type(exc).__name__}: "
+                          f"{str(exc)[:70]}", flush=True)
+                    del p_tr, p_va; gc.collect(); continue
                 pred = mdl.predict_proba(p_va)[:, 1]
-                np.save(npy, pred)
+                save_prediction(npy, pred, y_va, where=f"{target}")
                 m, src = bss(y_va, pred), f"fit {time.time() - t0:.0f}s"
                 del fr, p_tr, p_va, mdl
                 gc.collect()

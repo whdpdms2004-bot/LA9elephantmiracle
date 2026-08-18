@@ -32,6 +32,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from guards import (assert_features_clean,
+                    save_prediction, train_season_trend)
 from harness3 import (AUX_FOLD, CAMPAIGN, DECISION_FOLD, LAB, OUT, SUCCESS,
                       TARGETS, bss, load_labeled, seed_noise, verdict)
 
@@ -150,6 +152,7 @@ def main() -> None:
                 return scored[key]
             t0 = time.time()
             _b = np.log(_prior / (1 - _prior))
+            assert_features_clean(feats, target)
             pool_tr = Pool(fr.loc[tr_mask, feats], yv[tr_mask].astype("int8"),
                            cat_features=cats, weight=weights,
                            baseline=np.full(int(tr_mask.sum()), _b, np.float64))
@@ -158,7 +161,7 @@ def main() -> None:
             model = CatBoostClassifier(**params)
             model.fit(pool_tr, eval_set=pool_va, use_best_model=True)
             pred = model.predict_proba(pool_va)[:, 1]
-            np.save(npy, pred)
+            save_prediction(npy, pred, y_va, where=f"{target}")
             m = bss(y_va, pred)
             scored[key] = {"target": target, "combo": tag, "n_atoms": len(key),
                            "n_features": len(feats),

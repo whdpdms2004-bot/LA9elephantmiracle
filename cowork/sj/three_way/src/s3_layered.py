@@ -48,6 +48,8 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from guards import (assert_features_clean,
+                    save_prediction, train_season_trend)
 from harness3 import DECISION_FOLD, LAB, OUT, SUCCESS, TARGETS, bss, load_labeled, seed_noise
 
 SEED = 20262844
@@ -205,13 +207,14 @@ def main() -> None:
                 return {"bss_centered": np.nan, "bss_norm": np.nan,
                         "offset": np.nan}, "dry", len(feats)
             t0 = time.time()
+            assert_features_clean(feats, target)
             p_tr = Pool(fr.loc[tr_mask, feats], yv[tr_mask].astype("int8"),
                         cat_features=pre_cats, weight=weights)
             p_va = Pool(fr.loc[va_mask, feats], y_va, cat_features=pre_cats)
             m = CatBoostClassifier(**params)
             m.fit(p_tr, eval_set=p_va, use_best_model=True)
             pred = m.predict_proba(p_va)[:, 1]
-            np.save(npy, pred)
+            save_prediction(npy, pred, y_va, where=f"{target}")
             r = bss(y_va, pred)
             del fr, p_tr, p_va, m
             gc.collect()
