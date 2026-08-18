@@ -7,7 +7,7 @@
     # 2) 검증 + fold 2024 스크리닝
     python v76_feature_intake.py --spec myfeat.py --screen
 
-    # 3) 검증 + 두 fold 확인 (채택 판정)
+    # 3) 검증 + 확인 (fold 2024 결정 + 2023 보조, 채택 판정)
     python v76_feature_intake.py --spec myfeat.py --confirm
 
 피처 정의 파일 규약 (--spec 이 가리키는 .py)
@@ -75,7 +75,8 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--spec", required=True, help="피처 정의 .py 경로")
 ap.add_argument("--gate-only", action="store_true")
 ap.add_argument("--screen", action="store_true", help="fold 2024 스크리닝")
-ap.add_argument("--confirm", action="store_true", help="두 fold 확인")
+ap.add_argument("--confirm", action="store_true",
+                help="확인 — fold 2024 결정 + 2023 보조 (2022 는 쓰지 않는다)")
 args = ap.parse_args()
 
 spec_path = Path(args.spec)
@@ -277,7 +278,9 @@ def line(X, fold, seeds, use_cat):
 folds = [2023, 2024] if args.confirm else [2024]
 seeds = SEEDS_FULL if args.confirm else SEEDS_FAST
 use_cat = bool(args.confirm)
-mode = "두 fold 확인 (전체 구성)" if args.confirm else "fold 2024 스크리닝 (XGB 3시드)"
+mode = ("확인 — fold 2024 결정 + 2023 보조 (전체 구성)" if args.confirm
+        else "fold 2024 스크리닝 (XGB 3시드)")
+# fold 2022 는 쓰지 않는다 — 2022->2024 순위상관이 두 계열 모두 음수 (V84, §3-0)
 print(f"{chr(10)}{mode}", flush=True)
 
 t0, rows = time.time(), []
@@ -286,43 +289,80 @@ for fold in folds:
     va = season == fold
     y, b = y_all[va], base_pred(fold)
     null = y.mean() * (1 - y.mean())
-    ref = metrics(y, b)["bss_raw"]
+    mb = metrics(y, b)
+    ref, ref_c = mb["bss_raw"], mb["bss_centered"]
     wv = BW[bucket_all[va]]
-    print(f"{chr(10)}fold {fold}   base {ref:9.2f}")
-    print(f"  {'arm':<12}{'피처':>6}{'단독':>10}{'corr':>8}{'ΔBSS':>9}{'t_row':>8}")
+    print(f"{chr(10)}fold {fold}   base {ref:9.2f}   centered {ref_c:9.2f}"
+          f"   오프셋 {mb['offset']:+.4f}"
+          f"{'   <- 오프셋 교란. centered 로 판단한다' if abs(mb['offset']) > 0.01 else ''}")
+    print(f"  {'arm':<12}{'피처':>6}{'단독':>10}{'corr':>8}{'ΔBSS':>9}"
+          f"{'Δcentered':>11}{'오프셋':>9}{'t_row':>8}")
     for arm, wn in [("기준선", False), ("신규피처", True)]:
         F = build_features(fold, wn)
         p_ie = line(F.to_numpy(np.float32), fold, seeds, use_cat)
         solo = metrics(y, p_ie)["bss_raw"]
         corr = float(np.corrcoef(lgf(b), lgf(p_ie))[0, 1])
         q = np.clip(wv * p_ie + (1 - wv) * b, EPS, 1 - EPS)
-        d = metrics(y, q)["bss_raw"] - ref
+        mq = metrics(y, q)
+        d = mq["bss_raw"] - ref
+        # 평균 정렬로 번 것과 신호로 번 것을 분리한다 (§3-1). fold 2023 은 이쪽을 본다.
+        dc_ = mq["bss_centered"] - ref_c
         dr = (b - y) ** 2 - (q - y) ** 2
         se = 100000 * float(dr.std(ddof=1) / np.sqrt(len(dr))) / null
         rows.append({"fold": fold, "arm": arm, "n_features": F.shape[1],
-                     "solo_bss": solo, "corr": corr, "dbss": d, "t_row": d / se})
+                     "solo_bss": solo, "corr": corr, "dbss": d,
+                     "dbss_centered": dc_, "offset": mq["offset"], "t_row": d / se})
         print(f"  {arm:<12}{F.shape[1]:>6}{solo:>10.2f}{corr:>8.4f}{d:>+9.2f}"
-              f"{d/se:>8.2f}   [{time.time()-t0:.0f}s]", flush=True)
+              f"{dc_:>+11.2f}{mq['offset']:>+9.4f}{d/se:>8.2f}"
+              f"   [{time.time()-t0:.0f}s]", flush=True)
 
 res = pd.DataFrame(rows)
 out = OUT / f"v76_intake_{spec_path.stem}.csv"
 res.to_csv(out, index=False)
 
-print(f"{chr(10)}{'='*84}{chr(10)}판정 (계획서 §3){chr(10)}{'='*84}")
-print(f"  {'fold':>6}{'단독 Δ':>10}{'상관 Δ':>10}{'ΔBSS Δ':>10}   판정")
-allpass = True
+print(f"{chr(10)}{'='*84}{chr(10)}판정 (계획서 §3, 2026-08-18 개정){chr(10)}{'='*84}")
+print(f"  {'fold':>6}{'가중':>5}{'단독 Δ':>10}{'상관 Δ':>10}{'ΔBSS Δ':>10}"
+      f"{'Δcentered':>12}   판정")
+WEIGHT = {2023: 1.0, 2024: 2.0}          # §3-0. 2024 가 결정 fold
+D = {}
 for fold in folds:
     a = res[(res.fold == fold) & (res.arm == "기준선")].iloc[0]
     c = res[(res.fold == fold) & (res.arm == "신규피처")].iloc[0]
-    ds, dc, dd = c.solo_bss - a.solo_bss, c.corr - a.corr, c.dbss - a.dbss
-    good = (ds > 0) and (dc < 0) and (dd > 0)
-    allpass &= good
-    print(f"  {fold:>6}{ds:>+10.2f}{dc:>+10.4f}{dd:>+10.2f}   "
-          f"{'통과' if good else '미달'}")
-print(f"{chr(10)}  채택 조건: 두 fold 모두 단독↑ / 상관↓ / ΔBSS↑")
-print(f"  결과: {'채택 대상' if allpass and args.confirm else ''}"
-      f"{'방향 확인용 (두 fold 필요)' if not args.confirm else ''}"
-      f"{'' if allpass else '  — 조건 미충족'}")
-print(f"{chr(10)}  주의: 내부 델타는 Public 델타를 예측하지 못한다(계획서 §3).")
-print(f"        제출 후보를 하나로 좁히지 말고 여러 개를 내서 확인한다.")
+    # 주의: Series 의 .corr 은 메서드다. 반드시 대괄호로 접근한다.
+    ds = c["solo_bss"] - a["solo_bss"]
+    dcorr = c["corr"] - a["corr"]
+    dd = c["dbss"] - a["dbss"]
+    ddc = c["dbss_centered"] - a["dbss_centered"]
+    # fold 2023 은 오프셋 교란이 있으므로 centered 로 본다 (§3-0)
+    key = ddc if fold == 2023 else dd
+    D[fold] = (ds, dcorr, dd, ddc, key)
+    ok3 = (ds > 0) and (dcorr < 0) and (key > 0)
+    print(f"  {fold:>6}{WEIGHT[fold]:>5.0f}{ds:>+10.2f}{dcorr:>+10.4f}{dd:>+10.2f}"
+          f"{ddc:>+12.2f}   {'통과' if ok3 else '미달'}")
+
+print(f"{chr(10)}  §3-1 채택 조건")
+if 2024 in D:
+    ds, dcorr, dd, ddc, _ = D[2024]
+    dec = (ds > 0) and (dcorr < 0) and (dd > 0)
+    print(f"    fold 2024 (결정)  단독 {'↑' if ds > 0 else '↓'}  "
+          f"상관 {'↓' if dcorr < 0 else '↑'}  ΔBSS {'↑' if dd > 0 else '↓'}"
+          f"   -> {'통과' if dec else '기각'}")
+    if not dec:
+        print(f"    ** fold 2024 가 조건을 못 채우면 2023 이 아무리 좋아도 기각한다 **")
+    if 2023 in D:
+        aux = D[2023][4]
+        print(f"    fold 2023 (보조)  Δcentered {aux:+.2f}"
+              f"   -> {'반대 방향 아님' if aux > -1.0 else '반대 방향 — 재검토'}")
+    w = sum(WEIGHT[f] * D[f][4] for f in D) / sum(WEIGHT[f] for f in D)
+    print(f"{chr(10)}    가중 점수 (1x2023 + 2x2024)/3 = {w:+.2f}")
+    verdict = ("채택 대상" if dec and args.confirm and
+               (2023 not in D or D[2023][4] > -1.0)
+               else ("방향 확인용 — 두 fold 확인 필요" if not args.confirm else "기각"))
+    print(f"    결과: {verdict}")
+
+print(f"{chr(10)}  주의 (§3-4)")
+print(f"    내부 델타는 Public 델타를 예측하지 못한다. 제출 후보를 하나로 좁히지 말 것.")
+print(f"    내부 +3 미만은 제출본 교체 근거로 쓰지 않는다 (V61).")
+print(f"  주의 (§3-2)")
+print(f"    이 판정은 현행 프로덕션 base 위에서 잰 것이다. base 를 바꾸면 다시 재야 한다.")
 print(f"{chr(10)}saved -> {out}")

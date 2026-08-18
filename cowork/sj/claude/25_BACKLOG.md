@@ -78,8 +78,9 @@ python cowork/sj/claude/src/v76_feature_intake.py --spec <피처정의> --screen
 python cowork/sj/claude/src/v76_feature_intake.py --spec <피처정의> --confirm     # 두 fold
 ```
 
-> **주의**: 런북의 판정 기준이 "두 fold" 로 되어 있는데 V84 이후 **2022 제외, 2024 가중** 으로
-> 바뀌었다. 피처가 오면 런북 §3 을 먼저 고칠 것.
+판정 기준은 **2026-08-18 개정 완료** — 런북 §3 이 fold 2024 결정 / 2023 보조(`bss_centered`)
+/ 2022 제외로 바뀌었고, `v76_feature_intake.py` 도 그대로 구현했다. 세 경우로 단위검증했다:
+정상 채택 / 2024 음수면 2023 이 좋아도 기각 / 2023 raw 는 양수인데 centered 가 음수면 재검토.
 
 ### B2. 팀 결합
 
