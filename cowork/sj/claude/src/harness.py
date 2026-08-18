@@ -164,10 +164,19 @@ def metrics(y, p, game_type=None, month=None) -> dict:
     p = np.clip(np.asarray(p, dtype=np.float64), 1e-6, 1 - 1e-6)
     null = y.mean() * (1 - y.mean())
     brier = float(np.mean((p - y) ** 2))
+    # bss_centered: 예측 평균을 실제 평균에 맞춘 뒤의 BSS.
+    #   BSS 는 평균 오프셋에 극도로 민감하다 (오프셋 0.0224 -> 200.88 손실, V77).
+    #   fold 2023 base 가 -140.20 인 것은 전부 오프셋 탓이고, 제거하면 +60.68 이다.
+    #   bss_raw 만 보면 '오프셋을 상쇄해서 얻은 이득'과 '신호를 더해서 얻은 이득'을
+    #   구별할 수 없다. 두 값을 같이 봐야 한다.
+    #   주의: 검증 시즌의 평균을 쓰므로 진단용이다. 제출 절차가 아니다.
+    pc = np.clip(p - (p.mean() - y.mean()), 1e-6, 1 - 1e-6)
     res = {"n": int(len(y)), "target_mean": float(y.mean()),
-           "pred_mean": float(p.mean()), "brier": brier,
+           "pred_mean": float(p.mean()),
+           "offset": float(p.mean() - y.mean()), "brier": brier,
            "normalized_brier": brier / null,
-           "bss_raw": float(100000 * (1 - brier / null))}
+           "bss_raw": float(100000 * (1 - brier / null)),
+           "bss_centered": float(100000 * (1 - np.mean((pc - y) ** 2) / null))}
     if game_type is not None:
         gt = np.asarray(game_type)
         for tag in ("R", "F"):
