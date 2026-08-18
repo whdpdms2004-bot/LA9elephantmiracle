@@ -1,0 +1,716 @@
+{
+ "n_features_total": 168,
+ "n_derived": 96,
+ "blocks": [
+  {
+   "name": "원본",
+   "start": 0,
+   "count": 72,
+   "desc": "주최측 제공 컬럼에서 만든 기본 피처 (공개 제외 — 원본 데이터 재배포 금지)"
+  },
+  {
+   "name": "시즌폼",
+   "start": 72,
+   "count": 8,
+   "desc": "asof 누적에서 전년말 상태를 빼 복원한 '올 시즌 성적'"
+  },
+  {
+   "name": "TrackMan",
+   "start": 80,
+   "count": 55,
+   "desc": "구종별 릴리스 일관성 (표준편차 중심) + 구종 간 릴리스 차이"
+  },
+  {
+   "name": "볼카운트",
+   "start": 135,
+   "count": 27,
+   "desc": "12가지 카운트 개별 + 투수 볼성향과의 곱"
+  },
+  {
+   "name": "역할",
+   "start": 162,
+   "count": 5,
+   "desc": "등판 이닝 분포로 만든 선발/불펜/스윙맨 지표"
+  },
+  {
+   "name": "결측표시",
+   "start": 167,
+   "count": 1,
+   "desc": "TrackMan 프로파일 유무"
+  }
+ ],
+ "columns": [
+  {
+   "name": "season_log_n_p",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": 6.018965,
+   "std": 1.286761
+  },
+  {
+   "name": "season_rate_p",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": 0.519935,
+   "std": 0.078468
+  },
+  {
+   "name": "season_rate_shr_p",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": 0.52628,
+   "std": 0.064535
+  },
+  {
+   "name": "season_delta_p",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": -0.009345,
+   "std": 0.02348
+  },
+  {
+   "name": "season_log_n_b",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": 6.046424,
+   "std": 1.29198
+  },
+  {
+   "name": "season_rate_b",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": 0.52257,
+   "std": 0.069574
+  },
+  {
+   "name": "season_rate_shr_b",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": 0.52883,
+   "std": 0.055523
+  },
+  {
+   "name": "season_delta_b",
+   "block": "시즌폼",
+   "missing_pct": 0.0,
+   "mean": -0.011114,
+   "std": 0.021626
+  },
+  {
+   "name": "tm_fa_rel_speed_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 142.264259,
+   "std": 4.063358
+  },
+  {
+   "name": "tm_fa_rel_speed_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 2.5596,
+   "std": 0.671687
+  },
+  {
+   "name": "tm_fa_spin_rate_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 2241.379873,
+   "std": 133.183651
+  },
+  {
+   "name": "tm_fa_spin_rate_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 96.313213,
+   "std": 30.792918
+  },
+  {
+   "name": "tm_fa_induced_vert_break_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 41.547927,
+   "std": 12.43651
+  },
+  {
+   "name": "tm_fa_induced_vert_break_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 7.421461,
+   "std": 2.221951
+  },
+  {
+   "name": "tm_fa_horz_break_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 15.203679,
+   "std": 22.490906
+  },
+  {
+   "name": "tm_fa_horz_break_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 8.298117,
+   "std": 3.145612
+  },
+  {
+   "name": "tm_fa_extension_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 1.839624,
+   "std": 0.125907
+  },
+  {
+   "name": "tm_fa_extension_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 0.059347,
+   "std": 0.012486
+  },
+  {
+   "name": "tm_fa_rel_height_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 1.696564,
+   "std": 0.238355
+  },
+  {
+   "name": "tm_fa_rel_height_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 0.043434,
+   "std": 0.013966
+  },
+  {
+   "name": "tm_fa_rel_side_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 0.26946,
+   "std": 0.518388
+  },
+  {
+   "name": "tm_fa_rel_side_std",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 0.068479,
+   "std": 0.028206
+  },
+  {
+   "name": "tm_fa_n",
+   "block": "TrackMan",
+   "missing_pct": 31.97,
+   "mean": 647.706857,
+   "std": 412.528067
+  },
+  {
+   "name": "tm_br_rel_speed_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 126.698831,
+   "std": 5.040357
+  },
+  {
+   "name": "tm_br_rel_speed_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 5.281477,
+   "std": 1.974062
+  },
+  {
+   "name": "tm_br_spin_rate_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 2313.19896,
+   "std": 204.030821
+  },
+  {
+   "name": "tm_br_spin_rate_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 118.474307,
+   "std": 47.503404
+  },
+  {
+   "name": "tm_br_induced_vert_break_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 0.790273,
+   "std": 11.303004
+  },
+  {
+   "name": "tm_br_induced_vert_break_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 14.813523,
+   "std": 6.359291
+  },
+  {
+   "name": "tm_br_horz_break_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": -5.523338,
+   "std": 13.250418
+  },
+  {
+   "name": "tm_br_horz_break_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 9.025958,
+   "std": 3.260872
+  },
+  {
+   "name": "tm_br_extension_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 1.745867,
+   "std": 0.126853
+  },
+  {
+   "name": "tm_br_extension_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 0.078763,
+   "std": 0.019922
+  },
+  {
+   "name": "tm_br_rel_height_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 1.687868,
+   "std": 0.256188
+  },
+  {
+   "name": "tm_br_rel_height_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 0.044687,
+   "std": 0.019724
+  },
+  {
+   "name": "tm_br_rel_side_mean",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 0.26943,
+   "std": 0.526459
+  },
+  {
+   "name": "tm_br_rel_side_std",
+   "block": "TrackMan",
+   "missing_pct": 32.11,
+   "mean": 0.068607,
+   "std": 0.030086
+  },
+  {
+   "name": "tm_br_n",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 318.454942,
+   "std": 246.832923
+  },
+  {
+   "name": "tm_of_rel_speed_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 130.031255,
+   "std": 4.091141
+  },
+  {
+   "name": "tm_of_rel_speed_std",
+   "block": "TrackMan",
+   "missing_pct": 32.94,
+   "mean": 2.727633,
+   "std": 0.839332
+  },
+  {
+   "name": "tm_of_spin_rate_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.65,
+   "mean": 1627.969386,
+   "std": 276.731427
+  },
+  {
+   "name": "tm_of_spin_rate_std",
+   "block": "TrackMan",
+   "missing_pct": 32.96,
+   "mean": 178.03458,
+   "std": 97.373729
+  },
+  {
+   "name": "tm_of_induced_vert_break_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 23.091407,
+   "std": 12.140539
+  },
+  {
+   "name": "tm_of_induced_vert_break_std",
+   "block": "TrackMan",
+   "missing_pct": 32.94,
+   "mean": 8.716359,
+   "std": 2.322604
+  },
+  {
+   "name": "tm_of_horz_break_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 15.766291,
+   "std": 26.905101
+  },
+  {
+   "name": "tm_of_horz_break_std",
+   "block": "TrackMan",
+   "missing_pct": 32.94,
+   "mean": 7.93024,
+   "std": 2.238265
+  },
+  {
+   "name": "tm_of_extension_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 1.809923,
+   "std": 0.126648
+  },
+  {
+   "name": "tm_of_extension_std",
+   "block": "TrackMan",
+   "missing_pct": 32.94,
+   "mean": 0.065405,
+   "std": 0.017449
+  },
+  {
+   "name": "tm_of_rel_height_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 1.69373,
+   "std": 0.241268
+  },
+  {
+   "name": "tm_of_rel_height_std",
+   "block": "TrackMan",
+   "missing_pct": 32.94,
+   "mean": 0.042809,
+   "std": 0.02074
+  },
+  {
+   "name": "tm_of_rel_side_mean",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 0.268585,
+   "std": 0.527116
+  },
+  {
+   "name": "tm_of_rel_side_std",
+   "block": "TrackMan",
+   "missing_pct": 32.94,
+   "mean": 0.064049,
+   "std": 0.027834
+  },
+  {
+   "name": "tm_of_n",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 201.742741,
+   "std": 186.573847
+  },
+  {
+   "name": "tm_d_fb_bk_rel_height",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 0.008634,
+   "std": 0.03906
+  },
+  {
+   "name": "tm_d_fb_of_rel_height",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 0.003389,
+   "std": 0.036232
+  },
+  {
+   "name": "tm_d_fb_bk_rel_side",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": -1.9e-05,
+   "std": 0.034778
+  },
+  {
+   "name": "tm_d_fb_of_rel_side",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 0.000376,
+   "std": 0.043726
+  },
+  {
+   "name": "tm_d_fb_bk_extension",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 0.093729,
+   "std": 0.064256
+  },
+  {
+   "name": "tm_d_fb_of_extension",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 0.030019,
+   "std": 0.0655
+  },
+  {
+   "name": "tm_d_fb_bk_spin_rate",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": -71.836135,
+   "std": 203.507195
+  },
+  {
+   "name": "tm_d_fb_of_spin_rate",
+   "block": "TrackMan",
+   "missing_pct": 32.65,
+   "mean": 613.466948,
+   "std": 291.313635
+  },
+  {
+   "name": "tm_d_fb_bk_rel_speed",
+   "block": "TrackMan",
+   "missing_pct": 31.98,
+   "mean": 15.566016,
+   "std": 3.61546
+  },
+  {
+   "name": "tm_d_fb_of_rel_speed",
+   "block": "TrackMan",
+   "missing_pct": 32.63,
+   "mean": 12.229976,
+   "std": 3.256631
+  },
+  {
+   "name": "cnt_00",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.25622,
+   "std": 0.436545
+  },
+  {
+   "name": "cnt_00_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.018224,
+   "std": 0.047217
+  },
+  {
+   "name": "cnt_01",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.12114,
+   "std": 0.32629
+  },
+  {
+   "name": "cnt_01_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.009643,
+   "std": 0.038461
+  },
+  {
+   "name": "cnt_02",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.0618,
+   "std": 0.240792
+  },
+  {
+   "name": "cnt_02_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.005317,
+   "std": 0.028507
+  },
+  {
+   "name": "cnt_10",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.10376,
+   "std": 0.304949
+  },
+  {
+   "name": "cnt_10_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.006075,
+   "std": 0.036615
+  },
+  {
+   "name": "cnt_11",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.10354,
+   "std": 0.304663
+  },
+  {
+   "name": "cnt_11_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.007356,
+   "std": 0.030317
+  },
+  {
+   "name": "cnt_12",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.09628,
+   "std": 0.294975
+  },
+  {
+   "name": "cnt_12_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.007366,
+   "std": 0.030729
+  },
+  {
+   "name": "cnt_20",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.03828,
+   "std": 0.191871
+  },
+  {
+   "name": "cnt_20_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.002073,
+   "std": 0.020547
+  },
+  {
+   "name": "cnt_21",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.0543,
+   "std": 0.226609
+  },
+  {
+   "name": "cnt_21_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.003216,
+   "std": 0.022166
+  },
+  {
+   "name": "cnt_22",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.0809,
+   "std": 0.272681
+  },
+  {
+   "name": "cnt_22_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.005911,
+   "std": 0.027138
+  },
+  {
+   "name": "cnt_30",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.01196,
+   "std": 0.108706
+  },
+  {
+   "name": "cnt_30_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.000441,
+   "std": 0.01141
+  },
+  {
+   "name": "cnt_31",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.02434,
+   "std": 0.154102
+  },
+  {
+   "name": "cnt_31_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.001292,
+   "std": 0.015402
+  },
+  {
+   "name": "cnt_32",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.04748,
+   "std": 0.212663
+  },
+  {
+   "name": "cnt_32_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.003143,
+   "std": 0.020297
+  },
+  {
+   "name": "cnt_adv",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.02564,
+   "std": 1.013717
+  },
+  {
+   "name": "cnt_adv_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": 0.007158,
+   "std": 0.109632
+  },
+  {
+   "name": "cnt_31_x_tend",
+   "block": "볼카운트",
+   "missing_pct": 0.0,
+   "mean": -0.001292,
+   "std": 0.015402
+  },
+  {
+   "name": "role_inn_mean",
+   "block": "역할",
+   "missing_pct": 31.64,
+   "mean": 5.109279,
+   "std": 1.772929
+  },
+  {
+   "name": "role_inn_std",
+   "block": "역할",
+   "missing_pct": 31.64,
+   "mean": 1.698775,
+   "std": 0.478837
+  },
+  {
+   "name": "role_inn_min",
+   "block": "역할",
+   "missing_pct": 31.64,
+   "mean": 2.274633,
+   "std": 1.789934
+  },
+  {
+   "name": "role_p1_ratio",
+   "block": "역할",
+   "missing_pct": 31.64,
+   "mean": 0.214753,
+   "std": 0.164683
+  },
+  {
+   "name": "role_p_season",
+   "block": "역할",
+   "missing_pct": 31.64,
+   "mean": 1207.137682,
+   "std": 855.281087
+  },
+  {
+   "name": "tm_has_profile",
+   "block": "결측표시",
+   "missing_pct": 0.0,
+   "mean": 0.68026,
+   "std": 0.466376
+  }
+ ]
+}
