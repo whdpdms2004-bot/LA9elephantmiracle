@@ -16,7 +16,7 @@ LAB = Path(__file__).resolve().parents[1]
 SJ = LAB.parent
 CAMPAIGN = SJ / "feature_campaign_1000"
 MODEL_OPT = SJ / "experiment" / "model_optimization"
-for p in (MODEL_OPT, CAMPAIGN):
+for p in (MODEL_OPT, CAMPAIGN, SJ / "claude" / "src"):
     if str(p) not in sys.path:
         sys.path.insert(0, str(p))
 

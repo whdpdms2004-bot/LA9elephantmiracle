@@ -54,7 +54,7 @@ for p in (MODEL_OPT, CAMPAIGN, LAB, CLAUDE_SRC):
 OUT = TW / "outputs"
 SUCCESS = "control_success"
 TARGETS = {"middle": "y_middle", "reverse": "y_reverse", "ball": "y_ball",
-           "outside": "y_outside", "success": SUCCESS}
+           "outside": "y_outside", "mr": "y_mr", "success": SUCCESS}
 DECISION_FOLD = 2024
 AUX_FOLD = 2023
 BANNED_FOLD = 2022           # 역신호. 쓰지 않는다
@@ -65,7 +65,13 @@ def load_labeled() -> pd.DataFrame:
     from harness import CACHE, load
     df = load()
     lab = pd.read_parquet(CACHE / "failure_labels.parquet")
-    return df.merge(lab, on="row_id", how="left", validate="one_to_one")
+    out = df.merge(lab, on="row_id", how="left", validate="one_to_one")
+    # m AND r 교집합. 포함-배제 항등식에 필요하다 (1WAY 는 이걸 직접 추정한다).
+    ok = out["label_ok"].to_numpy() == 1
+    m = pd.to_numeric(out["y_middle"], errors="coerce").to_numpy()
+    r = pd.to_numeric(out["y_reverse"], errors="coerce").to_numpy()
+    out["y_mr"] = np.where(ok, (m == 1) & (r == 1), np.nan).astype(float)
+    return out
 
 
 def target_vector(df: pd.DataFrame, target: str):
@@ -107,7 +113,7 @@ def seed_noise(target: str) -> float:
     base_null = 0.2494          # success 의 null
     base_sd = 1.37
     nulls = {"middle": 0.1272, "reverse": 0.1766, "ball": 0.2330,
-             "outside": 0.1144, "success": 0.2494}
+             "outside": 0.1144, "mr": 0.0330, "success": 0.2494}
     return base_sd * base_null / nulls.get(target, base_null)
 
 

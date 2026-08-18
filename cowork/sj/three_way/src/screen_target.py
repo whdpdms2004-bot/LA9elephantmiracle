@@ -112,6 +112,17 @@ def main() -> None:
         print("=" * 96, flush=True)
 
         weights = recency_weights(frame.loc[tr_mask, "season"], args.fold, half_life)
+        # 시즌 외삽 사전확률. 1WAY 는 성분마다 base_score 를 이렇게 외삽했는데
+        # 3WAY 하위 모델은 기본값을 써서 오프셋이 +0.011~+0.025 났다 (페널티 47~250).
+        _s = pd.Series(yv[tr_mask]).groupby(
+            pd.Series(frame.loc[tr_mask, "season"].to_numpy())).mean().sort_index()
+        _span = float(_s.index[-1]) - float(_s.index[0])
+        _prior = float(np.clip(
+            float(_s.iloc[-1]) + ((float(_s.iloc[-1]) - float(_s.iloc[0])) / _span
+                                  if _span > 0 else 0.0), 0.005, 0.995))
+        print(f"  시즌 외삽 사전확률 {_prior:.4f} "
+              f"(직전 시즌 {float(_s.iloc[-1]):.4f}, 검증 실제 {y_va.mean():.4f})",
+              flush=True)
         tr_series = pd.Series(tr_mask, index=frame.index)
         scored: dict[tuple, dict] = {}
 
@@ -138,9 +149,12 @@ def main() -> None:
                 gc.collect()
                 return scored[key]
             t0 = time.time()
+            _b = np.log(_prior / (1 - _prior))
             pool_tr = Pool(fr.loc[tr_mask, feats], yv[tr_mask].astype("int8"),
-                           cat_features=cats, weight=weights)
-            pool_va = Pool(fr.loc[va_mask, feats], y_va, cat_features=cats)
+                           cat_features=cats, weight=weights,
+                           baseline=np.full(int(tr_mask.sum()), _b, np.float64))
+            pool_va = Pool(fr.loc[va_mask, feats], y_va, cat_features=cats,
+                           baseline=np.full(int(va_mask.sum()), _b, np.float64))
             model = CatBoostClassifier(**params)
             model.fit(pool_tr, eval_set=pool_va, use_best_model=True)
             pred = model.predict_proba(pool_va)[:, 1]
