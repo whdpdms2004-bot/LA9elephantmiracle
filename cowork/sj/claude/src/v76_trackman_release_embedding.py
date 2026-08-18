@@ -23,10 +23,13 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import Ridge
 
 
-SJ = Path(__file__).resolve().parents[1]
+SJ = Path(__file__).resolve().parents[2]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 TRACKMAN = SJ / "data" / "trackman_history.csv"
 TM500 = SJ / "experiment" / "pitcher_embedding" / "outputs" / "trackman500"
-DEFAULT_OUT = Path(__file__).resolve().parent / "outputs" / "trackman_release"
+DEFAULT_OUT = CAMPAIGN / "outputs" / "trackman_release"
 GROUPS = ["all", "fastball", "breaking", "offspeed"]
 BASE = [
     "rel_speed", "spin_rate", "induced_vert_break", "horz_break",

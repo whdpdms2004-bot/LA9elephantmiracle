@@ -16,12 +16,16 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 from evaluate_bucketed_residual import EPS, load, logit, sigmoid
 from harness import TARGET, metrics
 
 ARM, FOLDS, DAMP = "F1", (2022, 2023, 2024), 1.00
-PRED = (HERE / "outputs" / "single_xgb" /
+PRED = (CAMPAIGN / "outputs" / "single_xgb" /
         "confirm_xgboost_v2r200_tm500_robust_cuda_efull_s20260818_{a}_{f}.npy")
 KS = [0, 1_000, 5_000, 20_000, 50_000, 150_000, 500_000, np.inf]
 
@@ -109,5 +113,5 @@ for name, vals in AX.items():
                      **{str(f): row[i] for i, f in enumerate(FOLDS)},
                      "worst": worst, "vs_global": worst - gw})
 
-pd.DataFrame(rows).to_csv(HERE / "outputs" / "combined" / "v81_shrunk_offset.csv", index=False)
+pd.DataFrame(rows).to_csv(CAMPAIGN / "outputs" / "combined" / "v81_shrunk_offset.csv", index=False)
 print(f"{chr(10)}  판정: 넓은 K 구간에서 '전역대비'가 양수여야 채택이다.")

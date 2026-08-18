@@ -18,7 +18,10 @@ from catboost import CatBoostClassifier, Pool
 
 
 HERE = Path(__file__).resolve().parent
-SJ = HERE.parent
+SJ = HERE.parents[1]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 MO = SJ / "experiment" / "model_optimization"
 
 from evaluate_bucketed_residual import logit, sigmoid
@@ -31,7 +34,7 @@ from v77_single_xgb_screen import (
 
 FOLD = 2024
 SEED = 20260818
-OUT = HERE / "outputs" / "optuna_c1_cat"
+OUT = CAMPAIGN / "outputs" / "optuna_c1_cat"
 BASE_PARAMS = MO / "catboost_v2r200_tm500_robust_best.json"
 
 

@@ -19,11 +19,15 @@ from xgboost import XGBRegressor
 
 
 HERE = Path(__file__).resolve().parent
-SJ = HERE.parent
+SJ = HERE.parents[1]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 SRC = SJ / "claude" / "src"
 MO = SJ / "experiment" / "model_optimization"
 sys.path.insert(0, str(SRC))
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 sys.path.insert(0, str(MO))
 from harness import CACHE, TARGET, load as load_compact, metrics
 from run_optuna_enhanced import load_enhanced_frame
@@ -31,7 +35,7 @@ from v77_single_xgb_screen import add_direct_products, build_component_unique
 
 OOF_DIR = MO / "enhanced_seed_oof_parts"
 PROD = MO / "pitcher_cluster_matchup" / "reports" / "reverse20_submission_oof.parquet"
-OUT = HERE / "outputs" / "oof_residual"
+OUT = CAMPAIGN / "outputs" / "oof_residual"
 BW = np.array([0.25, 0.25, 0.25, 0.30, 0.40])
 CUTS = [100, 500, 2000, 4000]
 EPS = 1e-7

@@ -23,12 +23,16 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 from evaluate_bucketed_residual import EPS, load, logit, sigmoid
 from harness import TARGET, metrics
 
 ARM, FOLDS = "F1", (2022, 2023, 2024)
-PRED = (HERE / "outputs" / "single_xgb" /
+PRED = (CAMPAIGN / "outputs" / "single_xgb" /
         "confirm_xgboost_v2r200_tm500_robust_cuda_efull_s20260818_{a}_{f}.npy")
 
 df = load()

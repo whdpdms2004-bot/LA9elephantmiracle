@@ -9,9 +9,12 @@ import pandas as pd
 
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[2]
-ART = HERE / "outputs" / "trackman_release"
-OUT = HERE / "outputs" / "audit" / "artifact_verification.json"
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
+ROOT = HERE.parents[3]
+ART = CAMPAIGN / "outputs" / "trackman_release"
+OUT = CAMPAIGN / "outputs" / "audit" / "artifact_verification.json"
 
 
 def mapped(frame: pd.DataFrame, lookup: pd.DataFrame, columns: list[str]):

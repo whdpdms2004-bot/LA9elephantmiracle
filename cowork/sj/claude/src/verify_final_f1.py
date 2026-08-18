@@ -13,7 +13,10 @@ import pandas as pd
 
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_CANDIDATE = HERE / "outputs" / "final_f1_cat_v1"
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
+DEFAULT_CANDIDATE = CAMPAIGN / "outputs" / "final_f1_cat_v1"
 
 
 def parse_args():

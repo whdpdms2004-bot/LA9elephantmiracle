@@ -42,10 +42,14 @@ import pandas as pd
 from catboost import CatBoostClassifier, Pool
 
 HERE = Path(__file__).resolve().parent
-SJ = HERE.parent
+SJ = HERE.parents[1]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 MODEL_OPT = SJ / "experiment" / "model_optimization"
 sys.path.insert(0, str(MODEL_OPT))
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 
 import v85_preprocess_screen as M
 from run_optuna_enhanced import load_enhanced_frame
@@ -56,8 +60,8 @@ from v80_single_catboost import make_features, raw_bss
 
 FOLD = 2024
 SEED = 20262844
-OUT = HERE / "outputs" / "prep_beam"
-CACHE = HERE / "outputs" / "preprocess_screen"
+OUT = CAMPAIGN / "outputs" / "prep_beam"
+CACHE = CAMPAIGN / "outputs" / "preprocess_screen"
 
 ATOMS = ["ordinal_numeric", "id_frequency", "rate_multiscale", "rate_geometry",
          "count_multiscale", "recent_shape", "temporal_cyclic", "context_robust",

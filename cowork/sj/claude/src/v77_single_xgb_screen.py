@@ -19,7 +19,10 @@ import pandas as pd
 from xgboost import XGBClassifier
 
 
-SJ = Path(__file__).resolve().parents[1]
+SJ = Path(__file__).resolve().parents[2]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 MO = SJ / "experiment" / "model_optimization"
 sys.path.insert(0, str(MO))
 sys.path.insert(0, str(SJ / "claude" / "src"))
@@ -28,8 +31,8 @@ import component_features as CF
 from run_optuna_enhanced import load_enhanced_frame
 from run_optuna_family import CATEGORICAL_COLUMNS, TARGET, probability_metrics, recency_weights
 
-OUT = Path(__file__).resolve().parent / "outputs" / "single_xgb"
-TM_RELEASE = Path(__file__).resolve().parent / "outputs" / "trackman_release"
+OUT = CAMPAIGN / "outputs" / "single_xgb"
+TM_RELEASE = CAMPAIGN / "outputs" / "trackman_release"
 PARAMS_PATH = MO / "xgboost_v2r200_tm500_local_2024_best.json"
 RAW_IDS = ["pitcher_id", "batter_id", "pitcher_team_id", "batter_team_id"]
 

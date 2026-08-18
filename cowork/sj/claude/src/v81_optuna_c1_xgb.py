@@ -19,7 +19,10 @@ from xgboost import XGBClassifier
 
 
 HERE = Path(__file__).resolve().parent
-SJ = HERE.parent
+SJ = HERE.parents[1]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 MO = SJ / "experiment" / "model_optimization"
 
 from evaluate_bucketed_residual import logit, sigmoid
@@ -33,7 +36,7 @@ from v77_single_xgb_screen import (
 FOLDS = (2022, 2023, 2024)
 FOLD_WEIGHTS = {2022: 0.15, 2023: 0.30, 2024: 0.55}
 SEED = 20260818
-OUT = HERE / "outputs" / "optuna_c1"
+OUT = CAMPAIGN / "outputs" / "optuna_c1"
 BASE_PARAMS = MO / "xgboost_v2r200_tm500_robust_best.json"
 
 

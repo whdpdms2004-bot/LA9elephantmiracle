@@ -30,17 +30,21 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 from evaluate_bucketed_residual import EPS, load, logit, sigmoid
 from harness import TARGET, metrics
 
 FAMILY = os.environ.get("FAMILY", "xgboost")
 ARM, HAVE = "F1", (2022, 2023, 2024)
 CFG = {"xgboost": (None, 1.00), "catboost": (3, 0.75)}[FAMILY]
-PRED = ((HERE / "outputs" / "single_xgb" /
+PRED = ((CAMPAIGN / "outputs" / "single_xgb" /
          "confirm_xgboost_v2r200_tm500_robust_cuda_efull_s20260818_{a}_{f}.npy")
         if FAMILY == "xgboost" else
-        (HERE / "outputs" / "single_catboost" / "{a}_{f}.npy"))
+        (CAMPAIGN / "outputs" / "single_catboost" / "{a}_{f}.npy"))
 
 df = load()
 season = df["season"].to_numpy()
@@ -169,5 +173,5 @@ for name, vals in AX.items():
         rows.append({"family": FAMILY, "axis": name, "W": W,
                      "2023": out[2023], "2024": out[2024], "worst_d": min(d23, d24)})
 pd.DataFrame(rows).to_csv(
-    HERE / "outputs" / "combined" / f"v87_pitcher_trend_{FAMILY}.csv", index=False)
+    CAMPAIGN / "outputs" / "combined" / f"v87_pitcher_trend_{FAMILY}.csv", index=False)
 print(f"{chr(10)}  채택: 넓은 W 구간에서 두 fold 모두 양수여야 한다.")

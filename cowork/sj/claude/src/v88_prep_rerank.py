@@ -25,12 +25,16 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 from evaluate_bucketed_residual import EPS, load, logit, sigmoid
 from harness import TARGET, metrics
 
 FOLD = 2024
-NPY = HERE / "outputs" / "preprocess_screen"
+NPY = CAMPAIGN / "outputs" / "preprocess_screen"
 
 df = load()
 season = df["season"].to_numpy()
@@ -100,4 +104,4 @@ print(f"  최선(last3_d075) 1위: {show['Δ_last3_d075'].idxmax()}")
 print(f"  오프셋제거(centered) 1위: {show['Δ_centered'].idxmax()}")
 sp = float(np.corrcoef(r_cur.to_numpy(), r_best.to_numpy())[0, 1])
 print(f"{chr(10)}  현행 vs 최선 기준 순위 상관 {sp:.3f}")
-t.to_csv(HERE / "outputs" / "preprocess_screen" / "v88_prep_rerank.csv")
+t.to_csv(CAMPAIGN / "outputs" / "preprocess_screen" / "v88_prep_rerank.csv")

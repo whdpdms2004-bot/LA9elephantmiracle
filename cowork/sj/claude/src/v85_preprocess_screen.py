@@ -19,10 +19,14 @@ from catboost import CatBoostClassifier, Pool
 
 
 HERE = Path(__file__).resolve().parent
-SJ = HERE.parent
+SJ = HERE.parents[1]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 MODEL_OPT = SJ / "experiment" / "model_optimization"
 sys.path.insert(0, str(MODEL_OPT))
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 
 from evaluate_bucketed_residual import logit, sigmoid
 from evaluate_train_only_season_offsets import forecast_offset
@@ -43,7 +47,7 @@ from v80_single_catboost import make_features, raw_bss
 FOLD = 2024
 SEED = 20262844
 PARAMS_PATH = MODEL_OPT / "catboost_v2r200_tm500_robust_best.json"
-OUTPUT = HERE / "outputs" / "preprocess_screen"
+OUTPUT = CAMPAIGN / "outputs" / "preprocess_screen"
 ID_COLUMNS = [
     "pitcher_id", "batter_id", "pitcher_team_id", "batter_team_id"]
 COUNT_COLUMNS = ["asof_pitcher_n", "asof_batter_n", "asof_pitcher_pitchmix_n"]

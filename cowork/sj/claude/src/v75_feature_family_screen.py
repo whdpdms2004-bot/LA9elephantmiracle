@@ -26,16 +26,19 @@ import pandas as pd
 import xgboost as xgb
 from catboost import CatBoostClassifier, Pool
 
-SRC = Path(__file__).resolve().parents[1] / "claude" / "src"
+SRC = Path(__file__).resolve().parent
 sys.path.insert(0, str(SRC))
 import component_features as CF
 from harness import BASE_PARAMS, CACHE, OUT, TARGET, load, metrics
 
-SJ = Path(__file__).resolve().parents[1]
+SJ = Path(__file__).resolve().parents[2]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = SJ / "feature_campaign_1000"
 MO = SJ / "experiment" / "model_optimization"
 OOF_DIR = MO / "enhanced_seed_oof_parts"
 PROD = MO / "pitcher_cluster_matchup" / "reports" / "reverse20_submission_oof.parquet"
-TM_RELEASE = Path(__file__).resolve().parent / "outputs" / "trackman_release"
+TM_RELEASE = CAMPAIGN / "outputs" / "trackman_release"
 
 ALL_SEEDS = [11, 22, 33, 44, 55, 66, 77, 88]
 COMPONENTS = ["m", "r", "mr", "ob", "oz"]

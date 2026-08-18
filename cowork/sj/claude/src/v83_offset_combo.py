@@ -19,7 +19,11 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 from evaluate_bucketed_residual import EPS, load, logit, sigmoid
 from harness import TARGET, metrics
 
@@ -29,10 +33,10 @@ FAMILY = os.environ.get("FAMILY", "xgboost")
 WIN = os.environ.get("WIN", "")
 WINDOW = None if WIN in ("", "all") else int(WIN)
 DAMP2 = float(os.environ.get("DAMP", "1.0"))
-PRED = ((HERE / "outputs" / "single_xgb" /
+PRED = ((CAMPAIGN / "outputs" / "single_xgb" /
          "confirm_xgboost_v2r200_tm500_robust_cuda_efull_s20260818_{a}_{f}.npy")
         if FAMILY == "xgboost" else
-        (HERE / "outputs" / "single_catboost" / "{a}_{f}.npy"))
+        (CAMPAIGN / "outputs" / "single_catboost" / "{a}_{f}.npy"))
 
 df = load()
 season = df["season"].to_numpy()
@@ -131,7 +135,7 @@ for combo in [("count", "li"), ("count", "outs"), ("count", "li", "outs")]:
     res.append({"kind": "cross", "combo": " x ".join(combo), "worst": w,
                 "vs_global": w - gw, **{str(f): row[i] for i, f in enumerate(FOLDS)}})
 
-pd.DataFrame(res).to_csv(HERE / "outputs" / "combined" / f"v83_offset_combo_{FAMILY}_{WIN or 'all'}_d{int(DAMP2*100):03d}.csv", index=False)
+pd.DataFrame(res).to_csv(CAMPAIGN / "outputs" / "combined" / f"v83_offset_combo_{FAMILY}_{WIN or 'all'}_d{int(DAMP2*100):03d}.csv", index=False)
 b = max(res, key=lambda r: r["vs_global"])
 print(f"{chr(10)}  최고: {b['combo']} ({b['kind']})   최악 fold {b['worst']:.2f}  "
       f"전역대비 {b['vs_global']:+.2f}")

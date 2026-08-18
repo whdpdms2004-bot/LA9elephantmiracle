@@ -10,8 +10,12 @@ import pandas as pd
 
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[2]
+# 2026-08-18 feature_campaign_1000 -> claude/src 이관.
+# 데이터/산출물은 캠페인 폴더에 그대로 있으므로 CAMPAIGN 으로 가리킨다.
+CAMPAIGN = HERE.parents[1] / "feature_campaign_1000"
+REPO = HERE.parents[3]
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(CAMPAIGN))
 from v77_single_xgb_screen import add_direct_products, add_trackman_residual
 
 
@@ -44,7 +48,7 @@ def main():
         "max_abs_diff_single_vs_batch": max_diff,
         "passed": bool(same_nan and max_diff == 0.0),
     }
-    output = HERE / "outputs" / "verification"
+    output = CAMPAIGN / "outputs" / "verification"
     output.mkdir(parents=True, exist_ok=True)
     (output / "row_derived_contract.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
