@@ -307,6 +307,53 @@ S0.5_w0.5  제거 0%      ->  ΔBSS +1.97,  단독 +7.26
 
 ---
 
+## 8-2. 전처리 랩 — 여러분이 바로 기여할 수 있는 곳 ★
+
+**[`cowork/sj/preprocess_lab/`](../preprocess_lab/README.md)**
+
+같은 모델·같은 피처 기반(`F1`) 위에서 **전처리만 바꿔가며** 무엇이 설명력을 올리는지 잽니다.
+**더 나은 전처리를 찾으면 `transforms/` 에 파일 하나만 추가**하면 됩니다. 기존 코드는 안 건드립니다.
+
+```bash
+cp transforms/example_template.py transforms/my_idea.py   # NAME/TARGETS/NOTE/apply 채우기
+python scripts/run_combo.py --combos my_idea+id_frequency
+```
+
+### 지금까지 나온 것
+
+| | Δ (fold 2024, `bss_centered`) |
+|---|---:|
+| **최고 조합 `id_frequency + temporal_cyclic + trackman_quality`** | **+16.52** |
+| 최고 단일 `id_frequency` (ID 빈도 인코딩) | +7.94 |
+| `all_additive` (8개 전부) | +3.27 |
+| `all_compact` (12개 전부) | +2.78 |
+| `drop_ids` (ID 통째 제거) | **−57.06** |
+
+### 세 가지가 반직관적이었습니다
+
+**ㄱ. 단독 성능으로 전처리를 거르면 안 됩니다.**
+`trackman_quality` 는 단독 **−3.11 로 기각**인데 **최상위 조합 다섯 개 전부에 들어 있습니다.**
+`context_robust` 도 단독 +0.77(잡음)인데 `id_frequency` 와 함께면 +12.87 입니다.
+단일 스크리닝만 돌리고 끝내면 이 둘을 버립니다.
+
+**ㄴ. 다 켜면 나빠집니다.**
+`all_compact` 는 `id_frequency` 를 포함하는데도 단독보다 5점 낮습니다. **최적은 부분집합입니다.**
+
+**ㄷ. 제거·축소는 전부 손해입니다.**
+ID −57.06, 성분 −25.95. **ID 는 버리는 게 아니라 빈도로 바꿔 넣어야 합니다** — 같은 열인데 방식만 바꿔 65점 차이입니다.
+"열이 많아 과적합" 직관도 틀렸습니다 (TrackMan 축소 −6.98, 성분 축소 −8.05).
+
+### 순위는 `bss_centered` 로 매깁니다
+
+`bss_raw` 로 매기면 **`temporal_cyclic` 을 버리게 됩니다** — raw −17.18(탈락)인데 신호만 보면 +4.75 이고,
+실제로 최고 조합의 구성원입니다. 예측 평균이 어긋난 만큼 벌점을 먹어 생긴 착시입니다.
+`bss_raw − bss_centered = 평균 정렬로 번 점수` 이고, 그건 다른 fold 나 리더보드로 따라가지 않습니다.
+
+자세한 것은 [METHOD.md](../preprocess_lab/METHOD.md) (측정 방식·함정 4가지),
+[RESULTS.md](../preprocess_lab/RESULTS.md) (전체 순위).
+
+---
+
 ## 9. 팀이 바로 쓸 수 있는 것
 
 ### 9-1. 재사용 가능한 산출물
