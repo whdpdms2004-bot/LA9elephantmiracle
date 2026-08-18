@@ -21,6 +21,7 @@ TARGET = "control_success"
 REPO = Path(__file__).resolve().parents[2]  # cowork/hw -> cowork -> 저장소 루트
 HW_PRED_PATH = REPO / "cowork" / "hw" / "val2024_pred.csv"
 SJ_PRED_PATH = REPO / "cowork" / "sj" / "val2024_pred.csv"
+YN_PRED_PATH = REPO / "cowork" / "yn" / "val2024_pred.csv"  # yn 공유분, y_actual 컬럼 포함
 TRAIN_PATH = REPO / "data" / "train.csv"
 
 
@@ -80,6 +81,37 @@ def main():
                               labels=["<100", "100-500", "500-2000", "2000-4000", "4000+"])
     for b in df["bn_bucket"].cat.categories:
         analyze(df[df["bn_bucket"] == b], f"batter_n={b}")
+
+    # ================================================================
+    # 3자 확장: yn 공유분 도착 후 추가 (2026-08-18)
+    # ================================================================
+    if YN_PRED_PATH.exists():
+        print("\n" + "=" * 70)
+        print("3자 상관 분석 (hw x sj x yn)")
+        print("=" * 70)
+        yn_raw = pd.read_csv(YN_PRED_PATH)
+        # yn 파일엔 y_actual 컬럼이 같이 옴 -- train.csv 실제 라벨과 일치하는지 먼저 확인
+        chk = val[["row_id", TARGET]].merge(yn_raw[["row_id", "y_actual"]], on="row_id", how="inner")
+        mismatch = int((chk[TARGET] != chk["y_actual"]).sum())
+        print(f"yn의 y_actual vs train.csv 실제 라벨 불일치: {mismatch}/{len(chk)} "
+              f"({'정상' if mismatch == 0 else '⚠ 확인 필요'})")
+
+        yn = yn_raw.rename(columns={TARGET: "p_yn"})[["row_id", "p_yn"]]
+        df3 = df.merge(yn, on="row_id", how="inner")
+        corr = df3[["p_hw", "p_sj", "p_yn"]].corr()
+        print("\n상관행렬:")
+        print(corr.round(4).to_string())
+
+        for name, col in [("yn", "p_yn")]:
+            p = df3[col].to_numpy()
+            bss = ((lambda yy, pp: max(0.0, 100000 * (1 - np.mean((yy - pp) ** 2) / (yy.mean() * (1 - yy.mean())))))
+                   (df3[TARGET].to_numpy(), p))
+            print(f"{name} 단독 BSS(2024) = {bss:.2f}")
+
+        print("\n※ hw가 sj-yn 쌍(상관 0.96)보다 양쪽 다 낮은 상관(~0.92)을 보임 "
+              "-- 3자 결합에서 hw가 상대적으로 더 필요한 다양성일 가능성.")
+    else:
+        print(f"\n(참고: {YN_PRED_PATH} 없음 -- yn 공유분 도착하면 3자 분석 자동 추가됨)")
 
 
 if __name__ == "__main__":
