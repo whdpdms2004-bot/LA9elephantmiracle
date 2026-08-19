@@ -126,6 +126,10 @@ def main() -> None:
     ap.add_argument("--arm", default="split_ball", choices=("single", "split_ball"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
+    ap.add_argument("--depth", type=int, default=8)
+    ap.add_argument("--l2", type=float, default=0.0,
+                    help=">0 이면 l2_leaf_reg 를 이 값으로 (P0 기본 124.9)")
+    ap.add_argument("--lr", type=float, default=0.015)
     ap.add_argument("--inner-es", action="store_true",
                     help="학습 데이터 내부에서 반복 횟수를 정한다 (채점 fold 라벨 미사용)")
     ap.add_argument("--keep-bagging", action="store_true",
@@ -151,8 +155,11 @@ def main() -> None:
 
     P0 = json.loads(M.PARAMS_PATH.read_text(encoding="utf-8"))["best_params"]
     half_life = float(P0.pop("half_life"))
-    P0.update({"iterations": args.iterations, "learning_rate": 0.015, "depth": 8,
-               "random_seed": SEED, "task_type": "GPU", "devices": "0", "verbose": 0})
+    P0.update({"iterations": args.iterations, "learning_rate": args.lr,
+               "depth": args.depth, "random_seed": SEED, "task_type": "GPU",
+               "devices": "0", "verbose": 0})
+    if args.l2 > 0:
+        P0["l2_leaf_reg"] = args.l2
 
     rows = []
     for tg in [t.strip() for t in args.target.split(",") if t.strip()]:
@@ -201,8 +208,14 @@ def main() -> None:
                 # 파일명에 조합이 없으면 --combo 를 바꿔도 옛 예측을 재사용해버린다.
                 # 기본 조합일 때만 옛 이름을 유지해 기존 캐시를 살린다.
                 _cs = "" if combo == BEST_COMBO.get(tg, "") else                     "_" + combo.replace("+", "-")[:36]
+                # 설정을 결정하는 인자는 전부 키에 넣는다.
+                # 조합과 반복 횟수를 빼먹어 두 번 옛 캐시를 재사용한 적이 있다.
                 _cs += "_kb" if args.keep_bagging else ""
                 _cs += "_ies" if args.inner_es else ""
+                _cs += f"_it{args.iterations}" if args.iterations != 900 else ""
+                _cs += f"_d{args.depth}" if args.depth != 8 else ""
+                _cs += f"_l2{args.l2:g}" if args.l2 > 0 else ""
+                _cs += f"_lr{args.lr:g}" if args.lr != 0.015 else ""
                 npy = OUT / f"ww_{tg}__{args.arm}_{sch}{_cs}__{fold}.npy"
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,
