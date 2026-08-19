@@ -136,6 +136,10 @@ def main() -> None:
     ap.add_argument("--drift-drop", type=int, default=0,
                     help="학습 시즌 간 분포 이동이 큰 수치 피처를 N개 제거한다. "
                          "평가 데이터는 보지 않는다 (학습 시즌 두 개만 비교)")
+    ap.add_argument("--drift-metric", default="mean",
+                    choices=("mean", "quantile", "var", "combo"),
+                    help="이동 지표. mean=평균차/표준편차, quantile=십분위 이동 중앙값, "
+                         "var=분산비 로그, combo=셋의 순위 평균")
     ap.add_argument("--interact", action="store_true",
                     help="2차 상호작용 피처를 추가한다 (train_arms.interactions)")
     ap.add_argument("--seed", type=int, default=SEED,
@@ -223,7 +227,25 @@ def main() -> None:
                         sd_ = np.nanstd(np.concatenate([a, b]))
                         if not np.isfinite(sd_) or sd_ < 1e-12:
                             continue
-                        drift[c] = abs(np.nanmean(a) - np.nanmean(b)) / sd_
+                        d_mean = abs(np.nanmean(a) - np.nanmean(b)) / sd_
+                        qs = np.arange(0.1, 1.0, 0.1)
+                        qa, qb = np.nanquantile(a, qs), np.nanquantile(b, qs)
+                        d_qnt = float(np.nanmedian(np.abs(qa - qb))) / sd_
+                        # 이름 주의: va 는 바깥의 검증 마스크다. 덮어쓰면 안 된다.
+                        var_a, var_b = np.nanvar(a), np.nanvar(b)
+                        d_var = abs(np.log((var_a + 1e-12) / (var_b + 1e-12)))
+                        drift[c] = {"mean": d_mean, "quantile": d_qnt,
+                                    "var": d_var}.get(args.drift_metric,
+                                                      (d_mean, d_qnt, d_var))
+                    if args.drift_metric == "combo":
+                        # 세 지표의 순위를 평균낸다 (스케일이 서로 다르므로)
+                        keys = list(drift)
+                        rk = np.zeros(len(keys))
+                        for j in range(3):
+                            order = np.argsort([-drift[k][j] for k in keys])
+                            r = np.empty(len(keys)); r[order] = np.arange(len(keys))
+                            rk += r
+                        drift = {k: -rk[i] for i, k in enumerate(keys)}
                     bad = [c for c, _ in sorted(drift.items(), key=lambda kv: -kv[1])
                            ][:args.drift_drop]
                     feats = [c for c in feats if c not in bad]
@@ -290,6 +312,8 @@ def main() -> None:
                 _cs += f"_s{args.seed}" if args.seed != SEED else ""
                 _cs += "_ix" if args.interact else ""
                 _cs += f"_dd{args.drift_drop}" if args.drift_drop else ""
+                _cs += f"_{args.drift_metric[:3]}" if (
+                    args.drift_drop and args.drift_metric != "mean") else ""
                 npy = OUT / f"ww_{tg}__{args.arm}_{sch}{_cs}__{fold}.npy"
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,
