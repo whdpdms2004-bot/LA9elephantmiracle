@@ -129,7 +129,8 @@ def main() -> None:
     ap.add_argument("--folds", default="2023,2024")
     ap.add_argument("--schemes", default=",".join(SCHEMES))
     ap.add_argument("--arm", default="split_ball",
-                    choices=("single", "split_ball", "split_count", "split_bc"))
+                    choices=("single", "split_ball", "split_count", "split_bc",
+                             "split_outs", "split_hand", "split_late"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
     ap.add_argument("--interact", action="store_true",
@@ -164,6 +165,9 @@ def main() -> None:
     yball = pd.to_numeric(labeled["y_ball"], errors="coerce").to_numpy(np.float64)
     _n = lambda c: pd.to_numeric(frame[c], errors="coerce").to_numpy(np.float64)
     cnt = np.digitize(_n("balls_before") * 3 + _n("strikes_before"), [3, 6, 9])
+    outs = _n("outs_before")                       # 0/1/2
+    hmt = frame["handedness_matchup"].astype(str).to_numpy()   # 1_1 1_2 2_1 2_2
+    late = _n("late_inning")                       # 0/1
 
     P0 = json.loads(M.PARAMS_PATH.read_text(encoding="utf-8"))["best_params"]
     half_life = float(P0.pop("half_life"))
@@ -212,6 +216,15 @@ def main() -> None:
             elif args.arm == "split_count":
                 parts = [(f"c{k}", ((yv == 1) & (cnt == k)).astype(float))
                          for k in np.unique(cnt)]
+            elif args.arm == "split_outs":        # 아웃카운트 3분할
+                parts = [(f"o{k}", ((yv == 1) & (outs == k)).astype(float))
+                         for k in (0.0, 1.0, 2.0)]
+            elif args.arm == "split_hand":        # 투타 손 조합 4분할
+                parts = [(f"h{k}", ((yv == 1) & (hmt == k)).astype(float))
+                         for k in sorted(set(hmt.tolist()))]
+            elif args.arm == "split_late":        # 후반 이닝 2분할
+                parts = [(f"l{k}", ((yv == 1) & (late == k)).astype(float))
+                         for k in (0.0, 1.0)]
             elif args.arm == "split_bc":          # ball x 카운트군
                 parts = [(f"b{b}c{k}",
                           ((yv == 1) & (yball == b) & (cnt == k)).astype(float))
