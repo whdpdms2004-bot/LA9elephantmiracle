@@ -54,6 +54,7 @@ BEST_COMBO = {
     "middle": "rate_multiscale+no_trackman+no_component",
     "reverse": "drop_ids",
     "outside": "drop_ids+no_trackman+rate_multiscale",
+    "success": "drop_ids+no_trackman+rate_multiscale",
 }
 SCHEMES = ["recency", "flat", "drop_2022", "half_2022", "hl_long", "anti"]
 
