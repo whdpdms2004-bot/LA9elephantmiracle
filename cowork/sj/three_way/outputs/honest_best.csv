@@ -1,0 +1,10 @@
+way,fold,bss,config
+middle,2021,-81.00065310812087,split_ball_recency_kb_it250
+middle,2023,603.6620764764522,split_ball_drop_2019+drop_2020+drop_2022+fw020_kb_ies
+middle,2024,971.0653496454169,split_ball_drop_2019+drop_2020+drop_2022+fw020
+reverse,2021,2158.0091262235924,single_recency_kb
+reverse,2023,521.6344173294973,single_drop_2022+fw020_no_trackman_kb_it90
+reverse,2024,1462.7268224343347,single_median_diff
+outside,2021,894.9754000102894,single_recency_kb
+outside,2023,1794.2009651348512,single
+outside,2024,1556.345827385852,single
