@@ -133,6 +133,9 @@ def main() -> None:
                              "split_outs", "split_hand", "split_late"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
+    ap.add_argument("--drift-drop", type=int, default=0,
+                    help="학습 시즌 간 분포 이동이 큰 수치 피처를 N개 제거한다. "
+                         "평가 데이터는 보지 않는다 (학습 시즌 두 개만 비교)")
     ap.add_argument("--interact", action="store_true",
                     help="2차 상호작용 피처를 추가한다 (train_arms.interactions)")
     ap.add_argument("--seed", type=int, default=SEED,
@@ -199,6 +202,33 @@ def main() -> None:
             cats0 = [c for c in CATEGORICAL_COLUMNS if c in f1_features]
             fr, feats, cat_cols = T.build(base_fr, f1_features, cats0, ctup,
                                           pd.Series(tr, index=frame.index), fold)
+            sch0 = [x.strip() for x in args.schemes.split(",") if x.strip()][0]
+            if args.drift_drop > 0:
+                # 학습 시즌 중 가중치>0 인 최근 두 해를 비교해 이동이 큰 피처를 뺀다.
+                # no_trackman 이 손으로 한 것(계측 피처 제거)의 자동화판이다.
+                _w0 = weights(sch0, season[tr], fold, half_life, recency_weights,
+                              (frame["game_type"].astype(str).to_numpy() == "F")[tr])
+                _live = np.unique(season[tr][_w0 > 0])
+                if len(_live) >= 2:
+                    s_a, s_b = int(_live[-2]), int(_live[-1])
+                    idx = np.flatnonzero(tr)
+                    ma = season[tr] == s_a
+                    mb = season[tr] == s_b
+                    drift = {}
+                    for c in feats:
+                        if c in cat_cols:
+                            continue
+                        v = pd.to_numeric(fr.iloc[idx][c], errors="coerce").to_numpy(float)
+                        a, b = v[ma], v[mb]
+                        sd_ = np.nanstd(np.concatenate([a, b]))
+                        if not np.isfinite(sd_) or sd_ < 1e-12:
+                            continue
+                        drift[c] = abs(np.nanmean(a) - np.nanmean(b)) / sd_
+                    bad = [c for c, _ in sorted(drift.items(), key=lambda kv: -kv[1])
+                           ][:args.drift_drop]
+                    feats = [c for c in feats if c not in bad]
+                    print(f"  분포이동 제거 {len(bad)}개 ({s_a} vs {s_b}) -> 피처 "
+                          f"{len(feats)}개   상위: {bad[:4]}", flush=True)
             if args.interact:
                 from train_arms import interactions
                 import v85_preprocess_screen as _M
@@ -259,6 +289,7 @@ def main() -> None:
                 _cs += f"_lr{args.lr:g}" if args.lr != 0.015 else ""
                 _cs += f"_s{args.seed}" if args.seed != SEED else ""
                 _cs += "_ix" if args.interact else ""
+                _cs += f"_dd{args.drift_drop}" if args.drift_drop else ""
                 npy = OUT / f"ww_{tg}__{args.arm}_{sch}{_cs}__{fold}.npy"
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,

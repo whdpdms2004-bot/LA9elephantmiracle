@@ -1,4 +1,3 @@
 way,k,f23,f24,members
-reverse,2,802.2710661667376,1072.7957604513615,ww:split_ball_drop_2022+fw020_no_trackman_kb_it150_d11_s7_ix + ww:split_bc_drop_2022+fw020_no_trackman_kb_it150_ix
+reverse,1,845.9220519199895,1050.810800059121,ww:split_ball_drop_2022+fw020_no_trackman_kb_it150_d11_s7_ix_dd65
 middle,3,615.5035956710409,881.8752720869405,ww:split_ball_drop_2019+drop_2020+drop_2022+fw020_kb + ww:split_ball_drop_2019+drop_2020+drop_2022+fw020_kb_it1800_d6_ix + ww:split_ball_drop_2019+drop_2020+drop_2022+fw020_rate_multiscale-no_trackman_kb
-outside,3,1792.1942049362594,1568.2981355318093,wb:single + wb:cat_lgbm + wb:split_ball
