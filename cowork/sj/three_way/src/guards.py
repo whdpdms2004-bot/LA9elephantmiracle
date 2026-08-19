@@ -115,7 +115,8 @@ def save_prediction(path, pred, y_valid=None, *, where: str = "") -> None:
 
 
 # ── 허용: 학습 시즌에서 얻는 추세 ─────────────────────────────────────────
-def train_season_trend(y, seasons, fold: int, *, clip=(0.005, 0.995)) -> float:
+def train_season_trend(y, seasons, fold: int, *, clip=(0.005, 0.995),
+                       rule: str = "linear_all") -> float:
     """season < fold 의 시즌별 평균을 선형 외삽한 사전확률.
 
     **검증/테스트 라벨을 보지 않는다.** 전 행에 같은 상수로 적용되므로
@@ -130,9 +131,23 @@ def train_season_trend(y, seasons, fold: int, *, clip=(0.005, 0.995)) -> float:
     s = pd.Series(y).groupby(pd.Series(seasons)).mean().sort_index()
     if len(s) < 2:
         return float(np.clip(s.iloc[-1], *clip))
-    span = float(s.index[-1]) - float(s.index[0])
-    step = (float(s.iloc[-1]) - float(s.iloc[0])) / span if span > 0 else 0.0
-    return float(np.clip(float(s.iloc[-1]) + step, *clip))
+    v = s.to_numpy(float)
+    x = s.index.to_numpy(float)
+    if rule == "last":                      # 직전 시즌 그대로
+        out = v[-1]
+    elif rule == "linear_3":                # 최근 3시즌 선형
+        k = min(3, len(v))
+        out = float(np.polyval(np.polyfit(x[-k:], v[-k:], 1), fold))
+    elif rule == "median_diff":             # 차분 중앙값만큼 이동
+        out = v[-1] + float(np.median(np.diff(v)))
+    elif rule == "ewm":                     # 지수가중 추세 (감쇠 0.7)
+        d = np.diff(v)
+        w = 0.7 ** np.arange(len(d) - 1, -1, -1)
+        out = v[-1] + float((d * w).sum() / w.sum())
+    else:                                   # linear_all — 첫-마지막 기울기 (현행)
+        span = x[-1] - x[0]
+        out = v[-1] + ((v[-1] - v[0]) / span if span > 0 else 0.0)
+    return float(np.clip(out, *clip))
 
 
 # ── 정적 검사 — 금지 패턴이 코드에 들어왔는지 ─────────────────────────────

@@ -1,0 +1,2 @@
+target,arm,combo,fold,d,n,target_mean,pred_mean,offset,null,brier,bss_raw,bss_centered,bss_norm
+middle,split_ball_id_frequency_rate_multiscale_temporal_c,id_frequency+rate_multiscale+temporal_cyclic,2024,0.0,253035,0.17629181733752247,0.156024559692619,-0.020267257644903475,0.14521301247735607,0.144223438724724,681.4635518882062,964.331957024367,6.814635518882062

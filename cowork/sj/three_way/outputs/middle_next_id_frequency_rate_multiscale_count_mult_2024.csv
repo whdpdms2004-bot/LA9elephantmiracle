@@ -1,0 +1,2 @@
+target,arm,combo,fold,d,n,target_mean,pred_mean,offset,null,brier,bss_raw,bss_centered,bss_norm
+middle,split_ball_id_frequency_rate_multiscale_count_mult,id_frequency+rate_multiscale+count_multiscale,2024,0.0,253035,0.17629181733752247,0.15630290418667458,-0.019988913150847887,0.14521301247735607,0.14424087069798106,669.4591364714064,944.6112334740353,6.694591364714064
