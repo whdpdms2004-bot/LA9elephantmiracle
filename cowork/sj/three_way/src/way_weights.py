@@ -126,6 +126,8 @@ def main() -> None:
     ap.add_argument("--arm", default="split_ball", choices=("single", "split_ball"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
+    ap.add_argument("--inner-es", action="store_true",
+                    help="학습 데이터 내부에서 반복 횟수를 정한다 (채점 fold 라벨 미사용)")
     ap.add_argument("--keep-bagging", action="store_true",
                     help="P0 의 bagging_temperature 를 유지 (train_arms 와 동일)")
     args = ap.parse_args()
@@ -200,6 +202,7 @@ def main() -> None:
                 # 기본 조합일 때만 옛 이름을 유지해 기존 캐시를 살린다.
                 _cs = "" if combo == BEST_COMBO.get(tg, "") else                     "_" + combo.replace("+", "-")[:36]
                 _cs += "_kb" if args.keep_bagging else ""
+                _cs += "_ies" if args.inner_es else ""
                 npy = OUT / f"ww_{tg}__{args.arm}_{sch}{_cs}__{fold}.npy"
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,
@@ -216,13 +219,43 @@ def main() -> None:
                         for _, yp in parts:
                             pr = train_season_trend(yp[tr], season[tr], fold)
                             bl = float(np.log(pr / (1 - pr)))
+                            n_it = None
+                            if args.inner_es:
+                                # 학습 데이터 안에서만 반복 횟수를 정한다.
+                                # 내부 검증 = 학습 시즌 중 가장 최근(가중치>0)인 해.
+                                # 채점 fold(va) 의 라벨은 어디에도 쓰지 않는다.
+                                live = np.unique(s_tr[w > 0])
+                                iv_season = int(live.max())
+                                i_va = (s_tr == iv_season)
+                                i_tr = (~i_va) & (w > 0)
+                                if i_tr.sum() > 20000 and i_va.sum() > 5000:
+                                    idx = np.flatnonzero(tr)
+                                    q_tr = Pool(fr.iloc[idx[i_tr]][feats],
+                                                yp[tr][i_tr].astype("int8"),
+                                                cat_features=cat_cols, weight=w[i_tr],
+                                                baseline=np.full(int(i_tr.sum()), bl))
+                                    q_va = Pool(fr.iloc[idx[i_va]][feats],
+                                                yp[tr][i_va].astype("int8"),
+                                                cat_features=cat_cols,
+                                                baseline=np.full(int(i_va.sum()), bl))
+                                    mm = CatBoostClassifier(**cat_params(
+                                        P0, float(yp[tr].mean()), args.keep_bagging))
+                                    mm.fit(q_tr, eval_set=q_va, use_best_model=True,
+                                           early_stopping_rounds=80)
+                                    n_it = max(60, int(mm.get_best_iteration()) + 1)
+                                    print(f"      내부 조기종료: 검증시즌 {iv_season} "
+                                          f"-> {n_it}회", flush=True)
+                                    del q_tr, q_va, mm
+                                    gc.collect()
+                            pp = cat_params(P0, float(yp[tr].mean()), args.keep_bagging)
+                            if n_it:
+                                pp["iterations"] = n_it
                             p_tr = Pool(fr.loc[tr, feats], yp[tr].astype("int8"),
                                         cat_features=cat_cols, weight=w,
                                         baseline=np.full(int(tr.sum()), bl))
                             p_va = Pool(fr.loc[va, feats], cat_features=cat_cols,
                                         baseline=np.full(int(va.sum()), bl))
-                            m = CatBoostClassifier(**cat_params(
-                                P0, float(yp[tr].mean()), args.keep_bagging))
+                            m = CatBoostClassifier(**pp)
                             m.fit(p_tr)
                             pred = pred + m.predict_proba(p_va)[:, 1]
                             del p_tr, p_va, m
@@ -238,7 +271,9 @@ def main() -> None:
                 print(f"  {sch:<12}{m['bss_raw']:>10.1f}{m['bss_centered']:>10.1f}"
                       f"{m['offset']:>+10.4f}{share:>10.3f}  {src}", flush=True)
                 rows.append({"target": tg, "scheme": sch, "arm": args.arm,
-                             "combo": combo, "fold": fold, "w2022": share, **m})
+                             "combo": combo, "fold": fold, "w2022": share,
+                             "keep_bagging": bool(args.keep_bagging),
+                             "inner_es": bool(args.inner_es), **m})
                 pd.DataFrame(rows).to_csv(OUT / "way_weights.csv", index=False)
             del fr, base_fr, static, forward
             gc.collect()
@@ -248,7 +283,11 @@ def main() -> None:
         p = OUT / "way_weights.csv"
         if p.exists():
             t = pd.concat([pd.read_csv(p), t], ignore_index=True)
-        t.drop_duplicates(["target", "scheme", "arm", "fold"], keep="last").to_csv(
+        for c in ("keep_bagging", "inner_es"):
+            if c not in t.columns:
+                t[c] = False
+        t.drop_duplicates(["target", "scheme", "arm", "fold", "combo",
+                           "keep_bagging", "inner_es"], keep="last").to_csv(
             p, index=False)
         print(f"{chr(10)}saved -> {p}")
 
