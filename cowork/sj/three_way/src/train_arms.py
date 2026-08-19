@@ -134,9 +134,20 @@ def tree_params_for(rate: float) -> dict:
     return {"depth": 8, "l2_leaf_reg": 3.0, "min_data_in_leaf": 64}
 
 
+def _merge_save(rows, path):
+    """기존 CSV 와 병합해 저장한다. 타깃별로 따로 실행해도 덮어쓰지 않는다."""
+    new = pd.DataFrame(rows)
+    if path.exists():
+        old = pd.read_csv(path)
+        new = pd.concat([old, new], ignore_index=True)
+    new = new.drop_duplicates(["target", "arm", "fold"], keep="last")
+    new.to_csv(path, index=False)
+    return new
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--target", default="middle,reverse,ball,outside")
+    ap.add_argument("--target", default="middle,reverse,outside,mr")
     ap.add_argument("--arms", default=",".join(ARMS))
     ap.add_argument("--fold", type=int, default=DECISION_FOLD)
     ap.add_argument("--iterations", type=int, default=900)
@@ -277,11 +288,10 @@ def main() -> None:
                   f"{m['bss_norm']:>10.2f}  {src}{mark}", flush=True)
             rows.append({"target": target, "arm": arm, "fold": args.fold,
                          "n_features": nf, "n_train": ntr, "d": d, **m})
-            pd.DataFrame(rows).to_csv(OUT / f"train_arms_{args.fold}.csv", index=False)
+            _merge_save(rows, OUT / f"train_arms_{args.fold}.csv")
 
     if rows:
-        t = pd.DataFrame(rows)
-        t.to_csv(OUT / f"train_arms_{args.fold}.csv", index=False)
+        t = _merge_save(rows, OUT / f"train_arms_{args.fold}.csv")
         print(f"{chr(10)}{'=' * 104}{chr(10)}타깃별 최선 arm{chr(10)}{'=' * 104}")
         for tg in t["target"].unique():
             s = t[(t.target == tg) & (t.arm != "base")].nlargest(3, "d")

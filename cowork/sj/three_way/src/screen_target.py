@@ -42,7 +42,7 @@ SEED = 20262844
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--target", default="middle",
+    ap.add_argument("--target", default="middle,reverse,outside",
                     help="middle,reverse,ball,outside,success 중 쉼표 구분")
     ap.add_argument("--fold", type=int, default=DECISION_FOLD)
     ap.add_argument("--beam", type=int, default=0)
@@ -51,6 +51,8 @@ def main() -> None:
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--learning-rate", type=float, default=0.015)
     ap.add_argument("--depth", type=int, default=8)
+    ap.add_argument("--arm", default="base",
+                    help="학습 방식 arm (train_arms.ARM_SPECS). 기본 base")
     ap.add_argument("--dry", action="store_true")
     args = ap.parse_args()
 
@@ -69,6 +71,11 @@ def main() -> None:
     import v85_preprocess_screen as M
     sys.path.insert(0, str(LAB))
     import transforms as T
+    from train_arms import ARM_SPECS, tree_params_for
+    _spec = ARM_SPECS.get(args.arm)
+    if _spec is None:
+        raise SystemExit(f"모르는 arm: {args.arm}. 가능: {sorted(ARM_SPECS)}")
+    print(f"학습 방식 arm: {args.arm}  {_spec}")
 
     reg = T.load_all()
     print(f"등록된 변환 {len(reg)}개 (preprocess_lab 재사용)")
@@ -113,7 +120,11 @@ def main() -> None:
               f"잡음 sd 추정 {sd:.2f}")
         print("=" * 96, flush=True)
 
-        weights = recency_weights(frame.loc[tr_mask, "season"], args.fold, half_life)
+        _hl = float(_spec.get("half_life", half_life))
+        weights = np.asarray(recency_weights(
+            frame.loc[tr_mask, "season"], args.fold, _hl), np.float64).copy()
+        if "w_f" in _spec:
+            weights[(frame["game_type"].astype(str).to_numpy() == "F")[tr_mask]] *= _spec["w_f"]
         # 시즌 외삽 사전확률. 1WAY 는 성분마다 base_score 를 이렇게 외삽했는데
         # 3WAY 하위 모델은 기본값을 써서 오프셋이 +0.011~+0.025 났다 (페널티 47~250).
         _s = pd.Series(yv[tr_mask]).groupby(
@@ -133,7 +144,8 @@ def main() -> None:
             if key in scored:
                 return scored[key]
             tag = "+".join(key) if key else "baseline"
-            npy = OUT / f"{target}__{tag}__{args.fold}.npy"
+            npy = OUT / (f"{target}__{tag}__{args.fold}.npy" if args.arm == "base"
+                         else f"{target}__{tag}__{args.arm}__{args.fold}.npy")
             if npy.exists():
                 m = bss(y_va, np.load(npy))
                 scored[key] = {"target": target, "combo": tag, "n_atoms": len(key),
@@ -158,7 +170,17 @@ def main() -> None:
                            baseline=np.full(int(tr_mask.sum()), _b, np.float64))
             pool_va = Pool(fr.loc[va_mask, feats], y_va, cat_features=cats,
                            baseline=np.full(int(va_mask.sum()), _b, np.float64))
-            model = CatBoostClassifier(**params)
+            _p = dict(params)
+            if _spec.get("treeparam"):
+                _p.update(tree_params_for(float(yv[tr_mask].mean())))
+            _p.update(_spec.get("p", {}))
+            if _p.get("grow_policy") == "Lossguide":
+                _p.pop("depth", None)
+            elif "max_leaves" in _p:
+                _p.pop("max_leaves", None)
+            if _p.get("bootstrap_type") == "Bayesian":
+                _p.pop("subsample", None)
+            model = CatBoostClassifier(**_p)
             model.fit(pool_tr, eval_set=pool_va, use_best_model=True)
             pred = model.predict_proba(pool_va)[:, 1]
             save_prediction(npy, pred, y_va, where=f"{target}")
@@ -193,7 +215,8 @@ def main() -> None:
             for a in atoms:
                 show(score((a,)))
                 pd.DataFrame(scored.values()).to_csv(
-                    OUT / f"screen_{target}_{args.fold}.csv", index=False)
+                    OUT / (f"screen_{target}_{args.fold}.csv" if args.arm == "base"
+                       else f"screen_{target}_{args.arm}_{args.fold}.csv"), index=False)
 
         if args.beam:
             beam = [c for c, _ in sorted(
@@ -208,7 +231,8 @@ def main() -> None:
                     res.append((c, score(c)))
                     show(res[-1][1])
                     pd.DataFrame(scored.values()).to_csv(
-                        OUT / f"screen_{target}_{args.fold}.csv", index=False)
+                        OUT / (f"screen_{target}_{args.fold}.csv" if args.arm == "base"
+                       else f"screen_{target}_{args.arm}_{args.fold}.csv"), index=False)
                 prev = max(scored[c]["bss_centered"] for c in beam)
                 beam = [c for c, _ in sorted(
                     res, key=lambda t: -t[1]["bss_centered"])[:args.beam]]
@@ -219,7 +243,8 @@ def main() -> None:
         t = pd.DataFrame(scored.values()).sort_values("bss_centered", ascending=False)
         t["d_centered"] = t["bss_centered"] - b0["bss_centered"]
         t["verdict"] = [verdict({DECISION_FOLD: d}, target) for d in t["d_centered"]]
-        t.to_csv(OUT / f"screen_{target}_{args.fold}.csv", index=False)
+        t.to_csv(OUT / (f"screen_{target}_{args.fold}.csv" if args.arm == "base"
+                       else f"screen_{target}_{args.arm}_{args.fold}.csv"), index=False)
         all_rows.append(t)
         print(f"{chr(10)}  [{target}] 상위 6")
         print(t.head(6)[["combo", "bss_centered", "d_centered", "bss_norm",

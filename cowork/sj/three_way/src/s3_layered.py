@@ -107,7 +107,7 @@ def layered(keys_outer, keys_inner, y, tr, league, name, warn=True):
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--target", default="middle,reverse,ball")
+    ap.add_argument("--target", default="middle,reverse,outside")
     ap.add_argument("--base", default="", help="비우면 S2_BEST 사용")
     ap.add_argument("--fold", type=int, default=DECISION_FOLD)
     ap.add_argument("--iterations", type=int, default=900)

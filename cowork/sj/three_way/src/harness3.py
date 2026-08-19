@@ -55,6 +55,11 @@ OUT = TW / "outputs"
 SUCCESS = "control_success"
 TARGETS = {"middle": "y_middle", "reverse": "y_reverse", "ball": "y_ball",
            "outside": "y_outside", "mr": "y_mr", "success": SUCCESS}
+# 정규 하위 타깃 — 실패 = middle U reverse U outside 가 불일치 0행으로 성립한다.
+# ball 은 실패 분해가 아니다 (성공 투구의 29.9% 도 ball). 보조 관찰용으로만 둔다.
+CANONICAL = ("middle", "reverse", "outside")
+IDENTITY_EXTRA = "mr"          # 포함-배제의 m&r 교집합
+AUXILIARY = ("ball",)          # 타깃 아님. 참고용
 DECISION_FOLD = 2024
 AUX_FOLD = 2023
 BANNED_FOLD = 2022           # 역신호. 쓰지 않는다

@@ -100,8 +100,8 @@ def main() -> None:
         return
     print(f"{chr(10)}공통 하위예측: {have}")
 
-    COMBOS = [c for c in (("middle", "reverse", "ball"),
-                          ("middle", "reverse", "outside"),
+    COMBOS = [c for c in (("middle", "reverse", "outside"),
+                          ("middle", "reverse", "ball"),
                           ("middle", "reverse", "ball", "outside"),
                           ("middle", "reverse"))
               if set(c) <= set(have)]
