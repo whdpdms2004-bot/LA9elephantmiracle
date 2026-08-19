@@ -126,6 +126,8 @@ def main() -> None:
     ap.add_argument("--arm", default="split_ball", choices=("single", "split_ball"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
+    ap.add_argument("--seed", type=int, default=SEED,
+                    help="시드 배깅용. 결과는 시드별로 따로 저장된다")
     ap.add_argument("--depth", type=int, default=8)
     ap.add_argument("--l2", type=float, default=0.0,
                     help=">0 이면 l2_leaf_reg 를 이 값으로 (P0 기본 124.9)")
@@ -156,7 +158,7 @@ def main() -> None:
     P0 = json.loads(M.PARAMS_PATH.read_text(encoding="utf-8"))["best_params"]
     half_life = float(P0.pop("half_life"))
     P0.update({"iterations": args.iterations, "learning_rate": args.lr,
-               "depth": args.depth, "random_seed": SEED, "task_type": "GPU",
+               "depth": args.depth, "random_seed": args.seed, "task_type": "GPU",
                "devices": "0", "verbose": 0})
     if args.l2 > 0:
         P0["l2_leaf_reg"] = args.l2
@@ -216,6 +218,7 @@ def main() -> None:
                 _cs += f"_d{args.depth}" if args.depth != 8 else ""
                 _cs += f"_l2{args.l2:g}" if args.l2 > 0 else ""
                 _cs += f"_lr{args.lr:g}" if args.lr != 0.015 else ""
+                _cs += f"_s{args.seed}" if args.seed != SEED else ""
                 npy = OUT / f"ww_{tg}__{args.arm}_{sch}{_cs}__{fold}.npy"
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,
