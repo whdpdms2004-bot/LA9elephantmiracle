@@ -49,6 +49,9 @@ def find_preds(target: str, fold: int) -> dict[str, np.ndarray]:
         (re.compile(rf"^mf_{target}__(.+)__{fold}\.npy$"), "focus"),
         (re.compile(rf"^mn_{target}__(.+)__{fold}\.npy$"), "next"),
         (re.compile(rf"^s3_{target}__(.+)__{fold}\.npy$"), "layer"),
+        (re.compile(rf"^ms_{target}__(.+)__{fold}\.npy$"), "sweep"),
+        (re.compile(rf"^mh_{target}__(.+)__{fold}\.npy$"), "hier"),
+        (re.compile(rf"^wb_{target}__(.+)__{fold}\.npy$"), "wbase"),
     ]
     out = {}
     for p in sorted(OUT.glob("*.npy")):
@@ -67,6 +70,10 @@ def main() -> None:
     ap.add_argument("--top", type=int, default=8, help="단독 상위 몇 개를 후보로")
     ap.add_argument("--max-k", type=int, default=4, help="최대 몇 개까지 섞을지")
     ap.add_argument("--only", default="", help="이 문자열이 든 구성만 후보로")
+    ap.add_argument("--rank-by", default="centered", choices=("raw", "centered"),
+                    help="fold 2023 에서 후보를 무엇으로 줄세울지. "
+                         "middle 은 f23 raw 순위가 오프셋 때문에 f24 와 반대로 간다 — "
+                         "전이되는 것은 판별력이므로 centered 가 기본이다")
     args = ap.parse_args()
 
     tg = args.target
@@ -99,8 +106,9 @@ def main() -> None:
     # 다양성을 넣은 bayesian+interact 는 887 이었다.
     # 그래서 **탐욕 다양성 선택**: 성능 1위부터 시작해, 이미 뽑힌 것들과
     # 상관이 낮은 순으로 채운다 (V65 — 결합 가치는 비상관성이 정한다).
-    rank = sorted(common,
-                  key=lambda k: -bss(Y[AUX_FOLD], P[AUX_FOLD][k])["bss_raw"])
+    key = "bss_centered" if args.rank_by == "centered" else "bss_raw"
+    rank = sorted(common, key=lambda k: -bss(Y[AUX_FOLD], P[AUX_FOLD][k])[key])
+    print(f"후보 줄세우기 기준: fold {AUX_FOLD} {key}")
     if args.only:
         cand = [k for k in rank if any(o in k for o in args.only.split(","))]
         cand = cand[:args.top]
@@ -121,9 +129,10 @@ def main() -> None:
             cand.append(best)
     print(f"{chr(10)}후보 {len(cand)}개 (fold {AUX_FOLD} 단독 기준으로 추림)")
     for k in cand:
-        a = bss(Y[AUX_FOLD], P[AUX_FOLD][k])["bss_raw"]
-        b = bss(Y[DECISION_FOLD], P[DECISION_FOLD][k])["bss_raw"]
-        print(f"  {k:<52}f23 {a:>9.1f}   f24 {b:>9.1f}")
+        a = bss(Y[AUX_FOLD], P[AUX_FOLD][k])
+        b = bss(Y[DECISION_FOLD], P[DECISION_FOLD][k])
+        print(f"  {k:<52}f23 {a['bss_raw']:>8.1f} (cen {a['bss_centered']:>7.1f})"
+              f"   f24 {b['bss_raw']:>8.1f}")
 
     print(f"{chr(10)}{'=' * 96}")
     print("상관 행렬 (fold 2023 로짓) — 낮을수록 결합 가치가 있다")
