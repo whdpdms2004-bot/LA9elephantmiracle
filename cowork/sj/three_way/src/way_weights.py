@@ -115,7 +115,11 @@ def cat_params(base: dict, rate: float, keep_bagging: bool = False) -> dict:
         p["bagging_temperature"] = 1.0
     p.pop("subsample", None)
     if rate < 0.06:
-        p.update({"depth": 6, "l2_leaf_reg": 10.0})
+        # 얇은 하위 타깃은 한 단계 보수적으로. **--depth 를 무시하면 안 된다.**
+        # 예전에는 depth 를 6 으로 고정해서 split_bc(8분할, 전 조각이 0.06 미만)
+        # 의 depth 9/11/13 실험이 전부 depth 6 으로 돌아 같은 값이 나왔다.
+        p["depth"] = max(4, int(p.get("depth", 8)) - 2)
+        p["l2_leaf_reg"] = 10.0
     return p
 
 
@@ -124,7 +128,8 @@ def main() -> None:
     ap.add_argument("--target", default="reverse")
     ap.add_argument("--folds", default="2023,2024")
     ap.add_argument("--schemes", default=",".join(SCHEMES))
-    ap.add_argument("--arm", default="split_ball", choices=("single", "split_ball"))
+    ap.add_argument("--arm", default="split_ball",
+                    choices=("single", "split_ball", "split_count", "split_bc"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
     ap.add_argument("--interact", action="store_true",
@@ -157,6 +162,8 @@ def main() -> None:
     labeled = load_labeled()
     season = frame["season"].to_numpy()
     yball = pd.to_numeric(labeled["y_ball"], errors="coerce").to_numpy(np.float64)
+    _n = lambda c: pd.to_numeric(frame[c], errors="coerce").to_numpy(np.float64)
+    cnt = np.digitize(_n("balls_before") * 3 + _n("strikes_before"), [3, 6, 9])
 
     P0 = json.loads(M.PARAMS_PATH.read_text(encoding="utf-8"))["best_params"]
     half_life = float(P0.pop("half_life"))
@@ -199,10 +206,19 @@ def main() -> None:
             s_tr = season[tr]
             is_f_tr = (frame["game_type"].astype(str).to_numpy() == "F")[tr]
 
-            parts = ([("b1", ((yv == 1) & (yball == 1)).astype(float)),
-                      ("b0", ((yv == 1) & (yball == 0)).astype(float))]
-                     if args.arm == "split_ball" else [("all", yv)])
             if args.arm == "split_ball":
+                parts = [("b1", ((yv == 1) & (yball == 1)).astype(float)),
+                         ("b0", ((yv == 1) & (yball == 0)).astype(float))]
+            elif args.arm == "split_count":
+                parts = [(f"c{k}", ((yv == 1) & (cnt == k)).astype(float))
+                         for k in np.unique(cnt)]
+            elif args.arm == "split_bc":          # ball x 카운트군
+                parts = [(f"b{b}c{k}",
+                          ((yv == 1) & (yball == b) & (cnt == k)).astype(float))
+                         for b in (0, 1) for k in np.unique(cnt)]
+            else:
+                parts = [("all", yv)]
+            if args.arm != "single":
                 tot = sum(v for _, v in parts)
                 assert np.abs(tot[ok] - yv[ok]).max() < 1e-9, "분할이 타깃을 안 덮는다"
 
