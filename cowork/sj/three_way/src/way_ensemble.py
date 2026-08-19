@@ -52,6 +52,7 @@ def find_preds(target: str, fold: int) -> dict[str, np.ndarray]:
         (re.compile(rf"^ms_{target}__(.+)__{fold}\.npy$"), "sweep"),
         (re.compile(rf"^mh_{target}__(.+)__{fold}\.npy$"), "hier"),
         (re.compile(rf"^wb_{target}__(.+)__{fold}\.npy$"), "wbase"),
+        (re.compile(rf"^ww_{target}__(.+)__{fold}\.npy$"), "weights"),
     ]
     out = {}
     for p in sorted(OUT.glob("*.npy")):
