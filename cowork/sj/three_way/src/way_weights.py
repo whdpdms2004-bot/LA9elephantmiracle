@@ -127,6 +127,8 @@ def main() -> None:
     ap.add_argument("--arm", default="split_ball", choices=("single", "split_ball"))
     ap.add_argument("--iterations", type=int, default=900)
     ap.add_argument("--combo", default="")
+    ap.add_argument("--interact", action="store_true",
+                    help="2차 상호작용 피처를 추가한다 (train_arms.interactions)")
     ap.add_argument("--seed", type=int, default=SEED,
                     help="시드 배깅용. 결과는 시드별로 따로 저장된다")
     ap.add_argument("--depth", type=int, default=8)
@@ -186,6 +188,13 @@ def main() -> None:
             cats0 = [c for c in CATEGORICAL_COLUMNS if c in f1_features]
             fr, feats, cat_cols = T.build(base_fr, f1_features, cats0, ctup,
                                           pd.Series(tr, index=frame.index), fold)
+            if args.interact:
+                from train_arms import interactions
+                import v85_preprocess_screen as _M
+                ix = interactions(frame, feats)
+                fr = _M.add_columns(fr, ix)
+                feats = list(dict.fromkeys(list(feats) + list(ix)))
+                print(f"  상호작용 {len(ix)}열 추가 -> 피처 {len(feats)}개", flush=True)
             assert_features_clean(feats, tg)
             s_tr = season[tr]
             is_f_tr = (frame["game_type"].astype(str).to_numpy() == "F")[tr]
@@ -220,6 +229,7 @@ def main() -> None:
                 _cs += f"_l2{args.l2:g}" if args.l2 > 0 else ""
                 _cs += f"_lr{args.lr:g}" if args.lr != 0.015 else ""
                 _cs += f"_s{args.seed}" if args.seed != SEED else ""
+                _cs += "_ix" if args.interact else ""
                 npy = OUT / f"ww_{tg}__{args.arm}_{sch}{_cs}__{fold}.npy"
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,
