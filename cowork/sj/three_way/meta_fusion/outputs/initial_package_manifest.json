@@ -1,0 +1,11 @@
+{
+  "path": "C:\\Users\\isj67\\Desktop\\LA9elephantmiracle\\cowork\\sj\\submit\\2026-08-20\\submit_040.zip",
+  "bytes": 7167466,
+  "sha256": "627133e23385514b10d5975ffd4d59cc415fa1141ea82464bc6cf104a3db476e",
+  "file_count": 22,
+  "top_level": [
+    "model",
+    "requirements.txt",
+    "script.py"
+  ]
+}

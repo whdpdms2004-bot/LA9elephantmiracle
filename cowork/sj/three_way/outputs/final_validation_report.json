@@ -1,0 +1,140 @@
+{
+  "method": "1 - (middle + reverse - mr + outside)",
+  "note": "Metrics use rows with reconstructable component labels. Centered BSS is diagnostic only and is never applied to saved predictions.",
+  "folds": {
+    "2023": {
+      "sources": {
+        "middle": "middle__id_frequency+no_trackman+temporal_cyclic__2023.npy",
+        "reverse": "reverse__count_multiscale+drop_ids+trackman_quality__2023.npy",
+        "outside": "outside__drop_ids+no_trackman+rate_multiscale__2023.npy",
+        "mr": "mr__id_frequency+no_trackman+temporal_cyclic__2023.npy"
+      },
+      "metrics": {
+        "n": 245343,
+        "target_mean": 0.4999816583313973,
+        "pred_mean": 0.5130064029790409,
+        "offset": 0.013024744647643582,
+        "null": 0.2499999996635832,
+        "brier": 0.25076633200463594,
+        "bss_raw": -306.5329368335812,
+        "bss_centered": -238.6753474877379,
+        "bss_norm": -3.065329368335812
+      },
+      "by_game_type": {
+        "R": {
+          "n": 219748,
+          "brier": 0.24983506627027757,
+          "bss": 62.04361416888293,
+          "target_mean": 0.5031354096510549,
+          "prediction_mean": 0.5064079801728718
+        },
+        "F": {
+          "n": 25595,
+          "brier": 0.2587617913753643,
+          "bss": -3809.5622083294866,
+          "target_mean": 0.4729048642312952,
+          "prediction_mean": 0.569657710453548
+        }
+      },
+      "by_month": {
+        "4": {
+          "n": 41250,
+          "brier": 0.25102922717105863
+        },
+        "5": {
+          "n": 39550,
+          "brier": 0.250982203758816
+        },
+        "6": {
+          "n": 42427,
+          "brier": 0.25062844714048105
+        },
+        "7": {
+          "n": 28597,
+          "brier": 0.2507848573788711
+        },
+        "8": {
+          "n": 38798,
+          "brier": 0.2508278398453727
+        },
+        "9": {
+          "n": 37107,
+          "brier": 0.2507888903922678
+        },
+        "10": {
+          "n": 17614,
+          "brier": 0.2497849911517333
+        }
+      }
+    },
+    "2024": {
+      "sources": {
+        "middle": "middle__id_frequency+no_trackman+temporal_cyclic__2024.npy",
+        "reverse": "reverse__count_multiscale+drop_ids+trackman_quality__2024.npy",
+        "outside": "outside__drop_ids+no_trackman+rate_multiscale__2024.npy",
+        "mr": "mr__id_frequency+no_trackman+temporal_cyclic__2024.npy"
+      },
+      "metrics": {
+        "n": 253035,
+        "target_mean": 0.4860710968838303,
+        "pred_mean": 0.4914628401567227,
+        "offset": 0.00539174327289238,
+        "null": 0.24980598565798035,
+        "brier": 0.247736118950132,
+        "bss_raw": 828.5897162937816,
+        "bss_centered": 840.2271057839861,
+        "bss_norm": 8.285897162937816
+      },
+      "by_game_type": {
+        "R": {
+          "n": 223227,
+          "brier": 0.24777324999230074,
+          "bss": 848.3945305999385,
+          "target_mean": 0.48967194828582566,
+          "prediction_mean": 0.4947795087668299
+        },
+        "F": {
+          "n": 29808,
+          "brier": 0.24745805094321402,
+          "bss": 350.1596295718334,
+          "target_mean": 0.4591049382716049,
+          "prediction_mean": 0.46662487773628575
+        }
+      },
+      "by_month": {
+        "3": {
+          "n": 12339,
+          "brier": 0.24717861970236882
+        },
+        "4": {
+          "n": 42561,
+          "brier": 0.24822181084319825
+        },
+        "5": {
+          "n": 44044,
+          "brier": 0.2472026754865855
+        },
+        "6": {
+          "n": 44476,
+          "brier": 0.24730105057373536
+        },
+        "7": {
+          "n": 33048,
+          "brier": 0.2471826349982721
+        },
+        "8": {
+          "n": 41854,
+          "brier": 0.24814902682017748
+        },
+        "9": {
+          "n": 33081,
+          "brier": 0.24852987664768914
+        },
+        "10": {
+          "n": 1632,
+          "brier": 0.25006695769382375
+        }
+      }
+    }
+  }
+}
