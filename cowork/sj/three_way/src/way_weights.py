@@ -80,6 +80,10 @@ def weights(scheme: str, seasons: np.ndarray, fold: int, half_life: float,
         if is_f is None:
             raise ValueError("fw020 에는 포스트시즌 표식이 필요하다")
         return np.where(is_f, base * 0.20, base)
+    if scheme == "fw010":
+        if is_f is None:
+            raise ValueError("fw010 에는 포스트시즌 표식이 필요하다")
+        return np.where(is_f, base * 0.10, base)
     if scheme == "fw050":
         if is_f is None:
             raise ValueError("fw050 에는 포스트시즌 표식이 필요하다")
@@ -136,6 +140,13 @@ def main() -> None:
     ap.add_argument("--drift-drop", type=int, default=0,
                     help="학습 시즌 간 분포 이동이 큰 수치 피처를 N개 제거한다. "
                          "평가 데이터는 보지 않는다 (학습 시즌 두 개만 비교)")
+    ap.add_argument("--mask-augment", action="store_true",
+                    help="마스킹으로 원본을 덮어쓰지 않고 **마스킹한 사본을 학습에 덧붙인다**. "
+                         "학습 행 수가 2배가 되고 원본 정보가 보존된다. 검증은 원본만 쓴다")
+    ap.add_argument("--mask", default="",
+                    help="이상치 마스킹. clipQ / nanQ / rowQ / nanrareN 형태. "
+                         "예: clip999(양끝 0.1%% 절단) nan995 row999 nanrare20. "
+                         "임계는 **학습 행에서만** 구하고 검증에도 같은 상수를 쓴다")
     ap.add_argument("--drift-metric", default="mean",
                     choices=("mean", "quantile", "var", "combo"),
                     help="이동 지표. mean=평균차/표준편차, quantile=십분위 이동 중앙값, "
@@ -258,6 +269,69 @@ def main() -> None:
                 fr = _M.add_columns(fr, ix)
                 feats = list(dict.fromkeys(list(feats) + list(ix)))
                 print(f"  상호작용 {len(ix)}열 추가 -> 피처 {len(feats)}개", flush=True)
+            # 마스킹은 피처가 확정된 뒤에 적용한다 — 예전에는 상호작용
+            # 추가 전에 사본을 떠서 증강 학습이 ix_* 열 부재로 죽었다.
+            row_ok = None
+            fr_mask = None
+            if args.mask:
+                # 임계는 학습 행 분위수로만 정한다. 검증/테스트에는 같은 상수를
+                # 적용하므로 행 독립이고 평가 분포를 보지 않는다.
+                # '+' 로 여러 방식을 겹칠 수 있다 (예: clip995+nanrare20).
+                base_fr_m = fr.copy() if args.mask_augment else fr
+                for one in [x for x in args.mask.split("+") if x]:
+                    m_ = re.fullmatch(r"(clip|nan|row)(\d{2,3})", one)
+                    mr_ = re.fullmatch(r"nanrare(\d+)", one)
+                    if mr_:
+                        k = int(mr_.group(1))
+                        n_masked = 0
+                        for c in cat_cols:
+                            vc = base_fr_m.loc[tr, c].astype(str).value_counts()
+                            rare = set(vc[vc < k].index)
+                            if not rare:
+                                continue
+                            col = base_fr_m[c].astype(str)
+                            base_fr_m[c] = col.where(~col.isin(rare), "__RARE__")
+                            n_masked += len(rare)
+                        print(f"  희소범주 {n_masked}개 -> __RARE__ (빈도 {k} 미만)",
+                              flush=True)
+                    elif m_:
+                        mode, qq = m_.group(1), int(m_.group(2))
+                        q = 1.0 - qq / (10 ** len(str(qq)))
+                        lo_q, hi_q = q, 1.0 - q
+                        nums = [c for c in feats if c not in cat_cols]
+                        bounds = {}
+                        for c in nums:
+                            v = pd.to_numeric(base_fr_m.loc[tr, c],
+                                              errors="coerce").to_numpy(float)
+                            if not np.isfinite(v).any():
+                                continue
+                            bounds[c] = (float(np.nanquantile(v, lo_q)),
+                                         float(np.nanquantile(v, hi_q)))
+                        if mode == "row":
+                            bad = np.zeros(len(base_fr_m), bool)
+                            for c, (lo, hi) in bounds.items():
+                                v = pd.to_numeric(base_fr_m[c],
+                                                  errors="coerce").to_numpy(float)
+                                bad |= (v < lo) | (v > hi)
+                            row_ok = ~bad
+                            print(f"  이상치 행 {int((~row_ok[tr]).sum()):,}/"
+                                  f"{int(tr.sum()):,} ({(~row_ok[tr]).mean():.1%}) "
+                                  f"학습 제외", flush=True)
+                        else:
+                            for c, (lo, hi) in bounds.items():
+                                v = pd.to_numeric(base_fr_m[c],
+                                                  errors="coerce").to_numpy(float)
+                                base_fr_m[c] = (np.clip(v, lo, hi) if mode == "clip"
+                                                else np.where((v < lo) | (v > hi),
+                                                              np.nan, v))
+                            print(f"  {mode} {len(bounds)}열  "
+                                  f"[{lo_q:.4f},{hi_q:.4f}]", flush=True)
+                    else:
+                        print(f"  ! 모르는 마스킹 {one} — 무시", flush=True)
+                if args.mask_augment:
+                    fr_mask = base_fr_m          # 학습에 덧붙일 사본
+                    print(f"  증강: 원본 + 마스킹 사본으로 학습 행 "
+                          f"{int(tr.sum()):,} -> {int(tr.sum()) * 2:,}", flush=True)
             assert_features_clean(feats, tg)
             s_tr = season[tr]
             is_f_tr = (frame["game_type"].astype(str).to_numpy() == "F")[tr]
@@ -311,6 +385,8 @@ def main() -> None:
                 _cs += f"_lr{args.lr:g}" if args.lr != 0.015 else ""
                 _cs += f"_s{args.seed}" if args.seed != SEED else ""
                 _cs += "_ix" if args.interact else ""
+                _cs += f"_mk{args.mask.replace('+', '-')}" if args.mask else ""
+                _cs += "_aug" if (args.mask and args.mask_augment) else ""
                 _cs += f"_dd{args.drift_drop}" if args.drift_drop else ""
                 _cs += f"_{args.drift_metric[:3]}" if (
                     args.drift_drop and args.drift_metric != "mean") else ""
@@ -318,6 +394,8 @@ def main() -> None:
                 try:
                     w = weights(sch, s_tr, fold, half_life, recency_weights,
                                 is_f_tr)
+                    if row_ok is not None:      # 이상치 행은 학습에서만 뺀다
+                        w = np.where(row_ok[tr], w, 0.0)
                 except Exception as exc:                          # noqa: BLE001
                     print(f"  {sch:<12}  가중치 실패: {str(exc)[:50]}"); continue
                 share = float(w[s_tr == 2022].sum() / w.sum()) if (s_tr == 2022).any() else 0.0
@@ -361,9 +439,17 @@ def main() -> None:
                             pp = cat_params(P0, float(yp[tr].mean()), args.keep_bagging)
                             if n_it:
                                 pp["iterations"] = n_it
-                            p_tr = Pool(fr.loc[tr, feats], yp[tr].astype("int8"),
-                                        cat_features=cat_cols, weight=w,
-                                        baseline=np.full(int(tr.sum()), bl))
+                            if fr_mask is not None:
+                                X_tr = pd.concat([fr.loc[tr, feats],
+                                                  fr_mask.loc[tr, feats]],
+                                                 ignore_index=True)
+                                y_tr = np.concatenate([yp[tr], yp[tr]]).astype("int8")
+                                w_tr = np.concatenate([w, w]) * 0.5
+                            else:
+                                X_tr, y_tr, w_tr = fr.loc[tr, feats],                                     yp[tr].astype("int8"), w
+                            p_tr = Pool(X_tr, y_tr, cat_features=cat_cols,
+                                        weight=w_tr,
+                                        baseline=np.full(len(y_tr), bl))
                             p_va = Pool(fr.loc[va, feats], cat_features=cat_cols,
                                         baseline=np.full(int(va.sum()), bl))
                             m = CatBoostClassifier(**pp)
