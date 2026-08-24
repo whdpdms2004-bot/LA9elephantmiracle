@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "01_catboost_robust",
+    "zip": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\submit_01_catboost_robust_linux.zip",
+    "zip_size_mb": 0.20299243927001953,
+    "trial": 71,
+    "family": "catboost",
+    "iterations": 152,
+    "validation": {
+      "reason": "two-fold robust objective winner",
+      "robust_objective": 0.9960823422536643,
+      "bss_2023": 6.706446004245414,
+      "bss_2024": 750.5710581290903
+    },
+    "smoke_test": {
+      "rows": 5,
+      "pred_min": 0.417306572953831,
+      "pred_max": 0.4856979316886222,
+      "stdout": ""
+    }
+  },
+  {
+    "slug": "02_xgboost_recent",
+    "zip": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\submit_02_xgboost_recent_linux.zip",
+    "zip_size_mb": 0.8152456283569336,
+    "trial": 24,
+    "family": "xgboost",
+    "iterations": 952,
+    "validation": {
+      "reason": "best 2024 BSS in XGBoost family",
+      "robust_objective": 0.9971835751771727,
+      "bss_2023": 0.0,
+      "bss_2024": 745.1313734219367
+    },
+    "smoke_test": {
+      "rows": 5,
+      "pred_min": 0.4029308557510376,
+      "pred_max": 0.4789443016052246,
+      "stdout": ""
+    }
+  }
+]

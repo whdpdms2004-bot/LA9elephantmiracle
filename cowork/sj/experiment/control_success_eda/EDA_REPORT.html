@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>EDA_REPORT.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="control-success-데이터-상세-eda-보고서">Control Success 데이터 상세 EDA 보고서</h1>
+<p>분석 기준일: 2026-08-05<br>
+분석 대상: <code>train.csv</code>, 형식 확인용 <code>test.csv</code>, <code>sample_submission.csv</code>, <code>trackman_history.csv</code></p>
+<h2 id="0-결론-먼저">0. 결론 먼저</h2>
+<p>이번 문제는 기존 CSW 예측 문제와 타깃 의미가 다르다. <code>control_success</code>는 현재 투구의 위치와 포수 요구 방향을 기준으로 산출된 제구 성공 여부이며, CSW처럼 현재 투구 결과를 뜻하지 않는다. 기존 CSW용 타깃 정의, 파생 변수 해석, 학습된 모델은 그대로 재사용하면 안 된다. 기존 파일은 건드리지 않았고, 본 EDA는 별도 폴더에서 새 타깃을 기준으로 수행했다.</p>
+<p>가장 중요한 발견은 다음과 같다.</p>
+<ol>
+<li>전체 성공률은 **52.3766%**로 거의 균형이지만, 2019년 **56.4670%**에서 2024년 **48.6105%**로 <strong>7.86%p 하락</strong>했다. 단순 클래스 불균형보다 시간에 따른 타깃 분포 변화가 훨씬 큰 문제다.</li>
+<li><code>game_type</code>과 시즌의 상호작용이 매우 강하다. <code>F</code>의 성공률은 2022년 **70.8749%**에서 2023년 **47.2904%**로 급락했다. 코드 의미는 설명서에 공개되지 않았으므로 임의로 해석하지 않되, 모델과 검증에서 반드시 분리 확인해야 한다.</li>
+<li>동일 투수 중 양 시즌 모두 100구 이상인 집단에서도 2022→2023 성공률이 가중 평균 <strong>2.61%p 하락</strong>했다. 시즌 하락은 선수 구성 변화만으로 설명되지 않는다.</li>
+<li><code>row_id</code>는 사실상 시간 순서다. 더 심각하게는 같은 투수의 다음 학습 행에 있는 누적 성공률로 현재 타깃을 반올림 복원하면 <strong>99.9463% 행에서 100% 정확히 복원</strong>된다. 이는 데이터 구조 진단일 뿐이며, 테스트의 다른 행을 사용할 수 없으므로 절대 피처로 만들면 안 된다.</li>
+<li>제공된 <code>asof_pitcher_success_rate</code>는 단변량 AUC <strong>0.5488</strong>로 가장 유용한 단일 수치 피처지만, 극단값이 과도하게 확신적이고 최근 시즌에서 낙관 편향이 있다. 2024년 평균 과거 성공률은 실제보다 <strong>2.53%p 높다</strong>. 표본 수 기반 smoothing과 시즌별 재보정이 필요하다.</li>
+<li>메인 데이터와 Trackman의 선수 ID는 직접 겹치는 값이 <strong>0개</strong>다. 선수 단위 Trackman 결합은 검증된 crosswalk 없이는 불가능하다. 반면 공통 경기상황의 주변 분포는 매우 유사해 같은 경기 생태계를 다루는 보조 로그로 볼 근거는 충분하다.</li>
+<li>Trackman은 매 시즌 메인 데이터보다 행이 많으며 비율이 2019년 <strong>1.08배</strong>에서 2024년 <strong>1.32배</strong>로 증가한다. 메인 데이터와 1:1 투구 테이블로 가정하면 안 된다.</li>
+</ol>
+<p><img src="outputs/01_target_rate_by_season.png" alt="시즌별 제구 성공률"></p>
+<h2 id="1-데이터-규모와-스키마">1. 데이터 규모와 스키마</h2>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th style="text-align:right">행 × 열</th>
+<th>기간</th>
+<th>핵심 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>train.csv</code></td>
+<td style="text-align:right">1,475,092 × 49</td>
+<td>2019~2024</td>
+<td>48개 입력 + <code>control_success</code></td>
+</tr>
+<tr>
+<td><code>test.csv</code></td>
+<td style="text-align:right">5 × 48</td>
+<td>2025</td>
+<td>실제 평가 데이터가 아닌 형식 확인 샘플</td>
+</tr>
+<tr>
+<td><code>sample_submission.csv</code></td>
+<td style="text-align:right">5 × 2</td>
+<td>2025</td>
+<td>제출 형식 확인 샘플</td>
+</tr>
+<tr>
+<td><code>trackman_history.csv</code></td>
+<td style="text-align:right">1,793,078 × 30</td>
+<td>2019~2024</td>
+<td>과거 Trackman 보조 로그</td>
+</tr>
+</tbody>
+</table>
+<p>학습 입력 48개와 테스트 48개 컬럼은 이름과 순서가 정확히 일치한다. 샘플 제출의 <code>row_id</code> 순서도 형식 확인용 테스트와 일치한다. 다만 테스트는 5행뿐이므로 결측률, 선수 커버리지, 범주 출현률, 분포 이동을 판단하는 용도로 사용하면 안 된다.</p>
+<p>메인 입력은 다음과 같이 구성된다.</p>
+<ul>
+<li>경기·식별 정보 7개</li>
+<li>카운트·점수 정보 8개</li>
+<li>주자·상황 중요도 정보 8개</li>
+<li>선수·팀 정보 6개</li>
+<li>투구 직전 과거 이력인 <code>asof_*</code> 19개</li>
+</ul>
+<h2 id="2-타깃-분포와-시간-변화">2. 타깃 분포와 시간 변화</h2>
+<p>성공은 772,603건, 실패는 702,489건이다. 전체 성공률은 52.3766%이므로 별도의 강한 class weight는 우선순위가 낮다.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">시즌</th>
+<th style="text-align:right">행 수</th>
+<th style="text-align:right">성공률</th>
+<th style="text-align:right">전체 대비</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2019</td>
+<td style="text-align:right">237,413</td>
+<td style="text-align:right">56.4670%</td>
+<td style="text-align:right">+4.09%p</td>
+</tr>
+<tr>
+<td style="text-align:right">2020</td>
+<td style="text-align:right">244,087</td>
+<td style="text-align:right">53.2712%</td>
+<td style="text-align:right">+0.89%p</td>
+</tr>
+<tr>
+<td style="text-align:right">2021</td>
+<td style="text-align:right">247,088</td>
+<td style="text-align:right">53.2762%</td>
+<td style="text-align:right">+0.90%p</td>
+</tr>
+<tr>
+<td style="text-align:right">2022</td>
+<td style="text-align:right">247,472</td>
+<td style="text-align:right">52.8920%</td>
+<td style="text-align:right">+0.52%p</td>
+</tr>
+<tr>
+<td style="text-align:right">2023</td>
+<td style="text-align:right">245,525</td>
+<td style="text-align:right">49.9957%</td>
+<td style="text-align:right">-2.38%p</td>
+</tr>
+<tr>
+<td style="text-align:right">2024</td>
+<td style="text-align:right">253,507</td>
+<td style="text-align:right">48.6105%</td>
+<td style="text-align:right">-3.77%p</td>
+</tr>
+</tbody>
+</table>
+<h3 id="game_type-체제-변화"><code>game_type</code> 체제 변화</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">시즌</th>
+<th style="text-align:right">F 표본</th>
+<th style="text-align:right">F 성공률</th>
+<th style="text-align:right">R 표본</th>
+<th style="text-align:right">R 성공률</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2019</td>
+<td style="text-align:right">25,786</td>
+<td style="text-align:right">68.9250%</td>
+<td style="text-align:right">211,627</td>
+<td style="text-align:right">54.9490%</td>
+</tr>
+<tr>
+<td style="text-align:right">2020</td>
+<td style="text-align:right">23,213</td>
+<td style="text-align:right">58.7774%</td>
+<td style="text-align:right">220,874</td>
+<td style="text-align:right">52.6925%</td>
+</tr>
+<tr>
+<td style="text-align:right">2021</td>
+<td style="text-align:right">25,861</td>
+<td style="text-align:right">70.3840%</td>
+<td style="text-align:right">221,227</td>
+<td style="text-align:right">51.2763%</td>
+</tr>
+<tr>
+<td style="text-align:right">2022</td>
+<td style="text-align:right">30,448</td>
+<td style="text-align:right">70.8749%</td>
+<td style="text-align:right">217,024</td>
+<td style="text-align:right">50.3691%</td>
+</tr>
+<tr>
+<td style="text-align:right">2023</td>
+<td style="text-align:right">25,686</td>
+<td style="text-align:right">47.2904%</td>
+<td style="text-align:right">219,839</td>
+<td style="text-align:right">50.3118%</td>
+</tr>
+<tr>
+<td style="text-align:right">2024</td>
+<td style="text-align:right">30,010</td>
+<td style="text-align:right">45.9280%</td>
+<td style="text-align:right">223,497</td>
+<td style="text-align:right">48.9707%</td>
+</tr>
+</tbody>
+</table>
+<p>2022→2023의 전체 하락은 <code>F</code>에서 특히 극단적이다. <code>R</code>도 2019 이후 하락하므로 변화가 <code>F</code>에만 국한되지는 않는다. 모델이 시즌과 <code>game_type</code>을 독립적인 범주로만 처리하면 이 비선형 변화를 놓칠 수 있다. <code>season × game_type</code> 상호작용과 유형별 보정 결과를 반드시 확인해야 한다.</p>
+<h3 id="동일-투수-추적-결과">동일 투수 추적 결과</h3>
+<p>양 시즌 모두 100구 이상인 동일 투수만 비교해도 다음 변화가 나타난다.</p>
+<table>
+<thead>
+<tr>
+<th>구간</th>
+<th style="text-align:right">비교 투수</th>
+<th style="text-align:right">중앙값 변화</th>
+<th style="text-align:right">현 시즌 투구 수 가중 변화</th>
+<th style="text-align:right">하락 투수 비율</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2019→2020</td>
+<td style="text-align:right">180</td>
+<td style="text-align:right">-3.54%p</td>
+<td style="text-align:right">-3.65%p</td>
+<td style="text-align:right">81.7%</td>
+</tr>
+<tr>
+<td>2020→2021</td>
+<td style="text-align:right">206</td>
+<td style="text-align:right">-0.02%p</td>
+<td style="text-align:right">0.00%p</td>
+<td style="text-align:right">50.0%</td>
+</tr>
+<tr>
+<td>2021→2022</td>
+<td style="text-align:right">193</td>
+<td style="text-align:right">-0.15%p</td>
+<td style="text-align:right">-1.03%p</td>
+<td style="text-align:right">54.4%</td>
+</tr>
+<tr>
+<td>2022→2023</td>
+<td style="text-align:right">202</td>
+<td style="text-align:right">-2.67%p</td>
+<td style="text-align:right">-2.61%p</td>
+<td style="text-align:right">75.2%</td>
+</tr>
+<tr>
+<td>2023→2024</td>
+<td style="text-align:right">196</td>
+<td style="text-align:right">-0.76%p</td>
+<td style="text-align:right">-1.00%p</td>
+<td style="text-align:right">58.7%</td>
+</tr>
+</tbody>
+</table>
+<p>따라서 시즌 변화는 신규 선수 유입만의 문제가 아니다. 라벨링 환경, 경기 유형 구성, 선수의 실제 제구 변화가 함께 반영된 것으로 봐야 한다.</p>
+<h2 id="3-데이터-무결성과-중복-구조">3. 데이터 무결성과 중복 구조</h2>
+<p>메인 데이터에서 다음 항목은 모두 정상이다.</p>
+<ul>
+<li><code>row_id</code> 결측·중복 0건, <code>TRAIN_&lt;숫자&gt;</code> 형식 준수</li>
+<li>타깃은 0/1만 존재</li>
+<li>볼 0~3, 스트라이크 0~2, 아웃 0~2 범위 위반 0건</li>
+<li>주자 플래그 합과 <code>num_runners_on</code> 불일치 0건</li>
+<li>주자 플래그와 <code>base_state</code> 불일치 0건</li>
+<li>모든 <code>asof_*_rate</code>가 0~1 범위</li>
+<li>모든 입력 피처가 완전히 같은 학습 행 0건</li>
+</ul>
+<p>승률 기대값 합은 58,607행에서 정확히 100이 아니지만, 차이는 전부 <strong>±0.1</strong>이며 한 자리 소수 반올림으로 설명된다. 오류로 처리할 필요가 없다.</p>
+<p>다음 피처는 결정론적으로 중복된다.</p>
+<table>
+<thead>
+<tr>
+<th>피처</th>
+<th>다른 피처로부터의 계산</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>run_total_before</code></td>
+<td><code>run_top_before + run_bot_before</code></td>
+</tr>
+<tr>
+<td><code>score_diff_home</code></td>
+<td><code>run_bot_before - run_top_before</code></td>
+</tr>
+<tr>
+<td><code>score_diff_pitcher_team</code></td>
+<td><code>score_diff_home</code>과 <code>top_bottom</code></td>
+</tr>
+<tr>
+<td><code>num_runners_on</code></td>
+<td>1·2·3루 주자 플래그 합</td>
+</tr>
+<tr>
+<td><code>base_state</code></td>
+<td>주자 플래그 조합</td>
+</tr>
+<tr>
+<td><code>away_win_expectancy</code></td>
+<td>대략 <code>100 - home_win_expectancy</code></td>
+</tr>
+<tr>
+<td><code>asof_pitcher_pitchmix_n</code></td>
+<td><code>asof_pitcher_n</code>과 전 행에서 동일</td>
+</tr>
+</tbody>
+</table>
+<p>트리 모델은 중복을 어느 정도 감당하지만, 중요도 분산과 불필요한 복잡도를 줄이려면 대표 변수만 유지하는 ablation이 필요하다. 선형 모델에서는 다중공선성 때문에 더 적극적으로 정리해야 한다.</p>
+<h2 id="4-row_id와-미래-행-누수-위험">4. <code>row_id</code>와 미래 행 누수 위험</h2>
+<p><code>row_id</code> 숫자 부분은 1부터 순증하고 시즌도 함께 단조 증가한다. 행 순서와 시즌 순위 상관은 <strong>0.9860</strong>이다. 또한 각 투수의 <code>asof_pitcher_n</code>은 해당 투수의 학습 데이터 누적 행 번호와 <strong>100% 일치</strong>한다.</p>
+<p>같은 투수의 다음 학습 행에서</p>
+<p><code>다음 누적 성공 수 - 현재 누적 성공 수</code></p>
+<p>를 계산하고 반올림하면, 다음 행이 존재하는 **99.9463%**의 행에서 현재 <code>control_success</code>를 <strong>100% 복원</strong>할 수 있다. 제공률이 소수 6자리로 반올림되어 있어 복원값의 최대 반올림 오차는 0.0146이다.</p>
+<p>이것은 현재 행의 입력 자체에 타깃이 들어 있다는 뜻은 아니다. 다음 행은 현재 투구 이후 정보이므로 다음과 같은 작업은 금지해야 한다.</p>
+<ul>
+<li>전체 데이터를 먼저 정렬한 뒤 다음/이전 행 차분으로 현재 타깃 추정</li>
+<li>테스트 행 순서로 rolling·expanding 집계</li>
+<li>테스트 내 선수별 빈도나 누적값 계산</li>
+<li>숫자형 <code>row_id</code>를 시간 대용 피처로 사용</li>
+</ul>
+<p><code>row_id</code>는 제출 매칭에만 사용하고 모델 입력에서는 제외하는 것이 안전하다. 검증도 무작위 분할이 아니라 과거 시즌→미래 시즌 순방향으로 해야 한다.</p>
+<h2 id="5-결측과-cold-start">5. 결측과 cold start</h2>
+<p>메인 데이터의 결측은 전부 <code>asof_*</code>에 집중되어 있다.</p>
+<table>
+<thead>
+<tr>
+<th>결측 묶음</th>
+<th style="text-align:right">결측 행</th>
+<th style="text-align:right">비율</th>
+<th style="text-align:right">결측 시 성공률</th>
+<th style="text-align:right">존재 시 성공률</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>투수 누적률·구종 비율</td>
+<td style="text-align:right">792</td>
+<td style="text-align:right">0.0537%</td>
+<td style="text-align:right">55.18%</td>
+<td style="text-align:right">52.38%</td>
+</tr>
+<tr>
+<td>타자 누적률</td>
+<td style="text-align:right">830</td>
+<td style="text-align:right">0.0563%</td>
+<td style="text-align:right">60.24%</td>
+<td style="text-align:right">52.37%</td>
+</tr>
+<tr>
+<td>직전 1·3·5경기 6개 피처</td>
+<td style="text-align:right">29,185</td>
+<td style="text-align:right">1.9785%</td>
+<td style="text-align:right">55.08%</td>
+<td style="text-align:right">52.32%</td>
+</tr>
+</tbody>
+</table>
+<p>투수 누적률 결측 792건은 투수 고유 수 792명과 같고, 타자 누적률 결측 830건은 타자 고유 수 830명과 같다. 즉 각 선수의 첫 관측과 정확히 대응하는 cold start 구조다. 단순 평균 대체만 하지 말고 다음을 함께 사용해야 한다.</p>
+<ul>
+<li><code>is_pitcher_cold_start</code>, <code>is_batter_cold_start</code>, <code>is_prev_game_history_missing</code></li>
+<li>표본 수 기반 Beta/Binomial smoothing 또는 전역·손잡이·유형별 prior</li>
+<li>누적 표본 수의 <code>log1p</code> 변환</li>
+<li>표본 수에 따라 누적률과 최근률을 혼합하는 신뢰도 가중치</li>
+</ul>
+<p><img src="outputs/03_missingness_top20.png" alt="학습 데이터 결측률"></p>
+<h2 id="6-선수와-팀의-표본-구조">6. 선수와 팀의 표본 구조</h2>
+<ul>
+<li>투수 792명, 타자 830명</li>
+<li>팀 ID는 투수·타자 각각 13개</li>
+<li>투수 상위 10명의 투구 비중 9.03%, 상위 50명 32.11%</li>
+<li>100구 이상 투수 649명, 500구 이상 465명, 1,000구 이상 374명</li>
+<li>500구 이상 투수의 성공률 중앙값 51.86%, 10~90분위 46.30~57.91%</li>
+</ul>
+<p>연속 시즌 투수 유지율은 67.6~76.1%이고, 현 시즌 신규 투수 비율은 24.3~33.1%다. 선수 ID를 강하게 외우는 모델은 새 시즌에서 성능이 쉽게 무너진다. ID 피처를 쓰더라도 smoothing, 빈도 제한, out-of-fold encoding 또는 범주형 모델의 정규화가 필요하다.</p>
+<p>주요 10개 팀은 각 13만~21만 행으로 충분하지만, 팀 22·23·25는 각각 676, 4,437, 292행뿐이다. 이 희소 팀들의 성공률은 42.47~69.23%여서 원시 target encoding은 매우 위험하다.</p>
+<h2 id="7-상황별-타깃-패턴">7. 상황별 타깃 패턴</h2>
+<p>아래 차이는 모두 단순 집계이며 시즌·<code>game_type</code>·선수 구성의 교란을 포함한다. 인과 효과로 해석하면 안 된다.</p>
+<h3 id="볼카운트">볼카운트</h3>
+<p><img src="outputs/02_target_rate_count_heatmap.png" alt="카운트별 제구 성공률"></p>
+<ul>
+<li>최고: 0-1, 53.41%</li>
+<li>최저: 3-2, 49.96%</li>
+<li>볼 3개 상태는 50.0~50.7%로 일관되게 낮다.</li>
+<li>카운트 전체 최대 차이는 약 3.45%p로 유의미하지만 단독 예측력은 제한적이다.</li>
+</ul>
+<h3 id="손잡이-조합">손잡이 조합</h3>
+<table>
+<thead>
+<tr>
+<th>투수-타자 코드</th>
+<th style="text-align:right">행 수</th>
+<th style="text-align:right">성공률</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1v1</td>
+<td style="text-align:right">170,292</td>
+<td style="text-align:right">49.09%</td>
+</tr>
+<tr>
+<td>1v2</td>
+<td style="text-align:right">211,059</td>
+<td style="text-align:right">53.75%</td>
+</tr>
+<tr>
+<td>2v1</td>
+<td style="text-align:right">525,455</td>
+<td style="text-align:right">53.07%</td>
+</tr>
+<tr>
+<td>2v2</td>
+<td style="text-align:right">568,286</td>
+<td style="text-align:right">52.21%</td>
+</tr>
+</tbody>
+</table>
+<p>최대 차이는 4.66%p다. 개별 <code>pitcher_hand</code>, <code>batter_hand</code>보다 조합 피처가 더 유용하다.</p>
+<h3 id="이닝레버리지주자">이닝·레버리지·주자</h3>
+<ul>
+<li>1~3회 53.10% → 7~9회 51.56% → 연장 50.49%로 감소한다.</li>
+<li>레버리지 1~2 구간이 52.90%로 가장 높고, 0.5 이하 51.69%, 3 초과 51.81%다. 단조 관계는 아니다.</li>
+<li>만루는 51.61%, 3루만 주자는 53.61%지만 주자 상태 전체 차이는 약 2.0%p다.</li>
+<li>3월 53.75%에서 10월 50.92%로 낮아진다. 시즌 내 피로뿐 아니라 경기 유형·일정·연도 구성의 영향을 함께 받는다.</li>
+</ul>
+<h2 id="8-asof_-신호와-보정">8. <code>asof_*</code> 신호와 보정</h2>
+<p>30만 행 고정 표본에서 단변량 AUC가 높은 피처는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>피처</th>
+<th style="text-align:right">AUC</th>
+<th>방향</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>asof_pitcher_success_rate</code></td>
+<td style="text-align:right">0.5487</td>
+<td>높을수록 성공 증가</td>
+</tr>
+<tr>
+<td><code>asof_pitcher_prev5_game_success_rate</code></td>
+<td style="text-align:right">0.5457</td>
+<td>높을수록 성공 증가</td>
+</tr>
+<tr>
+<td><code>asof_pitcher_reverse_rate</code></td>
+<td style="text-align:right">0.4546</td>
+<td>높을수록 성공 감소</td>
+</tr>
+<tr>
+<td><code>asof_pitcher_prev3_game_success_rate</code></td>
+<td style="text-align:right">0.5431</td>
+<td>높을수록 성공 증가</td>
+</tr>
+<tr>
+<td><code>asof_pitcher_prev1_game_success_rate</code></td>
+<td style="text-align:right">0.5373</td>
+<td>높을수록 성공 증가</td>
+</tr>
+<tr>
+<td><code>asof_batter_success_rate</code></td>
+<td style="text-align:right">0.5300</td>
+<td>높을수록 성공 증가</td>
+</tr>
+</tbody>
+</table>
+<p>누적 투수 성공률은 순위 신호는 있지만 확률 자체로는 잘 보정되지 않는다.</p>
+<table>
+<thead>
+<tr>
+<th>단순 예측값</th>
+<th style="text-align:right">Brier</th>
+<th style="text-align:right">Log loss</th>
+<th style="text-align:right">AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>전체 평균 0.5238</td>
+<td style="text-align:right">0.24944</td>
+<td style="text-align:right">0.69202</td>
+<td style="text-align:right">0.5000</td>
+</tr>
+<tr>
+<td>투수 누적 성공률</td>
+<td style="text-align:right">0.24818</td>
+<td style="text-align:right">0.69570</td>
+<td style="text-align:right">0.5488</td>
+</tr>
+</tbody>
+</table>
+<p>Brier는 소폭 좋아지지만 log loss는 오히려 악화된다. 특히 과거 성공률 0 또는 1은 작은 표본에서 발생하며 실제 현재 성공률은 각각 약 47.5%, 58.9%에 불과하다. 극단 확률을 그대로 쓰면 log loss에 큰 손해를 준다.</p>
+<p>2024년에는 평균 누적 투수 성공률 51.14%에 비해 실제가 48.61%로 <strong>2.53%p 낮다</strong>. 2024 단독 AUC도 0.5342로 감소한다. 따라서 다음이 필요하다.</p>
+<ul>
+<li>표본 수 기반 smoothing</li>
+<li>확률 clipping</li>
+<li>최근 3·5경기와 누적률의 신뢰도 가중 혼합</li>
+<li>시즌 및 <code>game_type</code>별 calibration</li>
+<li>최종 예측의 isotonic/Platt/Beta calibration 비교</li>
+</ul>
+<p><img src="outputs/04_asof_pitcher_rate_calibration.png" alt="투수 누적 성공률의 보정"></p>
+<h2 id="9-trackman-상세-eda">9. Trackman 상세 EDA</h2>
+<p>Trackman은 2019-03-23부터 2024-10-17까지 1,793,078행이다. 투수 906명, 타자 913명, 팀 문자열은 투수·타자 각각 26개다. 팀 수가 메인 데이터보다 많은 이유에는 시즌별 명칭 변화와 특수·하위리그 코드가 섞여 있을 가능성이 있으므로 문자열을 그대로 프랜차이즈 ID로 가정하면 안 된다.</p>
+<h3 id="결측과-품질">결측과 품질</h3>
+<p>물리 측정값의 결측률은 낮다.</p>
+<table>
+<thead>
+<tr>
+<th>피처</th>
+<th style="text-align:right">결측률</th>
+<th style="text-align:right">중앙값</th>
+<th style="text-align:right">1~99분위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rel_speed</code></td>
+<td style="text-align:right">0.425%</td>
+<td style="text-align:right">137.41</td>
+<td style="text-align:right">111.60~152.43</td>
+</tr>
+<tr>
+<td><code>spin_rate</code></td>
+<td style="text-align:right">0.695%</td>
+<td style="text-align:right">2,223</td>
+<td style="text-align:right">1,011~2,857</td>
+</tr>
+<tr>
+<td><code>induced_vert_break</code></td>
+<td style="text-align:right">0.561%</td>
+<td style="text-align:right">30.10</td>
+<td style="text-align:right">-42.91~61.82</td>
+</tr>
+<tr>
+<td><code>horz_break</code></td>
+<td style="text-align:right">0.576%</td>
+<td style="text-align:right">12.99</td>
+<td style="text-align:right">-45.27~55.09</td>
+</tr>
+<tr>
+<td><code>extension</code></td>
+<td style="text-align:right">0.430%</td>
+<td style="text-align:right">1.760</td>
+<td style="text-align:right">1.362~2.146</td>
+</tr>
+<tr>
+<td><code>rel_height</code></td>
+<td style="text-align:right">0.425%</td>
+<td style="text-align:right">1.761</td>
+<td style="text-align:right">0.605~2.023</td>
+</tr>
+<tr>
+<td><code>zone_speed</code></td>
+<td style="text-align:right">0.442%</td>
+<td style="text-align:right">125.92</td>
+<td style="text-align:right">102.29~139.38</td>
+</tr>
+</tbody>
+</table>
+<p>예외는 극소수지만 집계 전에 정리할 필요가 있다.</p>
+<ul>
+<li><code>(trackman_game_id, pitch_no)</code> 중복 2쌍, 관련 행 4건</li>
+<li>잘못된 볼 4가 1건, 스트라이크 3이 1건</li>
+<li><code>outs_before</code> 3 또는 4가 95건</li>
+<li><code>inning=0</code>이 1건</li>
+<li><code>extension</code> 최소 -0.387 등 일부 물리적으로 의심스러운 극단값</li>
+</ul>
+<p>아웃 카운트 이상은 몇 개 경기에서 연속적으로 나타나 단순 랜덤 노이즈보다 원천 로그 오류 가능성이 높다. Trackman 집계 전에 유효 카운트 필터, 중복 제거, 물리 범위 clipping/winsorization을 적용해야 한다. 단, 낮은 릴리스 높이는 사이드암·언더핸드 투수일 수 있으므로 전역 IQR만으로 제거하면 안 된다.</p>
+<h3 id="구종-체계">구종 체계</h3>
+<p><code>pitch_type_group</code>은 <code>auto_pitch_type</code>을 fastball/breaking/offspeed/other로 결정론적으로 단순화한 값이다. <code>tagged_pitch_type</code>과 <code>auto_pitch_type</code> 문자열의 정확 일치율은 55.1%지만, <code>Fastball</code> 대 <code>Four-Seam</code>, <code>ChangeUp</code> 대 <code>Changeup</code>처럼 명명 체계 차이가 크게 포함되어 있으므로 곧바로 품질 55%로 해석하면 안 된다. 모델링에는 제공된 <code>pitch_type_group</code>을 우선 사용하는 것이 안전하다.</p>
+<p>fastball 비중은 2019~2021년 약 57.5%에서 2022~2024년 46.4~47.8%로 낮아지고, breaking은 25.8%에서 32.5%까지 높아진다. 2022년 전후의 큰 변화는 실제 구종 전략과 자동 분류 체계 변화가 섞였을 수 있으므로 연도별 표준화와 안정성 검사가 필요하다.</p>
+<p><img src="outputs/08_trackman_pitch_group_by_season.png" alt="Trackman 구종군 구성"></p>
+<p><img src="outputs/09_trackman_physical_by_pitch_group.png" alt="Trackman 물리 특성"></p>
+<h3 id="메인-데이터와의-연결-가능성">메인 데이터와의 연결 가능성</h3>
+<ul>
+<li>메인 <code>pitcher_id</code>와 <code>pitcher_trackman_id</code> 직접 교집합: <strong>0명</strong></li>
+<li>메인 <code>batter_id</code>와 <code>batter_trackman_id</code> 직접 교집합: <strong>0명</strong></li>
+<li>시즌별 Trackman/메인 행 비율: 1.08, 1.14, 1.22, 1.24, 1.28, 1.32</li>
+<li>공통 상황 변수의 Jensen-Shannon divergence는 매우 작다. 예를 들어 초/말 평균 0.000003 bits, 볼카운트 0.000007 bits, 이닝 0.000115 bits다.</li>
+</ul>
+<p>즉 두 파일의 상황 분포는 매우 비슷하지만, 제공 키만으로 선수 단위 직접 조인은 할 수 없다. 분포 fingerprint로 만든 팀 후보는 여러 메인 팀에 동일 Trackman 팀이 최상위로 나올 정도로 모호했다. 이를 실제 crosswalk로 사용하면 안 된다.</p>
+<p>Trackman 활용의 안전한 순서는 다음과 같다.</p>
+<ol>
+<li>먼저 Trackman 없이 메인 데이터 베이스라인을 확립한다.</li>
+<li>명시적 또는 독립적으로 강하게 검증된 선수·팀 crosswalk를 확보한다.</li>
+<li>학습 행에는 해당 시점보다 과거 Trackman만 사용한다.</li>
+<li>메인 데이터에 정확한 경기 날짜가 없으므로 같은 시즌 월 단위 결합은 미래 정보 혼입 위험이 있다. 가장 보수적인 방법은 이전 시즌까지의 Trackman 집계만 쓰는 것이다.</li>
+<li>2025 테스트에는 2019~2024 Trackman 전체를 사용할 수 있지만, 동일한 규칙으로 학습 피처도 과거 정보만 사용해야 검증이 정직하다.</li>
+</ol>
+<h2 id="10-권장-검증-설계">10. 권장 검증 설계</h2>
+<h3 id="기본-검증">기본 검증</h3>
+<ul>
+<li>Fold A: 2019~2021 학습 → 2022 검증</li>
+<li>Fold B: 2019~2022 학습 → 2023 검증</li>
+<li>Fold C: 2019~2023 학습 → 2024 검증</li>
+<li>최종 선택은 2023·2024 성능에 더 큰 가중치를 둔다.</li>
+</ul>
+<p>각 fold에서 전체 지표뿐 아니라 다음 slice를 별도로 기록해야 한다.</p>
+<ul>
+<li><code>game_type</code> F/R</li>
+<li>cold-start 투수·타자</li>
+<li>손잡이 조합</li>
+<li>투수 과거 표본 수 구간</li>
+<li>주요 10개 팀과 희소 팀</li>
+<li>시즌 초/중/후반</li>
+</ul>
+<p>확률 예측이므로 최소한 log loss, Brier score, ROC-AUC, calibration error와 보정 곡선을 함께 본다. AUC만 좋아지고 log loss가 나빠지는 모델은 대회 타깃인 성공 확률 예측에 적합하지 않을 수 있다.</p>
+<h3 id="금지해야-할-검증피처">금지해야 할 검증·피처</h3>
+<ul>
+<li>무작위 행 분할을 최종 성능으로 채택</li>
+<li><code>row_id</code> 숫자 부분 사용</li>
+<li>미래 행의 <code>asof_*</code> 차분</li>
+<li>테스트 전체에서 계산한 빈도·선수 통계·월별 통계</li>
+<li>테스트 행 순서 기반 rolling/expanding</li>
+<li>2025 Trackman 또는 현재 투구 실제 구종·측정값 사용</li>
+</ul>
+<h2 id="11-1차-모델링-우선순위">11. 1차 모델링 우선순위</h2>
+<ol>
+<li><strong>누수 없는 메인 데이터 베이스라인</strong>: <code>row_id</code> 제거, 순방향 시즌 검증, CatBoost/LightGBM 계열 비교.</li>
+<li><strong>재보정 가능한 과거 이력 피처</strong>: 누적 성공률, 최근 3·5경기 성공률, reverse/middle rate, 표본 수와 결측 플래그.</li>
+<li><strong>체제 변화 피처</strong>: <code>season × game_type</code>, 최근 시즌 가중치, 시즌별 calibration.</li>
+<li><strong>상황 상호작용</strong>: 볼-스트라이크 조합, 투수-타자 손잡이 조합, 이닝 구간, 점수 차와 레버리지.</li>
+<li><strong>고카디널리티 정규화</strong>: 투수·타자 ID의 smoothing/OOF 처리와 신규 선수 fallback.</li>
+<li><strong>Trackman은 후순위</strong>: crosswalk가 검증되기 전에는 선수 단위 결합을 보류하고, 검증 가능한 이전 시즌 집계부터 작은 ablation으로 추가.</li>
+</ol>
+<h2 id="12-산출물-안내">12. 산출물 안내</h2>
+<ul>
+<li>재현 스크립트: <code>run_eda.py</code></li>
+<li>핵심 표·검사 결과: <code>outputs/*.csv</code>, <code>outputs/*.json</code></li>
+<li>시각화: <code>outputs/*.png</code></li>
+</ul>
+<p>원본 파일은 수정하지 않았으며, 이 보고서의 모든 수치는 스크립트를 다시 실행해 재현할 수 있다.</p>
+
+</body>
+</html>

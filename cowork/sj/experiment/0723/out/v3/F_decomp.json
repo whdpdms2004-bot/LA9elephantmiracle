@@ -1,0 +1,85 @@
+{
+  "single_is_csw": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6198,
+    "pr_auc": 0.3761,
+    "logloss": 0.5842,
+    "brier": 0.1983,
+    "ece": 0.0373
+  },
+  "A_swing": {
+    "n": 94150,
+    "base": 0.4774,
+    "roc_auc": 0.6492,
+    "pr_auc": 0.6066,
+    "logloss": 0.6586,
+    "brier": 0.2332,
+    "ece": 0.0254
+  },
+  "B_whiff_given_swing": {
+    "n": 44951,
+    "base": 0.2441,
+    "roc_auc": 0.5976,
+    "pr_auc": 0.3148,
+    "logloss": 0.5489,
+    "brier": 0.182,
+    "ece": 0.0309
+  },
+  "C_called_given_take": {
+    "n": 49199,
+    "base": 0.3183,
+    "roc_auc": 0.6939,
+    "pr_auc": 0.4779,
+    "logloss": 0.575,
+    "brier": 0.1966,
+    "ece": 0.0249
+  },
+  "combined_decomposed": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6252,
+    "pr_auc": 0.3857,
+    "logloss": 0.5774,
+    "brier": 0.1954,
+    "ece": 0.0165
+  },
+  "ensemble_single_plus_decomp": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6283,
+    "pr_auc": 0.3874,
+    "logloss": 0.5767,
+    "brier": 0.1952,
+    "ece": 0.0185
+  },
+  "baselines": {
+    "league_mean": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5,
+      "pr_auc": 0.2829,
+      "logloss": 0.5957,
+      "brier": 0.2029,
+      "ece": 0.0016
+    },
+    "count_only": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.6142,
+      "pr_auc": 0.3679,
+      "logloss": 0.579,
+      "brier": 0.196,
+      "ece": 0.0062
+    },
+    "pitcher_te": {
+      "n": 94150,
+      "base": 0.2829,
+      "roc_auc": 0.5295,
+      "pr_auc": 0.3038,
+      "logloss": 0.5947,
+      "brier": 0.2025,
+      "ece": 0.0008
+    }
+  }
+}

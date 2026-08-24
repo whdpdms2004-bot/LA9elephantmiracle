@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CURRENT_MODELING_SUMMARY.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="현재-데이터-분석모델링-요약">현재 데이터 분석·모델링 요약</h1>
+<h2 id="1-용어와-검증-기준">1. 용어와 검증 기준</h2>
+<table>
+<thead>
+<tr>
+<th>표기</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Val2023</code></td>
+<td>2022년까지 학습하고 2023년 데이터로 검증</td>
+</tr>
+<tr>
+<td><code>Val2024</code></td>
+<td>2023년까지 학습하고 2024년 데이터로 검증</td>
+</tr>
+<tr>
+<td><code>game_type=R</code></td>
+<td>전체 데이터의 약 88~90%를 차지하는 다수 경기 유형</td>
+</tr>
+<tr>
+<td><code>game_type=F</code></td>
+<td>전체 데이터의 약 10~12%를 차지하는 소수 경기 유형</td>
+</tr>
+</tbody>
+</table>
+<p><code>Val2023/Val2024</code>의 <code>Val</code>은 검증 연도를 뜻하며, <code>game_type=F</code>와 관계없다. TrackMan은 각 검증연도보다 이전 시즌만 사용하고, 투수-시즌 500구 이상일 때만 개별 표현을 만든다.</p>
+<h2 id="2-rf-데이터-분포">2. R/F 데이터 분포</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">시즌</th>
+<th style="text-align:right">R 행 수</th>
+<th style="text-align:right">R 비중</th>
+<th style="text-align:right">R 성공률</th>
+<th style="text-align:right">F 행 수</th>
+<th style="text-align:right">F 비중</th>
+<th style="text-align:right">F 성공률</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2022</td>
+<td style="text-align:right">217,024</td>
+<td style="text-align:right">87.70%</td>
+<td style="text-align:right">50.37%</td>
+<td style="text-align:right">30,448</td>
+<td style="text-align:right">12.30%</td>
+<td style="text-align:right">70.87%</td>
+</tr>
+<tr>
+<td style="text-align:right">2023</td>
+<td style="text-align:right">219,839</td>
+<td style="text-align:right">89.54%</td>
+<td style="text-align:right">50.31%</td>
+<td style="text-align:right">25,686</td>
+<td style="text-align:right">10.46%</td>
+<td style="text-align:right">47.29%</td>
+</tr>
+<tr>
+<td style="text-align:right">2024</td>
+<td style="text-align:right">223,497</td>
+<td style="text-align:right"><strong>88.16%</strong></td>
+<td style="text-align:right">48.97%</td>
+<td style="text-align:right">30,010</td>
+<td style="text-align:right">11.84%</td>
+<td style="text-align:right">45.93%</td>
+</tr>
+</tbody>
+</table>
+<p>핵심 해석:</p>
+<ul>
+<li>전체 점수의 중심은 모수가 큰 <strong>R</strong>이다.</li>
+<li>F는 2022→2023에 성공률이 70.87%에서 47.29%로 급락한 구조적 단절이 있다.</li>
+<li>F를 별도 주 모델로 만들기보다 기존 모델 안에서 강하게 축소된 보조 보정으로 다루는 편이 안전하다.</li>
+</ul>
+<h2 id="3-r-실패-유형-변화">3. R 실패 유형 변화</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">시즌</th>
+<th style="text-align:right">reverse</th>
+<th style="text-align:right">middle</th>
+<th style="text-align:right">outside-only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">2022</td>
+<td style="text-align:right">25.86%</td>
+<td style="text-align:right">15.24%</td>
+<td style="text-align:right">12.69%</td>
+</tr>
+<tr>
+<td style="text-align:right">2023</td>
+<td style="text-align:right">25.07%</td>
+<td style="text-align:right">15.77%</td>
+<td style="text-align:right">12.29%</td>
+</tr>
+<tr>
+<td style="text-align:right">2024</td>
+<td style="text-align:right"><strong>24.27%</strong></td>
+<td style="text-align:right"><strong>17.85%</strong></td>
+<td style="text-align:right">12.14%</td>
+</tr>
+</tbody>
+</table>
+<p>2023→2024 R 성공률은 1.34%p 하락했지만 reverse는 0.80%p 감소하고 middle은 2.08%p 증가했다. 따라서 <strong>R의 최근 악화는 reverse보다 middle 증가와 더 가깝다.</strong></p>
+<h2 id="4-주요-모델-성능">4. 주요 모델 성능</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">단계</th>
+<th>모델·방법</th>
+<th style="text-align:right">Val2024 BSS</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>XGBoost V2R200 + strict TM500</td>
+<td style="text-align:right">774.484</td>
+<td>단일 기준선</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>성공률 사전값·신뢰도 보정 피처</td>
+<td style="text-align:right">784.557</td>
+<td>단일 모델 개선</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>시간 OOF 앙상블</td>
+<td style="text-align:right">789.673</td>
+<td>앙상블 기준선</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>성능 앙상블 + insight blend</td>
+<td style="text-align:right">801.147</td>
+<td><code>submit_007</code> 계열</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td>성공 상성 + reverse 보정</td>
+<td style="text-align:right">810.098</td>
+<td>실패 유형 분리 효과</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td>reverse 전용 타자 군집</td>
+<td style="text-align:right">810.257</td>
+<td>군집을 smoothing 계층으로 활용</td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td>reverse 군집 3-seed 평균</td>
+<td style="text-align:right"><strong>812.704</strong></td>
+<td><code>submit_013</code>, Public 895.404</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td>대형 XGB expert 3-way 혼합</td>
+<td style="text-align:right"><strong>813.432</strong></td>
+<td><code>submit_014</code>, 미제출</td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td>공동 SVD 안정형</td>
+<td style="text-align:right"><strong>814.291</strong></td>
+<td>미제출, R/F 재검증 필요</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td>공동 SVD 공격형</td>
+<td style="text-align:right"><strong>815.083</strong></td>
+<td>내부 최고, R/F 재검증 필요</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-submit_013-rf-성능-분해">5. <code>submit_013</code> R/F 성능 분해</h2>
+<p>아래 R/F BSS는 각 집단 성공률을 기준으로 계산한 진단용 점수다.</p>
+<table>
+<thead>
+<tr>
+<th>2024 모델</th>
+<th style="text-align:right">전체 BSS</th>
+<th style="text-align:right">R BSS</th>
+<th style="text-align:right">F BSS</th>
+<th style="text-align:right">R 평균오차</th>
+<th style="text-align:right">F 평균오차</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>adjusted 단일</td>
+<td style="text-align:right">784.557</td>
+<td style="text-align:right">784.625</td>
+<td style="text-align:right">457.969</td>
+<td style="text-align:right">+0.443%p</td>
+<td style="text-align:right">+1.015%p</td>
+</tr>
+<tr>
+<td><code>submit_007</code></td>
+<td style="text-align:right">801.147</td>
+<td style="text-align:right">806.073</td>
+<td style="text-align:right">438.213</td>
+<td style="text-align:right">+0.437%p</td>
+<td style="text-align:right">+1.012%p</td>
+</tr>
+<tr>
+<td><code>submit_013</code></td>
+<td style="text-align:right"><strong>812.704</strong></td>
+<td style="text-align:right"><strong>812.655</strong></td>
+<td style="text-align:right"><strong>487.087</strong></td>
+<td style="text-align:right">+0.224%p</td>
+<td style="text-align:right">+0.591%p</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>submit_007 → submit_013</code></th>
+<th style="text-align:right">표본 비중</th>
+<th style="text-align:right">집단 ΔBrier</th>
+<th style="text-align:right">전체 개선 기여율</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R</td>
+<td style="text-align:right">88.16%</td>
+<td style="text-align:right">-0.000016</td>
+<td style="text-align:right"><strong>50.23%</strong></td>
+</tr>
+<tr>
+<td>F</td>
+<td style="text-align:right">11.84%</td>
+<td style="text-align:right">-0.000121</td>
+<td style="text-align:right"><strong>49.77%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>submit_013</code>은 R에서도 개선됐다. 다만 F는 행당 개선폭이 R보다 약 7.5배 커, 11.84%의 표본으로 전체 상승의 절반을 만들었다.</p>
+<h2 id="6-검증-안정성-해석-수정">6. 검증 안정성 해석 수정</h2>
+<p>기존 correction을 adjusted 단일 모델과 비교한 결과다.</p>
+<table>
+<thead>
+<tr>
+<th>검증</th>
+<th>집단</th>
+<th style="text-align:right">ΔBrier</th>
+<th>판단</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Val2023</td>
+<td>R</td>
+<td style="text-align:right"><strong>+0.000035</strong></td>
+<td>악화</td>
+</tr>
+<tr>
+<td>Val2023</td>
+<td>F</td>
+<td style="text-align:right"><strong>-0.000438</strong></td>
+<td>큰 개선</td>
+</tr>
+<tr>
+<td>Val2023</td>
+<td>전체</td>
+<td style="text-align:right">-0.000014</td>
+<td>F 효과로 평균 개선</td>
+</tr>
+<tr>
+<td>Val2024</td>
+<td>R</td>
+<td style="text-align:right">-0.000022</td>
+<td>개선</td>
+</tr>
+<tr>
+<td>Val2024</td>
+<td>F</td>
+<td style="text-align:right">-0.000145</td>
+<td>개선</td>
+</tr>
+<tr>
+<td>Val2024</td>
+<td>전체</td>
+<td style="text-align:right">-0.000037</td>
+<td>개선</td>
+</tr>
+</tbody>
+</table>
+<p>따라서 기존의 “Val2023·Val2024 전체 동시 개선”만으로 R에서도 안정적이라고 판단하면 안 된다. 이후 후보는 <strong>R의 Val2023와 Val2024가 모두 개선되는지</strong> 별도로 확인한다.</p>
+<h2 id="7-확인된-모델링-인사이트">7. 확인된 모델링 인사이트</h2>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>결론</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>누적 이력</td>
+<td>rate만 쓰지 않고 표본 수, smoothing, 최근성, cold-start를 함께 사용해야 한다.</td>
+</tr>
+<tr>
+<td>smoothing</td>
+<td>중간 강도인 200 부근이 가장 좋았고 과도한 수축은 성능이 하락했다.</td>
+</tr>
+<tr>
+<td>TrackMan</td>
+<td>안정적인 저차원 요약은 유효하지만 세부 구종 확장은 악화됐다.</td>
+</tr>
+<tr>
+<td>TrackMan 가용성</td>
+<td>가용 투수에 경력 편향이 있어 별도 모델 분리보다 availability 피처가 안전하다.</td>
+</tr>
+<tr>
+<td>군집</td>
+<td>hard cluster ID 직접 입력은 실패했고 상성 통계의 smoothing 단위로 사용할 때 효과가 있었다.</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>전체 데이터에서는 강한 보조 신호지만 R의 최근 악화를 단독으로 설명하지 못한다.</td>
+</tr>
+<tr>
+<td>공동 SVD</td>
+<td>기존 reverse correction과 상관이 낮아 앙상블 다양성이 좋지만 R/F별 안정성 검증이 남아 있다.</td>
+</tr>
+<tr>
+<td>모델 크기</td>
+<td>20~24 leaves까지는 소폭 개선됐지만 32~128 leaves는 명확히 과적합했다.</td>
+</tr>
+<tr>
+<td>앙상블</td>
+<td>단일 거대 모델보다 서로 다른 잔차를 가진 모델을 시간 OOF로 혼합하는 방식이 효과적이었다.</td>
+</tr>
+<tr>
+<td>calibration</td>
+<td>예측 평균의 작은 편향도 BSS 손실이 커 계층적이고 강하게 축소된 보정이 필요하다.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-r-전용-재튜닝-결과">8. R 전용 재튜닝 결과</h2>
+<table>
+<thead>
+<tr>
+<th>구성</th>
+<th style="text-align:right">success scale</th>
+<th style="text-align:right">reverse scale</th>
+<th style="text-align:right">insight weight</th>
+<th style="text-align:right">Val2024 전체 BSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>현재 <code>submit_013</code></td>
+<td style="text-align:right">0.25</td>
+<td style="text-align:right">0.55</td>
+<td style="text-align:right">0.6085</td>
+<td style="text-align:right"><strong>812.704</strong></td>
+</tr>
+<tr>
+<td>R 양 연도 안정형</td>
+<td style="text-align:right">0.15</td>
+<td style="text-align:right">0.30</td>
+<td style="text-align:right">0.5110</td>
+<td style="text-align:right">811.490</td>
+</tr>
+</tbody>
+</table>
+<p>R 전용 가중치 조정은 Val2023 R을 개선했지만 Val2024 손실이 더 커 현재 모델을 대체하지 못했다.</p>
+<h2 id="9-r에서-남은-주요-오차">9. R에서 남은 주요 오차</h2>
+<table>
+<thead>
+<tr>
+<th>구간</th>
+<th style="text-align:right">행 수</th>
+<th style="text-align:right">실제 성공률</th>
+<th style="text-align:right">예측 평균</th>
+<th style="text-align:right">오차</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>count 3-0</td>
+<td style="text-align:right">2,736</td>
+<td style="text-align:right">48.76%</td>
+<td style="text-align:right">46.96%</td>
+<td style="text-align:right">-1.80%p</td>
+</tr>
+<tr>
+<td>count 3-2</td>
+<td style="text-align:right">10,403</td>
+<td style="text-align:right">45.91%</td>
+<td style="text-align:right">47.20%</td>
+<td style="text-align:right">+1.29%p</td>
+</tr>
+<tr>
+<td>count 2-1</td>
+<td style="text-align:right">11,832</td>
+<td style="text-align:right">47.78%</td>
+<td style="text-align:right">48.91%</td>
+<td style="text-align:right">+1.13%p</td>
+</tr>
+<tr>
+<td>count 0-1</td>
+<td style="text-align:right">27,768</td>
+<td style="text-align:right">50.88%</td>
+<td style="text-align:right">49.76%</td>
+<td style="text-align:right">-1.12%p</td>
+</tr>
+<tr>
+<td>만루</td>
+<td style="text-align:right">7,215</td>
+<td style="text-align:right">47.60%</td>
+<td style="text-align:right">48.63%</td>
+<td style="text-align:right">+1.04%p</td>
+</tr>
+<tr>
+<td>좌투수-좌타자</td>
+<td style="text-align:right">28,390</td>
+<td style="text-align:right">45.81%</td>
+<td style="text-align:right">46.37%</td>
+<td style="text-align:right">+0.56%p</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10-현재-판단과-다음-순서">10. 현재 판단과 다음 순서</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">우선순위</th>
+<th>작업</th>
+<th>채택 조건</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td>R 전용 middle residual 모델</td>
+<td>R의 Val2023·Val2024 ΔBrier 모두 음수</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>R 볼카운트 보정</td>
+<td>3-0·3-2·0-1 오차 개선, 양 연도 방향 일치</td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td>공동 SVD R/F 성능 재분해</td>
+<td>R 양 연도 악화가 없는 후보만 유지</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td>R 중심 선택 목적함수 적용</td>
+<td>R 악화 penalty + 전체 Brier 최소화</td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td>최종 후보 2024까지 재학습</td>
+<td>2025 테스트 추론용 frozen artifact 생성</td>
+</tr>
+</tbody>
+</table>
+<p>현재 안전 기준은 Public 검증이 끝난 <code>submit_013</code>이다. 내부 최고 공동 SVD <code>815.083</code>은 R/F별 검증을 통과하기 전까지 제출 우선순위를 올리지 않는다.</p>
+
+</body>
+</html>

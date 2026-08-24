@@ -1,0 +1,112 @@
+{
+  "profile_schema_version": 2,
+  "rule": "Every cutoff S profile uses main and TrackMan seasons strictly before S.",
+  "min_trackman_season_pitches": 500,
+  "half_life": 2.0,
+  "hand_audit": {
+    "mapping": {
+      "1": "Left",
+      "2": "Right"
+    },
+    "matched_pitchers": 336,
+    "mismatch_count": 1,
+    "crosstab": {
+      "1": {
+        "Left": 87,
+        "Right": 1
+      },
+      "2": {
+        "Left": 0,
+        "Right": 248
+      }
+    },
+    "mismatches": [
+      {
+        "pitcher_id": 23101,
+        "pitcher_trackman_id": 64896,
+        "pitcher_hand_main": 1,
+        "pitcher_hand_trackman": "Right"
+      }
+    ]
+  },
+  "failure_component_coverage_by_season": [
+    {
+      "season": 2019,
+      "reverse": 0.9982477791864809,
+      "middle": 0.9982477791864809,
+      "outside_only": 0.9982477791864809
+    },
+    {
+      "season": 2020,
+      "reverse": 0.9992994301212272,
+      "middle": 0.9992994301212272,
+      "outside_only": 0.9992994301212272
+    },
+    {
+      "season": 2021,
+      "reverse": 0.9992957974486822,
+      "middle": 0.9992957974486822,
+      "outside_only": 0.9992957974486822
+    },
+    {
+      "season": 2022,
+      "reverse": 0.9993170944591712,
+      "middle": 0.9993170944591712,
+      "outside_only": 0.9993170944591712
+    },
+    {
+      "season": 2023,
+      "reverse": 0.9992587312900927,
+      "middle": 0.9992587312900927,
+      "outside_only": 0.9992587312900927
+    },
+    {
+      "season": 2024,
+      "reverse": 0.9981381184740461,
+      "middle": 0.9981381184740461,
+      "outside_only": 0.9981381184740461
+    }
+  ],
+  "cutoffs": [
+    {
+      "cutoff": 2022,
+      "max_main_season": 2021,
+      "pitchers": 560,
+      "tm_available": 233,
+      "rookies": 169,
+      "columns": 286,
+      "high_volume_missing_latest_components": 0,
+      "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\profiles_clean_v2\\pitcher_profile_cutoff_2022.parquet"
+    },
+    {
+      "cutoff": 2023,
+      "max_main_season": 2022,
+      "pitchers": 648,
+      "tm_available": 269,
+      "rookies": 221,
+      "columns": 286,
+      "high_volume_missing_latest_components": 0,
+      "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\profiles_clean_v2\\pitcher_profile_cutoff_2023.parquet"
+    },
+    {
+      "cutoff": 2024,
+      "max_main_season": 2023,
+      "pitchers": 711,
+      "tm_available": 295,
+      "rookies": 254,
+      "columns": 286,
+      "high_volume_missing_latest_components": 0,
+      "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\profiles_clean_v2\\pitcher_profile_cutoff_2024.parquet"
+    },
+    {
+      "cutoff": 2025,
+      "max_main_season": 2024,
+      "pitchers": 792,
+      "tm_available": 336,
+      "rookies": 280,
+      "columns": 286,
+      "high_volume_missing_latest_components": 0,
+      "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\profiles_clean_v2\\pitcher_profile_cutoff_2025.parquet"
+    }
+  ]
+}

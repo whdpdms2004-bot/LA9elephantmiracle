@@ -1,0 +1,1193 @@
+{
+  "feature_version": "V2R200_TM500_ALL",
+  "folds": [
+    2022,
+    2023,
+    2024
+  ],
+  "seed_offsets": [
+    0,
+    100000,
+    200000
+  ],
+  "candidates": [
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_robust",
+      "trial": 136,
+      "objective": 0.9968211480206398,
+      "params": {
+        "grow_policy": "depthwise",
+        "n_estimators": 4803,
+        "learning_rate": 0.03911942914237367,
+        "max_depth": 4,
+        "min_child_weight": 15.886184409533266,
+        "subsample": 0.882197234460472,
+        "colsample_bytree": 0.6147179506860557,
+        "colsample_bylevel": 0.77436069876223,
+        "gamma": 8.660611662370714,
+        "reg_alpha": 27.020795710102387,
+        "reg_lambda": 1.174553886322864,
+        "max_bin": 128,
+        "half_life": 0.340786135684011
+      },
+      "user_attrs": {
+        "best_iteration_2023": 10,
+        "best_iteration_2024": 266,
+        "elapsed_sec": 16.980907917022705,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2503573681104679,
+          "normalized_brier": 1.001429479767882,
+          "bss": 0.0,
+          "logloss": 0.6938693728348548,
+          "auc": 0.5266270766710687,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5253134530751747,
+          "mean_gap": 0.025356218577669398
+        },
+        "fold_2024": {
+          "brier": 0.2479401247668132,
+          "normalized_brier": 0.9925270207107095,
+          "bss": 747.2979289290471,
+          "logloss": 0.6890108799750463,
+          "auc": 0.5487827050597588,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4930075505194455,
+          "mean_gap": 0.006902630339726601
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_robust_t136_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_robust",
+      "trial": 116,
+      "objective": 0.9968238576575816,
+      "params": {
+        "grow_policy": "lossguide",
+        "n_estimators": 3984,
+        "learning_rate": 0.049811490027340394,
+        "max_depth": 4,
+        "min_child_weight": 12.247175078777099,
+        "subsample": 0.9117967534138766,
+        "colsample_bytree": 0.6396244548850699,
+        "colsample_bylevel": 0.762943753719929,
+        "gamma": 3.111854999247072,
+        "reg_alpha": 10.824426919155396,
+        "reg_lambda": 1.8400314720936712,
+        "max_bin": 128,
+        "max_leaves": 66,
+        "half_life": 0.28911960253276264
+      },
+      "user_attrs": {
+        "best_iteration_2023": 7,
+        "best_iteration_2024": 128,
+        "elapsed_sec": 15.464142560958862,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.250340537958942,
+          "normalized_brier": 1.001362159161286,
+          "bss": 0.0,
+          "logloss": 0.6938358753581397,
+          "auc": 0.5279174732123976,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5248705367529275,
+          "mean_gap": 0.024913302255422154
+        },
+        "fold_2024": {
+          "brier": 0.2479571029173595,
+          "normalized_brier": 0.992594985801857,
+          "bss": 740.501419814299,
+          "logloss": 0.6890460037854513,
+          "auc": 0.548598856216903,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4926518404869675,
+          "mean_gap": 0.0065469203072485715
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_robust_t116_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_robust",
+      "trial": 129,
+      "objective": 0.9968811548787649,
+      "params": {
+        "grow_policy": "lossguide",
+        "n_estimators": 4621,
+        "learning_rate": 0.04163270208399726,
+        "max_depth": 6,
+        "min_child_weight": 13.41836732114337,
+        "subsample": 0.8126426818010076,
+        "colsample_bytree": 0.6473291227522769,
+        "colsample_bylevel": 0.7492136464677529,
+        "gamma": 0.06671994286409318,
+        "reg_alpha": 21.965836101905772,
+        "reg_lambda": 0.2710035669230625,
+        "max_bin": 128,
+        "max_leaves": 39,
+        "half_life": 0.2713512160074802
+      },
+      "user_attrs": {
+        "best_iteration_2023": 8,
+        "best_iteration_2024": 116,
+        "elapsed_sec": 19.40697717666626,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2503429568621336,
+          "normalized_brier": 1.001371834774123,
+          "bss": 0.0,
+          "logloss": 0.6938402606130962,
+          "auc": 0.5272109981291124,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5252621496306358,
+          "mean_gap": 0.025304915133130435
+        },
+        "fold_2024": {
+          "brier": 0.24798250126265767,
+          "normalized_brier": 0.9926966577035449,
+          "bss": 730.3342296455129,
+          "logloss": 0.6890965800807565,
+          "auc": 0.5485428102371007,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.49436528403529234,
+          "mean_gap": 0.008260363855573438
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_robust_t129_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_robust",
+      "trial": 115,
+      "objective": 0.9971793643939344,
+      "params": {
+        "grow_policy": "depthwise",
+        "n_estimators": 1365,
+        "learning_rate": 0.006882449852565873,
+        "max_depth": 5,
+        "min_child_weight": 1430.5479472262805,
+        "subsample": 0.7823573159347711,
+        "colsample_bytree": 0.7172362133890182,
+        "colsample_bylevel": 0.8803918780754081,
+        "gamma": 8.104966185523875e-05,
+        "reg_alpha": 3.452986150403811,
+        "reg_lambda": 12.404832553619611,
+        "max_bin": 256,
+        "half_life": 0.41236254357318614
+      },
+      "user_attrs": {
+        "best_iteration_2023": 51,
+        "best_iteration_2024": 909,
+        "elapsed_sec": 26.600213766098022,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.25057167731857477,
+          "normalized_brier": 1.0022867166065805,
+          "bss": 0.0,
+          "logloss": 0.6943021449293764,
+          "auc": 0.5265807884641384,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5267688709437368,
+          "mean_gap": 0.026811636446231468
+        },
+        "fold_2024": {
+          "brier": 0.24791345039080118,
+          "normalized_brier": 0.9924202407412414,
+          "bss": 757.9759258758645,
+          "logloss": 0.6889580705230899,
+          "auc": 0.5495665532763798,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4942180375787462,
+          "mean_gap": 0.008113117399027314
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_robust_t115_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_robust",
+      "trial": 12,
+      "objective": 0.9975406033673243,
+      "params": {
+        "grow_policy": "lossguide",
+        "n_estimators": 6410,
+        "learning_rate": 0.00762236614868066,
+        "max_depth": 4,
+        "min_child_weight": 34.53162719455444,
+        "subsample": 0.9968685343045738,
+        "colsample_bytree": 0.860890745761012,
+        "colsample_bylevel": 0.9558852269527631,
+        "gamma": 7.670462077705115e-07,
+        "reg_alpha": 8.671632013310435e-07,
+        "reg_lambda": 0.12185269330714923,
+        "max_bin": 128,
+        "max_leaves": 27,
+        "half_life": 0.35739804948489257
+      },
+      "user_attrs": {
+        "best_iteration_2023": 25,
+        "best_iteration_2024": 1102,
+        "elapsed_sec": 26.976853132247925,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2507555040867606,
+          "normalized_brier": 1.0030220236847032,
+          "bss": 0.0,
+          "logloss": 0.6946659444964767,
+          "auc": 0.52533586685923,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5280248387691846,
+          "mean_gap": 0.02806760427167926
+        },
+        "fold_2024": {
+          "brier": 0.24791661682153934,
+          "normalized_brier": 0.992432916253403,
+          "bss": 756.708374659698,
+          "logloss": 0.6889642099035297,
+          "auc": 0.5492075583212406,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4926982565680874,
+          "mean_gap": 0.006593336388368509
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_robust_t12_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_robust",
+      "trial": 4,
+      "objective": 0.9971532768569196,
+      "params": {
+        "grow_policy": "depthwise",
+        "n_estimators": 2600,
+        "learning_rate": 0.006765969954807283,
+        "max_depth": 8,
+        "min_child_weight": 1472.442237773039,
+        "subsample": 0.7960093644145324,
+        "colsample_bytree": 0.7488553227851564,
+        "colsample_bylevel": 0.8985617661211255,
+        "gamma": 0.011551772216805064,
+        "reg_alpha": 0.011632765016143949,
+        "reg_lambda": 11.036615851789344,
+        "max_bin": 256,
+        "half_life": 0.3781750857879475
+      },
+      "user_attrs": {
+        "best_iteration_2023": 47,
+        "best_iteration_2024": 629,
+        "elapsed_sec": 31.109277486801147,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.25055323661691387,
+          "normalized_brier": 1.0022129537993973,
+          "bss": 0.0,
+          "logloss": 0.6942637063495212,
+          "auc": 0.5261204968636238,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5268566003781376,
+          "mean_gap": 0.026899365880632298
+        },
+        "fold_2024": {
+          "brier": 0.2479180311370266,
+          "normalized_brier": 0.9924385778877924,
+          "bss": 756.142211220756,
+          "logloss": 0.6889672405380699,
+          "auc": 0.5495489497342751,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4944684041036549,
+          "mean_gap": 0.008363483923935988
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_robust_t4_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_2024",
+      "trial": 47,
+      "objective": 0.9923024274542771,
+      "params": {
+        "grow_policy": "depthwise",
+        "n_estimators": 5418,
+        "learning_rate": 0.007366238028621625,
+        "max_depth": 5,
+        "min_child_weight": 614.1785057533795,
+        "subsample": 0.955859770817788,
+        "colsample_bytree": 0.688174331949012,
+        "colsample_bylevel": 0.9190615615000106,
+        "gamma": 0.27422292109599283,
+        "reg_alpha": 13.569358961297741,
+        "reg_lambda": 296.6222897196916,
+        "max_bin": 512,
+        "half_life": 0.507668656842534
+      },
+      "user_attrs": {
+        "best_iteration_2024": 1189,
+        "elapsed_sec": 23.8464412689209,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.24788401981565353,
+          "normalized_brier": 0.9923024274542771,
+          "bss": 769.7572545722898,
+          "logloss": 0.6888984479039995,
+          "auc": 0.5496955425384904,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4936568720242439,
+          "mean_gap": 0.007551951844525007
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_recent_t47_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_2024",
+      "trial": 1,
+      "objective": 0.992330504336527,
+      "params": {
+        "grow_policy": "lossguide",
+        "n_estimators": 4045,
+        "learning_rate": 0.006198819872805643,
+        "max_depth": 6,
+        "min_child_weight": 617.1884490673822,
+        "subsample": 0.9695937000982151,
+        "colsample_bytree": 0.6040499473323512,
+        "colsample_bylevel": 0.9618616474119044,
+        "gamma": 0.5667471445934773,
+        "reg_alpha": 1.0182300179103425,
+        "reg_lambda": 224.5950924249767,
+        "max_bin": 512,
+        "max_leaves": 27,
+        "half_life": 0.47311626346507807
+      },
+      "user_attrs": {
+        "best_iteration_2024": 975,
+        "elapsed_sec": 25.91596508026123,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.24789103361532128,
+          "normalized_brier": 0.992330504336527,
+          "bss": 766.9495663472969,
+          "logloss": 0.6889127368838702,
+          "auc": 0.5497035284713756,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4937684849531969,
+          "mean_gap": 0.0076635647734780155
+        },
+        "min_trackman_season_pitches": 500,
+        "seed_source": "v1_trial24_exact",
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_recent_t1_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_2024",
+      "trial": 35,
+      "objective": 0.9923367352570235,
+      "params": {
+        "grow_policy": "lossguide",
+        "n_estimators": 3214,
+        "learning_rate": 0.007818973603295983,
+        "max_depth": 9,
+        "min_child_weight": 277.5557912492155,
+        "subsample": 0.9049849739033196,
+        "colsample_bytree": 0.7140935860590031,
+        "colsample_bylevel": 0.9021896915935866,
+        "gamma": 0.07806482253177414,
+        "reg_alpha": 19.30349101613711,
+        "reg_lambda": 197.40799377458998,
+        "max_bin": 128,
+        "max_leaves": 34,
+        "half_life": 0.45634292155519385
+      },
+      "user_attrs": {
+        "best_iteration_2024": 679,
+        "elapsed_sec": 23.097331762313843,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.24789259014242138,
+          "normalized_brier": 0.9923367352570235,
+          "bss": 766.3264742976517,
+          "logloss": 0.6889163173935002,
+          "auc": 0.5498254276497722,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4938941610223574,
+          "mean_gap": 0.00778924084263849
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_recent_t35_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_2024",
+      "trial": 86,
+      "objective": 0.9923413306320802,
+      "params": {
+        "grow_policy": "lossguide",
+        "n_estimators": 5127,
+        "learning_rate": 0.009057633906475715,
+        "max_depth": 7,
+        "min_child_weight": 561.5767250538942,
+        "subsample": 0.9828165621801414,
+        "colsample_bytree": 0.7338148373317397,
+        "colsample_bylevel": 0.914974038582887,
+        "gamma": 2.7375929746608835e-05,
+        "reg_alpha": 12.343821901858373,
+        "reg_lambda": 2.293975328349132,
+        "max_bin": 512,
+        "max_leaves": 37,
+        "half_life": 0.5293038259523158
+      },
+      "user_attrs": {
+        "best_iteration_2024": 560,
+        "elapsed_sec": 21.677698850631714,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.24789373809894158,
+          "normalized_brier": 0.9923413306320802,
+          "bss": 765.8669367919813,
+          "logloss": 0.6889183479910385,
+          "auc": 0.5498496162002882,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.49412012002303873,
+          "mean_gap": 0.008015199843319831
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_recent_t86_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_local_2024",
+      "trial": 93,
+      "objective": 0.9922551626675231,
+      "params": {
+        "half_life": 0.5259510182777523,
+        "n_estimators": 4431,
+        "learning_rate": 0.0030626837708062128,
+        "max_depth": 7,
+        "min_child_weight": 626.0593077812514,
+        "subsample": 0.9736716317454049,
+        "colsample_bytree": 0.7907533296928133,
+        "colsample_bylevel": 0.8524268909223828,
+        "gamma": 0.11551620567906469,
+        "reg_alpha": 0.2421771226109747,
+        "reg_lambda": 505.8374114397891,
+        "max_bin": 512,
+        "max_leaves": 18
+      },
+      "user_attrs": {
+        "best_iteration_2024": 2468,
+        "elapsed_sec": 45.39497470855713,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.2478722127445307,
+          "normalized_brier": 0.9922551626675231,
+          "bss": 774.4837332476884,
+          "logloss": 0.6888748477498876,
+          "auc": 0.5498648560385618,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4933620692411558,
+          "mean_gap": 0.007257149061436874
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_local_t93_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_local_2024",
+      "trial": 31,
+      "objective": 0.9922730193166185,
+      "params": {
+        "half_life": 0.5792122022637421,
+        "n_estimators": 4768,
+        "learning_rate": 0.004128881349008691,
+        "max_depth": 6,
+        "min_child_weight": 364.90726259909945,
+        "subsample": 0.9297755488464,
+        "colsample_bytree": 0.71212042226286,
+        "colsample_bylevel": 0.9210032522845577,
+        "gamma": 0.08743814980693504,
+        "reg_alpha": 1.7588298280115124,
+        "reg_lambda": 245.99284591122216,
+        "max_bin": 512,
+        "max_leaves": 20
+      },
+      "user_attrs": {
+        "best_iteration_2024": 1759,
+        "elapsed_sec": 34.8811571598053,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.24787667345916337,
+          "normalized_brier": 0.9922730193166185,
+          "bss": 772.6980683381512,
+          "logloss": 0.6888841996020665,
+          "auc": 0.5499084005870702,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.49343590577186847,
+          "mean_gap": 0.007330985592149564
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_local_t31_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_local_2024",
+      "trial": 95,
+      "objective": 0.9922732142106703,
+      "params": {
+        "half_life": 0.49751517226456843,
+        "n_estimators": 6109,
+        "learning_rate": 0.003090453196913418,
+        "max_depth": 7,
+        "min_child_weight": 957.9492817320081,
+        "subsample": 0.961298624028532,
+        "colsample_bytree": 0.7170416723091322,
+        "colsample_bylevel": 0.879974487514746,
+        "gamma": 0.13604382652848512,
+        "reg_alpha": 0.33258024690216387,
+        "reg_lambda": 523.0136550714361,
+        "max_bin": 512,
+        "max_leaves": 19
+      },
+      "user_attrs": {
+        "best_iteration_2024": 2294,
+        "elapsed_sec": 44.08204126358032,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.2478767221450475,
+          "normalized_brier": 0.9922732142106703,
+          "bss": 772.6785789329726,
+          "logloss": 0.6888839412021651,
+          "auc": 0.5498926421566485,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4936712053355582,
+          "mean_gap": 0.007566285155839292
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_local_t95_seedbag3"
+    },
+    {
+      "family": "xgboost",
+      "study": "xgboost_v2r200_tm500_local_2024",
+      "trial": 79,
+      "objective": 0.9922813192551724,
+      "params": {
+        "half_life": 0.5397061058675003,
+        "n_estimators": 4351,
+        "learning_rate": 0.003112074191720569,
+        "max_depth": 6,
+        "min_child_weight": 502.2285479609664,
+        "subsample": 0.9950530122818273,
+        "colsample_bytree": 0.582682253362321,
+        "colsample_bylevel": 0.8615793359756143,
+        "gamma": 0.09543393548644509,
+        "reg_alpha": 2.617238804682845,
+        "reg_lambda": 309.80579741032,
+        "max_bin": 256,
+        "max_leaves": 18
+      },
+      "user_attrs": {
+        "best_iteration_2024": 2594,
+        "elapsed_sec": 43.30813193321228,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2024": {
+          "brier": 0.24787874684130579,
+          "normalized_brier": 0.9922813192551724,
+          "bss": 771.8680744827622,
+          "logloss": 0.6888880708938707,
+          "auc": 0.5498819420785864,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4937680978446505,
+          "mean_gap": 0.007663177664931575
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "xgb_local_t79_seedbag3"
+    },
+    {
+      "family": "lightgbm",
+      "study": "lightgbm_v2r200_tm500_robust",
+      "trial": 55,
+      "objective": 0.9969598382855367,
+      "params": {
+        "max_depth": 10,
+        "n_estimators": 1466,
+        "learning_rate": 0.04762025627448221,
+        "num_leaves": 379,
+        "min_child_samples": 4997,
+        "min_sum_hessian_in_leaf": 0.7044613023842718,
+        "subsample": 0.6194264785003988,
+        "subsample_freq": 3,
+        "colsample_bytree": 0.5733815954548598,
+        "reg_alpha": 1.6177106375663315,
+        "reg_lambda": 6.801710609649452e-06,
+        "min_split_gain": 1.9921535200825797,
+        "max_bin": 63,
+        "extra_trees": false,
+        "half_life": 0.975069113672341
+      },
+      "user_attrs": {
+        "best_iteration_2023": 11,
+        "best_iteration_2024": 137,
+        "elapsed_sec": 39.75009059906006,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2502956037235251,
+          "normalized_brier": 1.0011824222183034,
+          "bss": 0.0,
+          "logloss": 0.693751243707125,
+          "auc": 0.5289444724598749,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5259111089308376,
+          "mean_gap": 0.025953874433332247
+        },
+        "fold_2024": {
+          "brier": 0.2480645628628747,
+          "normalized_brier": 0.9930251578027313,
+          "bss": 697.4842197268738,
+          "logloss": 0.6892628206545381,
+          "auc": 0.5480824958432355,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4952068903015183,
+          "mean_gap": 0.009101970121799419
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "lgb_robust_t55_seedbag3"
+    },
+    {
+      "family": "lightgbm",
+      "study": "lightgbm_v2r200_tm500_robust",
+      "trial": 22,
+      "objective": 0.9970322337014486,
+      "params": {
+        "max_depth": 8,
+        "n_estimators": 1990,
+        "learning_rate": 0.027383476440563707,
+        "num_leaves": 256,
+        "min_child_samples": 3914,
+        "min_sum_hessian_in_leaf": 1.985786451518037,
+        "subsample": 0.6327209879752541,
+        "subsample_freq": 5,
+        "colsample_bytree": 0.5528864140557537,
+        "reg_alpha": 2.882663172696194,
+        "reg_lambda": 3.738978136657194e-06,
+        "min_split_gain": 1.9282470478888847,
+        "max_bin": 63,
+        "extra_trees": false,
+        "half_life": 1.642664241770811
+      },
+      "user_attrs": {
+        "best_iteration_2023": 23,
+        "best_iteration_2024": 259,
+        "elapsed_sec": 45.543638706207275,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.25036405593786953,
+          "normalized_brier": 1.0014562310776842,
+          "bss": 0.0,
+          "logloss": 0.6938954170917371,
+          "auc": 0.5281025542448518,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5263671121748802,
+          "mean_gap": 0.02640987767737485
+        },
+        "fold_2024": {
+          "brier": 0.24803576379818632,
+          "normalized_brier": 0.9929098725099562,
+          "bss": 709.0127490043785,
+          "logloss": 0.6892044318510059,
+          "auc": 0.5479649836286373,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4938873702920056,
+          "mean_gap": 0.007782450112286676
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "lgb_robust_t22_seedbag3"
+    },
+    {
+      "family": "lightgbm",
+      "study": "lightgbm_v2r200_tm500_robust",
+      "trial": 35,
+      "objective": 0.9971366489412419,
+      "params": {
+        "max_depth": 9,
+        "n_estimators": 5891,
+        "learning_rate": 0.04573138401190978,
+        "num_leaves": 60,
+        "min_child_samples": 2348,
+        "min_sum_hessian_in_leaf": 0.023430021677959486,
+        "subsample": 0.7072424138065573,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.6490029747726895,
+        "reg_alpha": 24.937286190099385,
+        "reg_lambda": 109.40020519998093,
+        "min_split_gain": 1.1967511529302763,
+        "max_bin": 63,
+        "extra_trees": false,
+        "half_life": 0.30920972951020953
+      },
+      "user_attrs": {
+        "best_iteration_2023": 7,
+        "best_iteration_2024": 103,
+        "elapsed_sec": 49.50028586387634,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2504541757735846,
+          "normalized_brier": 1.0018167104231814,
+          "bss": 0.0,
+          "logloss": 0.6940623057284547,
+          "auc": 0.5247979467919961,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5259227906307844,
+          "mean_gap": 0.025965556133279055
+        },
+        "fold_2024": {
+          "brier": 0.24800224221927195,
+          "normalized_brier": 0.9927756825603437,
+          "bss": 722.4317439656347,
+          "logloss": 0.6891369500356987,
+          "auc": 0.5483376660092449,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4936430852949449,
+          "mean_gap": 0.007538165115225981
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "lgb_robust_t35_seedbag3"
+    },
+    {
+      "family": "lightgbm",
+      "study": "lightgbm_v2r200_tm500_robust",
+      "trial": 50,
+      "objective": 0.9974897087943457,
+      "params": {
+        "max_depth": 6,
+        "n_estimators": 5579,
+        "learning_rate": 0.025968562210709936,
+        "num_leaves": 60,
+        "min_child_samples": 1788,
+        "min_sum_hessian_in_leaf": 93.07814796508941,
+        "subsample": 0.5617641726242887,
+        "subsample_freq": 2,
+        "colsample_bytree": 0.8398436085976091,
+        "reg_alpha": 1.729975664888844,
+        "reg_lambda": 125.15592544634954,
+        "min_split_gain": 0.6519818758826532,
+        "max_bin": 63,
+        "extra_trees": false,
+        "half_life": 0.35483106314569235
+      },
+      "user_attrs": {
+        "best_iteration_2023": 6,
+        "best_iteration_2024": 205,
+        "elapsed_sec": 49.688443422317505,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.25071801254654946,
+          "normalized_brier": 1.0028720575227614,
+          "bss": 0.0,
+          "logloss": 0.6945882780603662,
+          "auc": 0.5260567323483142,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5283333282556314,
+          "mean_gap": 0.028376093758126053
+        },
+        "fold_2024": {
+          "brier": 0.24792696435776312,
+          "normalized_brier": 0.9924743383883219,
+          "bss": 752.5661611678114,
+          "logloss": 0.6889856060654147,
+          "auc": 0.5490235039538164,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4926288631678957,
+          "mean_gap": 0.006523942988176823
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "lgb_robust_t50_seedbag3"
+    },
+    {
+      "family": "lightgbm",
+      "study": "lightgbm_v2r200_tm500_robust",
+      "trial": 48,
+      "objective": 0.9971807992920398,
+      "params": {
+        "max_depth": 7,
+        "n_estimators": 3698,
+        "learning_rate": 0.025913183721678168,
+        "num_leaves": 55,
+        "min_child_samples": 3457,
+        "min_sum_hessian_in_leaf": 48.11805921733255,
+        "subsample": 0.5536331035045255,
+        "subsample_freq": 2,
+        "colsample_bytree": 0.6049795874225278,
+        "reg_alpha": 25.72766012380861,
+        "reg_lambda": 11.98399403076188,
+        "min_split_gain": 1.19832517728599,
+        "max_bin": 63,
+        "extra_trees": false,
+        "half_life": 0.5869759050630311
+      },
+      "user_attrs": {
+        "best_iteration_2023": 18,
+        "best_iteration_2024": 289,
+        "elapsed_sec": 47.835644245147705,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2505555840737334,
+          "normalized_brier": 1.0022223436267443,
+          "bss": 0.0,
+          "logloss": 0.6942763317537473,
+          "auc": 0.5270556863207332,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5267207886021703,
+          "mean_gap": 0.026763554104664966
+        },
+        "fold_2024": {
+          "brier": 0.24792912724314042,
+          "normalized_brier": 0.9924829966165198,
+          "bss": 751.7003383480159,
+          "logloss": 0.6889902087803442,
+          "auc": 0.5494863174379799,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4937271249475461,
+          "mean_gap": 0.007622204767827212
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "lgb_robust_t48_seedbag3"
+    },
+    {
+      "family": "lightgbm",
+      "study": "lightgbm_v2r200_tm500_robust",
+      "trial": 51,
+      "objective": 0.9975236932156237,
+      "params": {
+        "max_depth": 8,
+        "n_estimators": 2211,
+        "learning_rate": 0.028117092305030955,
+        "num_leaves": 31,
+        "min_child_samples": 3803,
+        "min_sum_hessian_in_leaf": 60.15014811773708,
+        "subsample": 0.5518708569878179,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.7580086582418388,
+        "reg_alpha": 2.5057437017851365,
+        "reg_lambda": 4.607552702389108,
+        "min_split_gain": 1.7986211381534374,
+        "max_bin": 127,
+        "extra_trees": false,
+        "half_life": 0.5947060719748206
+      },
+      "user_attrs": {
+        "best_iteration_2023": 7,
+        "best_iteration_2024": 202,
+        "elapsed_sec": 47.75274109840393,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2507088503609803,
+          "normalized_brier": 1.0028354087802167,
+          "bss": 0.0,
+          "logloss": 0.6945709288054145,
+          "auc": 0.5252038885458511,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5289127502468763,
+          "mean_gap": 0.028955515749370997
+        },
+        "fold_2024": {
+          "brier": 0.2479518955106195,
+          "normalized_brier": 0.9925741400758893,
+          "bss": 742.5859924110712,
+          "logloss": 0.6890354474155997,
+          "auc": 0.5491921758086151,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.494064226991862,
+          "mean_gap": 0.007959306812143074
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "lgb_robust_t51_seedbag3"
+    },
+    {
+      "family": "catboost",
+      "study": "catboost_v2r200_tm500_robust",
+      "trial": 69,
+      "objective": 0.9959159237320714,
+      "params": {
+        "bootstrap_type": "Bayesian",
+        "iterations": 4487,
+        "learning_rate": 0.00782040319147069,
+        "depth": 9,
+        "l2_leaf_reg": 124.88667305653847,
+        "random_strength": 0.0004375824606607161,
+        "border_count": 254,
+        "one_hot_max_size": 8,
+        "leaf_estimation_iterations": 1,
+        "bagging_temperature": 2.73584451050968,
+        "half_life": 1.6746021883599578
+      },
+      "user_attrs": {
+        "best_iteration_2023": 23,
+        "best_iteration_2024": 1838,
+        "elapsed_sec": 149.927649974823,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.24988103366438694,
+          "normalized_brier": 0.9995241419696195,
+          "bss": 47.58580303805271,
+          "logloss": 0.692909509413922,
+          "auc": 0.5257406109193954,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5029710649034097,
+          "mean_gap": 0.003013830405904361
+        },
+        "fold_2024": {
+          "brier": 0.2479467945277342,
+          "normalized_brier": 0.9925537203743561,
+          "bss": 744.6279625643925,
+          "logloss": 0.6890253880705794,
+          "auc": 0.5492196214516935,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4952120290595631,
+          "mean_gap": 0.009107108879844172
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "cat_robust_t69_seedbag3"
+    },
+    {
+      "family": "catboost",
+      "study": "catboost_v2r200_tm500_robust",
+      "trial": 73,
+      "objective": 0.9959224364348378,
+      "params": {
+        "bootstrap_type": "Bayesian",
+        "iterations": 4980,
+        "learning_rate": 0.006112989373346957,
+        "depth": 9,
+        "l2_leaf_reg": 138.8475555529812,
+        "random_strength": 0.000989562713244318,
+        "border_count": 128,
+        "one_hot_max_size": 2,
+        "leaf_estimation_iterations": 1,
+        "bagging_temperature": 2.916514143598996,
+        "half_life": 1.4404583857221271
+      },
+      "user_attrs": {
+        "best_iteration_2023": 29,
+        "best_iteration_2024": 2711,
+        "elapsed_sec": 276.6747179031372,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.24990272760262486,
+          "normalized_brier": 0.999610917723206,
+          "bss": 38.90822767940172,
+          "logloss": 0.6929528872338093,
+          "auc": 0.5246952872902398,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5029219329565534,
+          "mean_gap": 0.002964698459048065
+        },
+        "fold_2024": {
+          "brier": 0.24792973824353443,
+          "normalized_brier": 0.99248544250704,
+          "bss": 751.4557492960039,
+          "logloss": 0.6889913391678447,
+          "auc": 0.5493022747810025,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.49385696305748045,
+          "mean_gap": 0.007752042877761545
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "cat_robust_t73_seedbag3"
+    },
+    {
+      "family": "catboost",
+      "study": "catboost_v2r200_tm500_robust",
+      "trial": 39,
+      "objective": 0.9959349904715055,
+      "params": {
+        "bootstrap_type": "Bayesian",
+        "iterations": 4371,
+        "learning_rate": 0.02311176948679736,
+        "depth": 8,
+        "l2_leaf_reg": 65.13914396264657,
+        "random_strength": 0.10365717132151266,
+        "border_count": 128,
+        "one_hot_max_size": 32,
+        "leaf_estimation_iterations": 3,
+        "bagging_temperature": 1.0436063563144558,
+        "half_life": 1.4406964295162474
+      },
+      "user_attrs": {
+        "best_iteration_2023": 1,
+        "best_iteration_2024": 490,
+        "elapsed_sec": 41.96083998680115,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.24999058822362608,
+          "normalized_brier": 0.9999623602097819,
+          "bss": 3.7639790218091385,
+          "logloss": 0.6931283734608594,
+          "auc": 0.5169670242060709,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5010535303419564,
+          "mean_gap": 0.0010962958444510895
+        },
+        "fold_2024": {
+          "brier": 0.24785398969318045,
+          "normalized_brier": 0.992182214124475,
+          "bss": 781.7785875524952,
+          "logloss": 0.6888376272581918,
+          "auc": 0.550110955934155,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4944610982304492,
+          "mean_gap": 0.0083561780507303
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "cat_robust_t39_seedbag3"
+    },
+    {
+      "family": "catboost",
+      "study": "catboost_v2r200_tm500_robust",
+      "trial": 62,
+      "objective": 0.9959681445034965,
+      "params": {
+        "bootstrap_type": "Bayesian",
+        "iterations": 4321,
+        "learning_rate": 0.006245238970013238,
+        "depth": 8,
+        "l2_leaf_reg": 54.875091992370024,
+        "random_strength": 0.001726858000512645,
+        "border_count": 128,
+        "one_hot_max_size": 32,
+        "leaf_estimation_iterations": 1,
+        "bagging_temperature": 1.1423361216979866,
+        "half_life": 2.17361517054191
+      },
+      "user_attrs": {
+        "best_iteration_2023": 6,
+        "best_iteration_2024": 1994,
+        "elapsed_sec": 80.24001169204712,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.24998750211886714,
+          "normalized_brier": 0.9999500157906558,
+          "bss": 4.998420934421155,
+          "logloss": 0.693122194459103,
+          "auc": 0.519354290989616,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.5009295744163038,
+          "mean_gap": 0.0009723399187984705
+        },
+        "fold_2024": {
+          "brier": 0.24787286268543254,
+          "normalized_brier": 0.9922577644404615,
+          "bss": 774.2235559538458,
+          "logloss": 0.6888761284000868,
+          "auc": 0.5499206512715389,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.4941386315993049,
+          "mean_gap": 0.008033711419585976
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "cat_robust_t62_seedbag3"
+    },
+    {
+      "family": "catboost",
+      "study": "catboost_v2r200_tm500_robust",
+      "trial": 40,
+      "objective": 0.996008953893937,
+      "params": {
+        "bootstrap_type": "Bayesian",
+        "iterations": 6343,
+        "learning_rate": 0.03530920167701677,
+        "depth": 7,
+        "l2_leaf_reg": 144.4293237925877,
+        "random_strength": 0.3738607290364329,
+        "border_count": 128,
+        "one_hot_max_size": 32,
+        "leaf_estimation_iterations": 3,
+        "bagging_temperature": 1.448547980857239,
+        "half_life": 2.442872776262885
+      },
+      "user_attrs": {
+        "best_iteration_2023": 1,
+        "best_iteration_2024": 322,
+        "elapsed_sec": 32.66166377067566,
+        "feature_version": "V2R200_TM500_ALL",
+        "fold_2023": {
+          "brier": 0.2500062898684889,
+          "normalized_brier": 1.0000251667896927,
+          "bss": 0.0,
+          "logloss": 0.6931598281878323,
+          "auc": 0.5189239936203399,
+          "target_mean": 0.49995723449750534,
+          "pred_mean": 0.501710680274497,
+          "mean_gap": 0.0017534457769916023
+        },
+        "fold_2024": {
+          "brier": 0.24787506329839049,
+          "normalized_brier": 0.9922665736956191,
+          "bss": 773.3426304380897,
+          "logloss": 0.6888805022078693,
+          "auc": 0.5498579248867876,
+          "target_mean": 0.4861049201797189,
+          "pred_mean": 0.49390415997813497,
+          "mean_gap": 0.007799239798416069
+        },
+        "min_trackman_season_pitches": 500,
+        "trackman_cutoff_rule": "season_strict"
+      },
+      "model_name": "cat_robust_t40_seedbag3"
+    }
+  ],
+  "part_directory": "experiment\\model_optimization\\enhanced_seed_oof_parts",
+  "metrics": "experiment/model_optimization/enhanced_seed_oof_metrics.csv",
+  "predictions": "experiment/model_optimization/enhanced_seed_oof_predictions.parquet",
+  "rules": {
+    "validation": "train season < fold, validate season == fold",
+    "trackman": "strict as-of cutoff; pitcher-season >=500 only"
+  }
+}

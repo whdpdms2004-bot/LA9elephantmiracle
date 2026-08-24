@@ -1,0 +1,28 @@
+{
+  "study_name": "xgboost_v1_full_2023_2024",
+  "family": "xgboost",
+  "folds": [
+    2023,
+    2024
+  ],
+  "trials_total": 140,
+  "best_trial": 35,
+  "best_value": 0.9968067274049935,
+  "best_params": {
+    "half_life": 0.6206580815192209,
+    "grow_policy": "lossguide",
+    "n_estimators": 3484,
+    "learning_rate": 0.05297244910577511,
+    "max_depth": 10,
+    "min_child_weight": 1124.982374366392,
+    "subsample": 0.9663566926508212,
+    "colsample_bytree": 0.6072019344203676,
+    "colsample_bylevel": 0.7517482418470782,
+    "gamma": 5.431754262939076e-06,
+    "reg_alpha": 2.9584691389288976e-06,
+    "reg_lambda": 23.809264125067468,
+    "max_bin": 256,
+    "max_leaves": 27
+  },
+  "elapsed_sec": 1982.918398141861
+}

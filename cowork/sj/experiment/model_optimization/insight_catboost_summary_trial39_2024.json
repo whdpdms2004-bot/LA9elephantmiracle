@@ -1,0 +1,51 @@
+{
+  "study": "catboost_v2r200_tm500_robust",
+  "trial": 39,
+  "audit_passed": true,
+  "results": [
+    {
+      "experiment": "catboost_insight_insight_base_t39",
+      "family": "catboost",
+      "feature_version": "INSIGHT_BASE",
+      "trial": 39,
+      "fold": 2024,
+      "train_through": 2023,
+      "trackman": true,
+      "trackman_cutoff": 2024,
+      "min_trackman_season_pitches": 500,
+      "feature_count": 209,
+      "best_iteration": 490,
+      "elapsed_sec": 36.21124315261841,
+      "brier": 0.24785398969318045,
+      "normalized_brier": 0.992182214124475,
+      "bss": 781.7785875524952,
+      "logloss": 0.6888376272581918,
+      "auc": 0.550110955934155,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.4944610982304492,
+      "mean_gap": 0.0083561780507303
+    },
+    {
+      "experiment": "catboost_insight_insight_prior_t39",
+      "family": "catboost",
+      "feature_version": "INSIGHT_PRIOR",
+      "trial": 39,
+      "fold": 2024,
+      "train_through": 2023,
+      "trackman": true,
+      "trackman_cutoff": 2024,
+      "min_trackman_season_pitches": 500,
+      "feature_count": 251,
+      "best_iteration": 460,
+      "elapsed_sec": 37.68154788017273,
+      "brier": 0.24789207406613903,
+      "normalized_brier": 0.9923346693564136,
+      "bss": 766.5330643586432,
+      "logloss": 0.688914298736583,
+      "auc": 0.549653782525019,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.49449760224519745,
+      "mean_gap": 0.008392682065478552
+    }
+  ]
+}

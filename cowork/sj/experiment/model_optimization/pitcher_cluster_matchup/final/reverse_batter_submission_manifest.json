@@ -1,0 +1,55 @@
+{
+  "created_at": "2026-08-12T11:27:17.942310+09:00",
+  "base_submission": "submit\\2026-08-12\\submit_007.zip",
+  "record": {
+    "filename": "submit_012.zip",
+    "filename_length": 14,
+    "size_bytes": 109666243,
+    "sha256": "BE74ADEF2CA7B305D7B78D6E4281216261DEC814F7087285DD90F46FB525B43E",
+    "smoke_rows": 245789,
+    "inference_sec": 16.140800952911377,
+    "f23_delta_brier": -1.0459047631750096e-05,
+    "f24_delta_brier": -3.0296951689046114e-05,
+    "single_bss_2024": 796.6849746927073,
+    "blend_bss_2024": 810.2571506239276
+  },
+  "metadata": {
+    "matchup_correction": {
+      "pitcher_lookup_file": "pitcher_lookup_2025.csv",
+      "batter_lookup_file": "batter_lookup_2025.csv",
+      "pair_table_file": "pair_table_2025.csv",
+      "ridge_file": "ridge_correction.json",
+      "correction_scale": 0.25,
+      "pair_smoothing": 1000,
+      "recency_half_life": 1.0,
+      "ridge_alpha": 10.0
+    },
+    "reverse_matchup_correction": {
+      "pitcher_lookup_file": "pitcher_lookup_2025.csv",
+      "batter_lookup_file": "reverse_batter_lookup_2025.csv",
+      "pair_table_file": "reverse_batter_pair_table_2025.csv",
+      "ridge_file": "reverse_batter_ridge_correction.json",
+      "correction_scale": 0.65,
+      "center_mode": "season x pitcher_hand x batter_hand x count_state",
+      "batter_algorithm": "kmeans",
+      "batter_k_by_hand": {
+        "left": 4,
+        "right": 6
+      },
+      "pair_smoothing": 1000,
+      "recency_half_life": 1.0,
+      "ridge_alpha": 10000.0
+    },
+    "dual_matchup_validation": {
+      "selection": "strict rolling: 2022->2023 and 2023->2024",
+      "trackman_min_season_pitches": 500,
+      "success_scale": 0.25,
+      "reverse_scale": 0.65,
+      "f23_delta_brier": -1.0459047631750096e-05,
+      "f24_delta_brier": -3.0296951689046114e-05,
+      "single_bss_2024": 796.6849746927073,
+      "outer_insight_weight": 0.598,
+      "outer_blend_bss_2024": 810.2571506239276
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "best_outer": {
+    "name": "aggressive",
+    "matrix_lambda": 100.0,
+    "svd_dim": 4,
+    "pitcher_k": "(4, 8)",
+    "batter_k": "(6, 8)",
+    "cluster_mode": "unit",
+    "feature_variant": "cluster",
+    "seeds": "2026",
+    "seed_count": 1,
+    "criterion": "outer",
+    "success_scale": 0.325,
+    "current_scale": 0.875,
+    "joint_scale": 0.3,
+    "f23_delta_brier": -7.57523846921102e-06,
+    "f24_delta_brier": -2.4433840682754504e-05,
+    "robust_objective": -7.755791721154126e-05,
+    "outer_insight_weight": 0.564181156063644,
+    "outer_brier_2024": 0.2477707935234848,
+    "outer_bss_2024": 815.0827760214808
+  },
+  "best_robust": {
+    "name": "safe",
+    "matrix_lambda": 100.0,
+    "svd_dim": 4,
+    "pitcher_k": "(3, 6)",
+    "batter_k": "(3, 4)",
+    "cluster_mode": "unit",
+    "feature_variant": "cluster_direct",
+    "seeds": "2026",
+    "seed_count": 1,
+    "criterion": "robust",
+    "success_scale": 0.25,
+    "current_scale": 0.65,
+    "joint_scale": 0.175,
+    "f23_delta_brier": -3.261064463070591e-05,
+    "f24_delta_brier": -3.334327395423073e-05,
+    "robust_objective": -0.00013256609881527685,
+    "outer_insight_weight": 0.5901416030958669,
+    "outer_brier_2024": 0.24777277188048938,
+    "outer_bss_2024": 814.2908215988176
+  },
+  "best_by_candidate": [
+    {
+      "name": "aggressive",
+      "matrix_lambda": 100.0,
+      "svd_dim": 4,
+      "pitcher_k": "(4, 8)",
+      "batter_k": "(6, 8)",
+      "cluster_mode": "unit",
+      "feature_variant": "cluster",
+      "seeds": "2026",
+      "seed_count": 1,
+      "criterion": "outer",
+      "success_scale": 0.325,
+      "current_scale": 0.875,
+      "joint_scale": 0.3,
+      "f23_delta_brier": -7.57523846921102e-06,
+      "f24_delta_brier": -2.4433840682754504e-05,
+      "robust_objective": -7.755791721154126e-05,
+      "outer_insight_weight": 0.564181156063644,
+      "outer_brier_2024": 0.2477707935234848,
+      "outer_bss_2024": 815.0827760214808
+    },
+    {
+      "name": "safe",
+      "matrix_lambda": 100.0,
+      "svd_dim": 4,
+      "pitcher_k": "(3, 6)",
+      "batter_k": "(3, 4)",
+      "cluster_mode": "unit",
+      "feature_variant": "cluster_direct",
+      "seeds": "97",
+      "seed_count": 1,
+      "criterion": "outer",
+      "success_scale": 0.3,
+      "current_scale": 0.85,
+      "joint_scale": 0.2,
+      "f23_delta_brier": -3.1200822285979426e-05,
+      "f24_delta_brier": -1.8526865716776564e-05,
+      "robust_objective": -8.935630485920386e-05,
+      "outer_insight_weight": 0.5513236657243374,
+      "outer_brier_2024": 0.24777142270255392,
+      "outer_bss_2024": 814.8309098793827
+    }
+  ],
+  "mean_seed_correlation": [
+    {
+      "candidate": "aggressive",
+      "season": 2023,
+      "correlation": 0.897258508564201
+    },
+    {
+      "candidate": "aggressive",
+      "season": 2024,
+      "correlation": 0.913364620289203
+    },
+    {
+      "candidate": "safe",
+      "season": 2023,
+      "correlation": 0.9779071814121852
+    },
+    {
+      "candidate": "safe",
+      "season": 2024,
+      "correlation": 0.9852183790619286
+    }
+  ]
+}

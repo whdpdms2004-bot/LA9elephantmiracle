@@ -1,0 +1,8 @@
+{
+  "deviation_value_counts": {
+    "-0.1": 18921,
+    "0.0": 1416485,
+    "0.1": 39686
+  },
+  "max_absolute_deviation": 0.10000000000000853
+}

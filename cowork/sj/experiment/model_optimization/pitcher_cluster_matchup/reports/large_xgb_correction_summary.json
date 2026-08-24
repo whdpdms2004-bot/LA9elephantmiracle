@@ -1,0 +1,81 @@
+{
+  "base": "moderate24_diverse seed0 with fixed prior-season probability mean/std affine mapping",
+  "distribution_parameters_by_fold": {
+    "2022": {
+      "source_season": 2022,
+      "scale": 0.9963956536924325,
+      "intercept": 0.0020198091647338767
+    },
+    "2023": {
+      "source_season": 2022,
+      "scale": 0.9963956536924325,
+      "intercept": 0.0020198091647338767
+    },
+    "2024": {
+      "source_season": 2023,
+      "scale": 0.9856089337380874,
+      "intercept": 0.007735779088185013
+    }
+  },
+  "correction_training": "rolling residual refit: 2022->2023 and 2023->2024",
+  "success_config": "m_com_gmm_kme_b3r4_l1000_h1_d72788b5",
+  "success_alpha": 10.0,
+  "reverse_seeds": [
+    17,
+    2026,
+    4099
+  ],
+  "reverse_alpha": 1000.0,
+  "selected": {
+    "success_scale": 0.175,
+    "reverse_scale": 0.625,
+    "f23_delta_brier": -1.4406194448805054e-05,
+    "f24_delta_brier": -5.189892417347735e-05,
+    "both_improve": true,
+    "robust_objective": -0.0001627167351785293
+  },
+  "corrected_metrics": [
+    {
+      "fold": 2023,
+      "brier": 0.2506715046056674,
+      "normalized_brier": 1.0026860257578722,
+      "bss": 0.0,
+      "target_mean": 0.49995723449750534,
+      "pred_mean": 0.5281716062553551
+    },
+    {
+      "fold": 2024,
+      "brier": 0.24780727992740498,
+      "normalized_brier": 0.9919952306553539,
+      "bss": 800.4769344646112,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.4884976382268116
+    }
+  ],
+  "outer_results": [
+    {
+      "fold": 2023,
+      "base_track": "robust",
+      "insight_weight": 0.14659379737847666,
+      "brier": 0.24990196931250944,
+      "normalized_brier": 0.9996078845627221,
+      "bss": 39.211543727790676,
+      "target_mean": 0.49995723449750534,
+      "pred_mean": 0.5027400088238942
+    },
+    {
+      "fold": 2024,
+      "base_track": "performance",
+      "insight_weight": 0.629652717453275,
+      "brier": 0.24778064373332975,
+      "normalized_brier": 0.9918886035316746,
+      "bss": 811.1396468325371,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.48946037997438807
+    }
+  ],
+  "artifacts": {
+    "grid": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\pitcher_cluster_matchup\\reports\\large_xgb_correction_grid.csv",
+    "outer": "C:\\Users\\isj67\\Desktop\\LGAIMERS\\experiment\\model_optimization\\pitcher_cluster_matchup\\reports\\large_xgb_correction_outer.csv"
+  }
+}

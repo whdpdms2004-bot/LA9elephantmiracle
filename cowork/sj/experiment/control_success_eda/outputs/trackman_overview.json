@@ -1,0 +1,22 @@
+{
+  "shape": [
+    1793078,
+    30
+  ],
+  "memory_mb": 1261.3163032531738,
+  "seasons": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "date_min": "2019-03-23T00:00:00",
+  "date_max": "2024-10-17T00:00:00",
+  "pitchers": 906,
+  "batters": 913,
+  "pitcher_teams": 26,
+  "batter_teams": 26,
+  "trackman_id_unique": true
+}

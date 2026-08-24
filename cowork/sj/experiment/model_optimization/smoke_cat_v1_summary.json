@@ -1,0 +1,24 @@
+{
+  "study_name": "smoke_cat_v1",
+  "family": "catboost",
+  "folds": [
+    2024
+  ],
+  "trials_total": 1,
+  "best_trial": 0,
+  "best_value": 0.9983643923624451,
+  "best_params": {
+    "half_life": 0.8459947768394047,
+    "bootstrap_type": "Bernoulli",
+    "iterations": 1181,
+    "learning_rate": 0.020132100817979816,
+    "depth": 9,
+    "l2_leaf_reg": 0.4508890393950807,
+    "random_strength": 3.618894389380967,
+    "border_count": 128,
+    "one_hot_max_size": 32,
+    "leaf_estimation_iterations": 1,
+    "subsample": 0.7780270571054342
+  },
+  "elapsed_sec": 14.574119091033936
+}

@@ -1,0 +1,29 @@
+{
+  "config": "per_pitcher",
+  "model": "xgb",
+  "k_folds": 2,
+  "cv_mean": {
+    "n": 238054,
+    "base": 0.2813,
+    "roc_auc": 0.6077,
+    "pr_auc": 0.3594,
+    "logloss": 0.5842,
+    "brier": 0.1982,
+    "ece": 0.025
+  },
+  "test_2019": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6011,
+    "pr_auc": 0.3596,
+    "logloss": 0.5865,
+    "brier": 0.1993,
+    "ece": 0.0269
+  },
+  "coverage_per_pitcher": 1.0,
+  "fallback_global": 0.0,
+  "n_eligible": 40,
+  "min_train": 4500,
+  "n_features": 290,
+  "seconds": 24.1
+}

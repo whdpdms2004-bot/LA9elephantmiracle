@@ -1,0 +1,33 @@
+{
+  "study": "cat_game_type_f_postbreak",
+  "game_type": "F",
+  "feature_count": 210,
+  "complete_trials": 30,
+  "best_trial": 3,
+  "best_value": 0.9958185503946719,
+  "best_params": {
+    "iterations": 907,
+    "learning_rate": 0.00490813503405453,
+    "depth": 8,
+    "l2_leaf_reg": 6.758253704528571,
+    "random_strength": 0.33441705288821527,
+    "bagging_temperature": 0.8215710951382764,
+    "border_count": 254
+  },
+  "best_user_attrs": {
+    "best_iteration_2024": 721,
+    "elapsed_sec": 127.62603712081909,
+    "fold_2024": {
+      "brier": 0.24730347199452518,
+      "normalized_brier": 0.9958185503946719,
+      "bss": 418.1449605328069,
+      "logloss": 0.6877323709961539,
+      "auc": 0.5396276207029236,
+      "target_mean": 0.45928023992002664,
+      "pred_mean": 0.4653987737745303,
+      "mean_gap": 0.006118533854503672
+    },
+    "game_type": "F",
+    "training_regime": "post-break 2023 -> 2024"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "feature_version": "INSIGHT_SUCCESS_ADJUSTED",
+  "folds": [
+    2023,
+    2024
+  ],
+  "trackman_rule": "strictly before validation season; pitcher-season >=500",
+  "global_feature_count": 211,
+  "local_feature_count": 210,
+  "r_candidates": [
+    "r_anchor",
+    "r_recent035",
+    "r_stable075",
+    "r_diverse24"
+  ],
+  "f_candidates": [
+    "f_anchor",
+    "f_compact6_h0p25",
+    "f_compact10_h0p25",
+    "f_compact6_h0p5",
+    "f_compact10_h0p5",
+    "f_compact6_h1p0",
+    "f_compact10_h1p0"
+  ],
+  "best_robust": {
+    "r_model": "r_stable075",
+    "f_model": "f_compact10_h0p5",
+    "alpha_r": 1.0,
+    "alpha_f": 0.0,
+    "2023": 0.9989217288,
+    "2024": 0.9927334962,
+    "robust_objective": 0.9970652591,
+    "pure_trigger": false
+  },
+  "best_pure_trigger": {
+    "r_model": "r_stable075",
+    "f_model": "f_compact10_h1p0",
+    "alpha_r": 1.0,
+    "alpha_f": 1.0,
+    "2023": 1.0155071806,
+    "2024": 0.9928320979,
+    "robust_objective": 1.0087046558,
+    "pure_trigger": true
+  },
+  "outputs": {
+    "metrics": "expert_metrics.csv",
+    "training": "training_metrics.csv",
+    "grid": "gating_grid.parquet",
+    "robust": "robust_gating_summary.csv",
+    "predictions": "expert_oof_predictions.parquet"
+  }
+}

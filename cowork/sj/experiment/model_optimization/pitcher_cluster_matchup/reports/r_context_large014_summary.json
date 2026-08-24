@@ -1,0 +1,51 @@
+{
+  "baseline": {
+    "2023": {
+      "bss": -67.5590560351047,
+      "r_bss": 120.66607916425554
+    },
+    "2024": {
+      "bss": 813.4317212822095,
+      "r_bss": 813.1818746619723
+    }
+  },
+  "robust": {
+    "scale": 1.375,
+    "val2023_delta_brier": -7.462394780993753e-05,
+    "val2023_r_delta_brier": -8.334301368748132e-05,
+    "val2023_bss": -37.70947669274882,
+    "val2023_r_bss": 154.0045812556512,
+    "val2024_delta_brier": -4.283098328097812e-05,
+    "val2024_r_delta_brier": -4.858210212488334e-05,
+    "val2024_bss": 830.5773560478458,
+    "val2024_r_bss": 832.6229546438691,
+    "both_improve": true,
+    "r_both_improve": true,
+    "objective": -0.0002685939479233351
+  },
+  "recent": {
+    "scale": 1.15,
+    "val2023_delta_brier": -6.568857933897387e-05,
+    "val2023_r_delta_brier": -7.336363630749965e-05,
+    "val2023_bss": -41.28362410729114,
+    "val2023_r_bss": 150.01267504860527,
+    "val2024_delta_brier": -4.4687620546907114e-05,
+    "val2024_r_delta_brier": -5.068803886396078e-05,
+    "val2024_bss": 831.3205849446725,
+    "val2024_r_bss": 833.4656864893542,
+    "both_improve": true,
+    "r_both_improve": true,
+    "objective": -0.00026155495903182834
+  },
+  "context": {
+    "keys": [
+      "balls_before",
+      "strikes_before",
+      "inning4",
+      "pitcher_hand",
+      "batter_hand"
+    ],
+    "history": "equal-weight prior OOF seasons",
+    "smoothing": 5000.0
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "family": "lightgbm",
+  "study": "lightgbm_v2r200_tm500_robust",
+  "trial": 35,
+  "objective": 0.9971366489412419,
+  "params": {
+    "max_depth": 9,
+    "n_estimators": 5891,
+    "learning_rate": 0.04573138401190978,
+    "num_leaves": 60,
+    "min_child_samples": 2348,
+    "min_sum_hessian_in_leaf": 0.023430021677959486,
+    "subsample": 0.7072424138065573,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.6490029747726895,
+    "reg_alpha": 24.937286190099385,
+    "reg_lambda": 109.40020519998093,
+    "min_split_gain": 1.1967511529302763,
+    "max_bin": 63,
+    "extra_trees": false,
+    "half_life": 0.30920972951020953
+  },
+  "model_name": "lgb_robust_t35_seedbag3",
+  "fold": 2024,
+  "train_through": 2023,
+  "feature_version": "V2R200_TM500_ALL",
+  "feature_count": 209,
+  "seeds": [
+    4085,
+    104085,
+    204085
+  ],
+  "best_iterations": [
+    122,
+    86,
+    98
+  ],
+  "elapsed_sec": 98.7128689289093,
+  "brier": 0.24796528231036918,
+  "normalized_brier": 0.9926277286609758,
+  "bss": 737.2271339024184,
+  "logloss": 0.6890629779300231,
+  "auc": 0.5490224518511587,
+  "target_mean": 0.4861049201797189,
+  "pred_mean": 0.4939071910845924,
+  "mean_gap": 0.0078022709048735095
+}

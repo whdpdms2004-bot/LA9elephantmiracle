@@ -1,0 +1,9 @@
+exp,arm,solo,dbss
+V59_outcome_kernel,H0_league,744.08,40.85
+V59_outcome_kernel,H1_kernel_s05,533.42,9.14
+V59_outcome_kernel,H2_kernel_s10,546.28,9.27
+V59_outcome_kernel,H3_kernel_all,356.77,-11.17
+V60_physical_kernel,H0_league,744.52,41.13
+V60_physical_kernel,H1_kernel_s05,709.8,34.18
+V60_physical_kernel,H2_kernel_s10,715.88,35.03
+V60_physical_kernel,H3_kernel_all,671.59,27.57

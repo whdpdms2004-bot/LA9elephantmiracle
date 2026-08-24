@@ -1,0 +1,38 @@
+{
+  "created_at": "2026-08-12T11:11:56.532403+09:00",
+  "base_submission": "submit\\2026-08-12\\submit_007.zip",
+  "records": [
+    {
+      "number": 9,
+      "name": "matchup_conservative",
+      "correction_scale": 0.6,
+      "insight_weight": 0.558,
+      "single_bss_2024": 789.6837620973929,
+      "blend_bss_2024": 805.563750399807,
+      "f23_delta_brier": -1.2164894861832476e-05,
+      "f24_delta_brier": -1.2807437668987953e-05,
+      "filename": "submit_009.zip",
+      "filename_length": 14,
+      "size_bytes": 109645807,
+      "sha256": "E4053BF7585C78814758E1BBF73960B63B880F94407C71BBF7C95BB76C01DB52",
+      "smoke_rows": 245789,
+      "inference_sec": 15.902534008026123
+    },
+    {
+      "number": 10,
+      "name": "matchup_aggressive",
+      "correction_scale": 1.0,
+      "insight_weight": 0.532,
+      "single_bss_2024": 786.2753773,
+      "blend_bss_2024": 806.4875295791473,
+      "f23_delta_brier": -9.96e-06,
+      "f24_delta_brier": -4.107e-06,
+      "filename": "submit_010.zip",
+      "filename_length": 14,
+      "size_bytes": 109645784,
+      "sha256": "29E85EDA93DA1189B6DEF5BD11B8AF71760BCF483CA3C10A3F648AEAC7E9C92B",
+      "smoke_rows": 245789,
+      "inference_sec": 15.867317199707031
+    }
+  ]
+}

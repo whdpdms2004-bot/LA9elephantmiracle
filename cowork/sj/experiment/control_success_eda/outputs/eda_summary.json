@@ -1,0 +1,180 @@
+{
+  "overview": {
+    "train_shape": [
+      1475092,
+      49
+    ],
+    "test_sample_shape": [
+      5,
+      48
+    ],
+    "submission_sample_shape": [
+      5,
+      2
+    ],
+    "train_memory_mb": 818.7329063415527,
+    "test_memory_mb": 0.0028533935546875,
+    "target_success_n": 772603,
+    "target_failure_n": 702489,
+    "target_success_rate": 0.5237659752747625,
+    "seasons": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "row_id_unique": true,
+    "train_input_columns_equal_test_columns": true,
+    "train_only_columns": [],
+    "test_only_columns": [],
+    "test_sample_seasons": [
+      2025
+    ],
+    "submission_row_ids_match_test_sample": true
+  },
+  "entity_summary": {
+    "pitchers": 792,
+    "batters": 830,
+    "pitcher_teams": 13,
+    "batter_teams": 13,
+    "top_10_pitcher_volume_share_pct": 9.031707852798334,
+    "top_50_pitcher_volume_share_pct": 32.10701434215629,
+    "pitchers_n_ge_100": 649,
+    "pitchers_n_ge_500": 465,
+    "pitchers_n_ge_1000": 374,
+    "stable_pitcher_rate_quantiles_n_ge_500": {
+      "0.0": 0.4001905669366365,
+      "0.1": 0.46296117587058827,
+      "0.25": 0.4882209585702681,
+      "0.5": 0.5186206896551724,
+      "0.75": 0.5495978552278821,
+      "0.9": 0.5791469808143889,
+      "1.0": 0.7179930795847751
+    }
+  },
+  "duplicate_summary": {
+    "duplicate_feature_rows": 0,
+    "duplicate_feature_row_pct": 0.0,
+    "duplicate_groups": 0,
+    "conflicting_target_groups": 0
+  },
+  "row_order_summary": {
+    "row_seq_missing": 0,
+    "row_seq_unique": true,
+    "row_seq_monotonic_increasing": true,
+    "season_monotonic_by_row_seq": true,
+    "row_seq_season_rank_corr": 0.9859973347697613,
+    "asof_n_equals_dataset_pitcher_cumcount_pct": 100.0,
+    "within_pitcher_n_diff_eq_1_pct": 99.94630843364347,
+    "within_pitcher_n_diff_lt_0_n": 0,
+    "within_pitcher_n_diff_gt_1_n": 0,
+    "future_row_target_recovery_coverage_pct": 99.94630843364347,
+    "future_row_target_recovery_raw_tolerance_accuracy_pct": 34.760835650817334,
+    "future_row_target_recovery_after_rounding_accuracy_pct": 100.0,
+    "future_implied_target_max_rounding_error": 0.014615000000048894,
+    "warning": "The recovery statistic is a leakage diagnostic only. Test rows are independent and may not be used to construct features."
+  },
+  "baseline_metrics": {
+    "global_constant_all_rows": {
+      "n": 1475092,
+      "coverage_pct": 100.0,
+      "mean_prediction": 0.5237659752747609,
+      "actual_rate": 0.5237659752747625,
+      "brier": 0.24943517841923935,
+      "logloss": 0.6920171116489928,
+      "auc": 0.5
+    },
+    "asof_pitcher_success_rate_nonmissing": {
+      "n": 1474300,
+      "coverage_pct": 99.94630843364347,
+      "mean_prediction": 0.5352282200662011,
+      "actual_rate": 0.5237509326460015,
+      "brier": 0.2481830877048723,
+      "logloss": 0.6957000118813743,
+      "auc": 0.5488496154178099
+    },
+    "asof_pitcher_success_rate_global_fill": {
+      "n": 1475092,
+      "coverage_pct": 100.0,
+      "mean_prediction": 0.5352220658074326,
+      "actual_rate": 0.5237659752747625,
+      "brier": 0.24818304535040023,
+      "logloss": 0.6956966041535562,
+      "auc": 0.5488288529920116
+    },
+    "asof_batter_success_rate_global_fill": {
+      "n": 1475092,
+      "coverage_pct": 100.0,
+      "mean_prediction": 0.5397221180695699,
+      "actual_rate": 0.5237659752747625,
+      "brier": 0.24931627195788159,
+      "logloss": 0.6982131282171745,
+      "auc": 0.5305511611870892
+    },
+    "2024_prior_seasons_constant": {
+      "n": 253507,
+      "coverage_pct": 100.0,
+      "mean_prediction": 0.5315815109059128,
+      "actual_rate": 0.4861049201797189,
+      "brier": 0.25187504706086583,
+      "logloss": 0.6969036043721832,
+      "auc": 0.5
+    },
+    "2024_asof_pitcher_success_rate_prior_fill": {
+      "n": 253507,
+      "coverage_pct": 100.0,
+      "mean_prediction": 0.5114034717001241,
+      "actual_rate": 0.4861049201797189,
+      "brier": 0.2502744576014392,
+      "logloss": 0.6974406737091509,
+      "auc": 0.5341709326123419
+    }
+  },
+  "trackman_overview": {
+    "shape": [
+      1793078,
+      30
+    ],
+    "memory_mb": 1261.3163032531738,
+    "seasons": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "date_min": "2019-03-23T00:00:00",
+    "date_max": "2024-10-17T00:00:00",
+    "pitchers": 906,
+    "batters": 913,
+    "pitcher_teams": 26,
+    "batter_teams": 26,
+    "trackman_id_unique": true
+  },
+  "id_linkage": {
+    "pitcher_direct_id_overlap_n": 0,
+    "batter_direct_id_overlap_n": 0,
+    "main_pitcher_id_example": [
+      "20700",
+      "20938",
+      "21095",
+      "21170",
+      "21178"
+    ],
+    "trackman_pitcher_id_example": [
+      "13515155",
+      "21325157",
+      "21825151",
+      "41245155",
+      "41345157"
+    ],
+    "main_pitcher_id_count": 792,
+    "trackman_pitcher_id_count": 906,
+    "conclusion": "No player-level join is assumed unless an explicit or independently validated crosswalk is built."
+  },
+  "generated_csv_count": 52,
+  "generated_png_count": 9
+}

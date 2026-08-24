@@ -1,0 +1,24 @@
+{
+  "coverage_per_pitcher": 1.0,
+  "fallback_global": 0.0,
+  "n_eligible_pitchers": 60,
+  "weighted_all": {
+    "n": 131798,
+    "base": 0.2824,
+    "roc_auc": 0.5704,
+    "pr_auc": 0.3324,
+    "logloss": 0.6435,
+    "brier": 0.2181,
+    "ece": 0.1083
+  },
+  "per_pitcher_only": {
+    "n": 131798,
+    "base": 0.2824,
+    "roc_auc": 0.5704,
+    "pr_auc": 0.3324,
+    "logloss": 0.6435,
+    "brier": 0.2181,
+    "ece": 0.1083
+  },
+  "global_fallback_only": null
+}

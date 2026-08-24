@@ -1,0 +1,14 @@
+{
+  "file": "data/statcast_2017_2019_raw_csw.parquet",
+  "created": "2026-07-16",
+  "rows": 2201095,
+  "columns": 122,
+  "content": "2017-2019 Statcast raw (121 original cols, no filtering/dedup, chronological) + is_csw label",
+  "label": "is_csw = 1 if description in [called_strike, swinging_strike, swinging_strike_blocked]; null if description null",
+  "csw_rate_by_year": {
+    "2017": 0.2711,
+    "2018": 0.2748,
+    "2019": 0.2767
+  },
+  "note": "game_type all included; filter game_type=='R' for modeling"
+}

@@ -1,0 +1,52 @@
+{
+  "study": "xgb_game_type_r_robust",
+  "game_type": "R",
+  "feature_version": "INSIGHT_SUCCESS_ADJUSTED_LOCAL",
+  "feature_count": 210,
+  "complete_trials": 50,
+  "best_trial": 32,
+  "best_value": 0.9944509216429817,
+  "best_params": {
+    "n_estimators": 4438,
+    "learning_rate": 0.0076267836853244906,
+    "max_depth": 6,
+    "max_leaves": 23,
+    "min_child_weight": 1287.4019080550852,
+    "subsample": 0.828861766009461,
+    "colsample_bytree": 0.5699284482562313,
+    "colsample_bylevel": 0.7753105765683548,
+    "gamma": 0.2515470151435372,
+    "reg_alpha": 5.793563876579881,
+    "reg_lambda": 43.283753890083624,
+    "max_bin": 256,
+    "half_life": 0.6327298817973489
+  },
+  "best_user_attrs": {
+    "best_iteration_2023": 379,
+    "best_iteration_2024": 782,
+    "elapsed_sec": 32.247445583343506,
+    "feature_version": "INSIGHT_SUCCESS_ADJUSTED_LOCAL",
+    "fold_2023": {
+      "brier": 0.24872203582731525,
+      "normalized_brier": 0.9949268384629645,
+      "bss": 507.316153703552,
+      "logloss": 0.6905839630328819,
+      "auc": 0.5399833439671697,
+      "target_mean": 0.5031181910398064,
+      "pred_mean": 0.5005583630464747,
+      "mean_gap": -0.0025598279933316537
+    },
+    "fold_2024": {
+      "brier": 0.2480725329249588,
+      "normalized_brier": 0.9927108426694705,
+      "bss": 728.9157330529483,
+      "logloss": 0.6892782336025595,
+      "auc": 0.548264027997476,
+      "target_mean": 0.4897067969592433,
+      "pred_mean": 0.49604426331388163,
+      "mean_gap": 0.0063374663546383325
+    },
+    "game_type": "R",
+    "trackman_rule": "strictly before validation; pitcher-season >=500"
+  }
+}

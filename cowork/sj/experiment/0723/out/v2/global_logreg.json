@@ -1,0 +1,81 @@
+{
+  "config": "global",
+  "model": "logreg",
+  "k_folds": 5,
+  "cv_folds": [
+    {
+      "n": 47614,
+      "base": 0.2794,
+      "roc_auc": 0.6257,
+      "pr_auc": 0.3782,
+      "logloss": 0.5737,
+      "brier": 0.1938,
+      "ece": 0.0132,
+      "fold": 1,
+      "n_fit": 40000
+    },
+    {
+      "n": 47612,
+      "base": 0.2773,
+      "roc_auc": 0.6288,
+      "pr_auc": 0.3814,
+      "logloss": 0.5704,
+      "brier": 0.1922,
+      "ece": 0.0063,
+      "fold": 2,
+      "n_fit": 40000
+    },
+    {
+      "n": 47609,
+      "base": 0.2848,
+      "roc_auc": 0.6277,
+      "pr_auc": 0.3831,
+      "logloss": 0.5777,
+      "brier": 0.1956,
+      "ece": 0.0087,
+      "fold": 3,
+      "n_fit": 40000
+    },
+    {
+      "n": 47606,
+      "base": 0.2837,
+      "roc_auc": 0.6263,
+      "pr_auc": 0.3856,
+      "logloss": 0.5776,
+      "brier": 0.1952,
+      "ece": 0.0068,
+      "fold": 4,
+      "n_fit": 40000
+    },
+    {
+      "n": 47613,
+      "base": 0.2816,
+      "roc_auc": 0.6288,
+      "pr_auc": 0.3865,
+      "logloss": 0.5747,
+      "brier": 0.1941,
+      "ece": 0.0104,
+      "fold": 5,
+      "n_fit": 40000
+    }
+  ],
+  "cv_mean": {
+    "logloss": 0.5748,
+    "brier": 0.1942,
+    "roc_auc": 0.6275,
+    "pr_auc": 0.383,
+    "ece": 0.0091
+  },
+  "cv_std_logloss": 0.003,
+  "test_2019": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6204,
+    "pr_auc": 0.3731,
+    "logloss": 0.5789,
+    "brier": 0.1961,
+    "ece": 0.0141
+  },
+  "n_features": 290,
+  "seconds": 24.3
+}

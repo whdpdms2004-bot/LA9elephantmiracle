@@ -1,0 +1,40 @@
+{
+  "global_basic": {
+    "n": 131798,
+    "base": 0.2824,
+    "roc_auc": 0.6334,
+    "pr_auc": 0.3917,
+    "logloss": 0.5739,
+    "brier": 0.194,
+    "ece": 0.0194
+  },
+  "pitcher_basic": {
+    "n": 131798,
+    "base": 0.2824,
+    "roc_auc": 0.6292,
+    "pr_auc": 0.3838,
+    "logloss": 0.5756,
+    "brier": 0.1946,
+    "ece": 0.0175,
+    "n_eligible": 60
+  },
+  "global_derived": {
+    "n": 131798,
+    "base": 0.2824,
+    "roc_auc": 0.6327,
+    "pr_auc": 0.3895,
+    "logloss": 0.5739,
+    "brier": 0.194,
+    "ece": 0.0165
+  },
+  "pitcher_derived": {
+    "n": 131798,
+    "base": 0.2824,
+    "roc_auc": 0.6264,
+    "pr_auc": 0.3791,
+    "logloss": 0.5771,
+    "brier": 0.1952,
+    "ece": 0.0241,
+    "n_eligible": 60
+  }
+}

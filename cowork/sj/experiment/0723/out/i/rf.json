@@ -1,0 +1,28 @@
+{
+  "family": "rf",
+  "best_params": {
+    "n_estimators": 160,
+    "max_depth": 16,
+    "min_samples_leaf": 121,
+    "max_features": 0.48141822809782786
+  },
+  "best_val_logloss": 0.57775,
+  "n_trials": 5,
+  "history": [
+    0.57775,
+    0.57872,
+    0.57776,
+    0.58037,
+    0.57828
+  ],
+  "test": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6255,
+    "pr_auc": 0.3839,
+    "logloss": 0.5765,
+    "brier": 0.1951,
+    "ece": 0.013
+  },
+  "n_feats": 311
+}

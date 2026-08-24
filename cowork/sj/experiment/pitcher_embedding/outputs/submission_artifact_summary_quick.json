@@ -1,0 +1,24 @@
+{
+  "selected_mode": "component",
+  "calibrator": [
+    0.7223076080689524,
+    -0.06739726632238101
+  ],
+  "quick_run": true,
+  "final_train_rows": 600000,
+  "crosswalk_pitchers": 419,
+  "checkpoint_mb": 0.2832469940185547,
+  "holdout": {
+    "mode": "component",
+    "split": "2024_holdout",
+    "probability": "calibrated",
+    "brier": 0.24891909956932068,
+    "bss": 363.2325805913439,
+    "logloss": 0.6909826545528746,
+    "auc": 0.5368951046612755,
+    "pred_mean": 0.4957326054573059,
+    "target_mean": 0.4868299961090088,
+    "cal_a": 0.7223076080689524,
+    "cal_b": -0.06739726632238101
+  }
+}

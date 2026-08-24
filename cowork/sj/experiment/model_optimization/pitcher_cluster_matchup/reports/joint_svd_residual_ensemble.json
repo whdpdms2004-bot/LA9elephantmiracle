@@ -1,0 +1,116 @@
+{
+  "joint_config": {
+    "matrix_lambda": 500.0,
+    "svd_dim": 16,
+    "pitcher_k": [
+      2,
+      4
+    ],
+    "batter_k": [
+      6,
+      8
+    ]
+  },
+  "best": {
+    "joint_features": "cluster_direct",
+    "joint_alpha": 100.0,
+    "current_variant": "current_single17",
+    "success_scale": 0.1,
+    "current_scale": 0.55,
+    "joint_scale": 0.25,
+    "f23_delta_brier": -3.275427860426842e-05,
+    "f24_delta_brier": -3.688942541734404e-05,
+    "both_improve": true,
+    "robust_objective": -0.00014267535787825395,
+    "outer_insight_weight": 0.6091795234780789,
+    "outer_brier_2024": 0.24777694981587825,
+    "outer_bss_2024": 812.6183558096911
+  },
+  "blend_2024": {
+    "insight_weight": 0.609,
+    "brier": 0.2477769498211766,
+    "bss": 812.6183536887099
+  },
+  "best_outer_by_feature": [
+    {
+      "joint_features": "cluster",
+      "joint_alpha": 100.0,
+      "current_variant": "current_seedbag",
+      "success_scale": 0.4,
+      "current_scale": 0.7,
+      "joint_scale": 0.2,
+      "f23_delta_brier": -2.170025259941898e-05,
+      "f24_delta_brier": -2.7883928513691366e-05,
+      "both_improve": true,
+      "robust_objective": -0.00010417564652463369,
+      "outer_insight_weight": 0.5752745572794892,
+      "outer_brier_2024": 0.24777306735965376,
+      "outer_bss_2024": 814.1725385839238
+    },
+    {
+      "joint_features": "cluster_direct",
+      "joint_alpha": 100.0,
+      "current_variant": "current_seedbag",
+      "success_scale": 0.4,
+      "current_scale": 0.7,
+      "joint_scale": 0.15,
+      "f23_delta_brier": -2.398435144514222e-05,
+      "f24_delta_brier": -2.8767512284543932e-05,
+      "both_improve": true,
+      "robust_objective": -0.00010939251187418898,
+      "outer_insight_weight": 0.5776619389490169,
+      "outer_brier_2024": 0.24777308707643209,
+      "outer_bss_2024": 814.1646457770269
+    },
+    {
+      "joint_features": "direct",
+      "joint_alpha": 100.0,
+      "current_variant": "current_seedbag",
+      "success_scale": 0.4,
+      "current_scale": 0.7,
+      "joint_scale": 0.05,
+      "f23_delta_brier": -1.4168244940992586e-05,
+      "f24_delta_brier": -2.8794909430805615e-05,
+      "both_improve": true,
+      "robust_objective": -9.768995528250492e-05,
+      "outer_insight_weight": 0.5786417714549544,
+      "outer_brier_2024": 0.2477737987088887,
+      "outer_bss_2024": 813.8797727889835
+    }
+  ],
+  "cutoff_audit": [
+    {
+      "cutoff": 2022,
+      "pitchers_embedded": 345,
+      "batters_embedded": 365,
+      "matrix_cells": 47548,
+      "explained_variance": 0.5523947281375843,
+      "pitcher_cluster_audit": "[{\"hand\": 1, \"k\": 2, \"members\": 91, \"min_cluster_size\": 1, \"max_cluster_size\": 90}, {\"hand\": 2, \"k\": 4, \"members\": 254, \"min_cluster_size\": 1, \"max_cluster_size\": 239}]",
+      "batter_cluster_audit": "[{\"hand\": 1, \"k\": 6, \"members\": 157, \"min_cluster_size\": 1, \"max_cluster_size\": 129}, {\"hand\": 2, \"k\": 8, \"members\": 208, \"min_cluster_size\": 1, \"max_cluster_size\": 174}]",
+      "pair_cells": 125,
+      "coverage": 0.9989615082740784
+    },
+    {
+      "cutoff": 2023,
+      "pitchers_embedded": 361,
+      "batters_embedded": 402,
+      "matrix_cells": 56525,
+      "explained_variance": 0.5668803494219634,
+      "pitcher_cluster_audit": "[{\"hand\": 1, \"k\": 2, \"members\": 92, \"min_cluster_size\": 1, \"max_cluster_size\": 91}, {\"hand\": 2, \"k\": 4, \"members\": 269, \"min_cluster_size\": 1, \"max_cluster_size\": 252}]",
+      "batter_cluster_audit": "[{\"hand\": 1, \"k\": 6, \"members\": 174, \"min_cluster_size\": 1, \"max_cluster_size\": 152}, {\"hand\": 2, \"k\": 8, \"members\": 228, \"min_cluster_size\": 1, \"max_cluster_size\": 173}]",
+      "pair_cells": 125,
+      "coverage": 0.9992098808288574
+    },
+    {
+      "cutoff": 2024,
+      "pitchers_embedded": 361,
+      "batters_embedded": 406,
+      "matrix_cells": 61011,
+      "explained_variance": 0.58395025017564,
+      "pitcher_cluster_audit": "[{\"hand\": 1, \"k\": 2, \"members\": 97, \"min_cluster_size\": 1, \"max_cluster_size\": 96}, {\"hand\": 2, \"k\": 4, \"members\": 264, \"min_cluster_size\": 1, \"max_cluster_size\": 261}]",
+      "batter_cluster_audit": "[{\"hand\": 1, \"k\": 6, \"members\": 178, \"min_cluster_size\": 1, \"max_cluster_size\": 170}, {\"hand\": 2, \"k\": 8, \"members\": 228, \"min_cluster_size\": 1, \"max_cluster_size\": 189}]",
+      "pair_cells": 125,
+      "coverage": 0.9998619556427002
+    }
+  ]
+}

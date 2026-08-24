@@ -1,71 +1,113 @@
-# KBO 투구 제구 성공 확률 예측 — 파생 피처셋
+# LA9 elephant miracle
 
-LG Aimers 9기 Phase 2 온라인 해커톤에서 만든 **파생 피처와 생성 코드**입니다.
+LG Aimers 9기 Phase 2 — **투구 제구 성공 확률 예측**
 
-원본 데이터(`train.csv`, `trackman_history.csv`)는 대회 규정상 재배포할 수 없어
-포함하지 않았습니다. 여기 있는 것은 원본으로부터 **우리가 만들어낸 96개 피처**와
-그것을 만드는 코드입니다.
+각 투구가 제구에 성공할 확률을 0~1 실수로 예측한다. 지표는 Brier Skill Score.
 
-## 결과
+## 문서
+
+| 파일 | 무엇인가 | 언제 |
+| --- | --- | --- |
+| [`AGENTS.md`](AGENTS.md) | 협업 규칙 + 제출 작업 절차 | 세션 시작할 때 |
+| [`cowork/plan.md`](cowork/plan.md) | 지금 상태 + 다음 할 일 | 작업 고를 때 |
+| [`cowork/task.jsonl`](cowork/task.jsonl) | 누가 언제 뭘 했는지 (append-only) | 작업 끝날 때마다 |
+| [`cowork/RULES.md`](cowork/RULES.md) | 대회 규정 원본 | 제출본 만들 때 |
+| [`data_description.md`](data_description.md) | 데이터 컬럼 설명 | 피처 만들 때 |
+
+`task.jsonl`은 계속 쌓는 일기장, `plan.md`는 그걸 읽고 리뷰 시점에 다시 쓰는 요약본이다.
+
+## 폴더
+
+```text
+cowork/
+├── RULES.md  plan.md  task.jsonl   ← 공용, PR로만 수정
+└── sj/ ye/ cw/ yn/ hw/             ← 각자 폴더, 자유 푸시
+```
+
+**내 폴더는 자유, 나머지는 PR.** 이게 협업 규칙의 전부다.
+
+## 데이터는 저장소에 없다
+
+코드와 문서만 올라간다. **`data/train.csv`(368MB)와 `data/trackman_history.csv`(354MB)는 대회 페이지에서 각자 받아 `data/`에 넣는다.** 5행 샘플 두 개는 저장소에 들어 있다.
+
+모델 가중치·제출 ZIP·중간 parquet도 커밋하지 않는다. **가중치 대신 그걸 만드는 학습 코드를 올린다.** 백업 책임은 각자에게 있다.
+
+작업 시작 전 경로 확인 스크립트는 [`AGENTS.md`](AGENTS.md) A6에 있다.
+
+## 작업 흐름
+
+```bash
+git checkout -b sj/pitcher-prior          # <initial>/<short-desc>
+# cowork/sj/ 안에서 작업
+git commit -m "[sj] feat: add pitcher prior"   # [<initial>] <type>: <설명>
+git push origin sj/pitcher-prior
+```
+
+`type`은 `feat` · `fix` · `exp` · `doc` · `chore`.
+
+작업이 끝나면 `cowork/task.jsonl`에 한 줄 추가한다. **JSON 배열이 아니라 JSONL이다** — 한 줄에 항목 하나, `>>`로 파일 끝에 붙인다. 그래야 동시에 기록해도 git이 합쳐준다. 기존 줄은 고치지 않는다.
+
+```bash
+echo '{"id":"2026-08-13T14:32:10Z-sj","author":"sj","ts":"2026-08-13T14:32:10+09:00","type":"exp","title":"투수 prior 피처","detail":"2023 이전만으로 shrinkage prior","paths":["cowork/sj/feat_prior.py"],"result":"Val2024 Brier 0.2431 / BSS 836.5","next":"타자손 교호작용"}' >> cowork/task.jsonl
+```
+
+`id`는 타임스탬프 기반으로. 스키마는 [`AGENTS.md`](AGENTS.md) A3.
+
+## 실험할 때 어기면 안 되는 것
+
+- **미래를 보지 않는다.** Val2024는 2019~2023만 학습. TrackMan도 예측 시즌 이전만. 2025 TrackMan 금지.
+- **test의 다른 행을 보지 않는다.** `predict(단독 행) == predict(전체)[i]`가 성립해야 한다.
+- **확률로 낸다.** AUC 말고 calibration을 본다.
+- **결과는 항상 같이 적는다.** Brier, 전체 BSS, R/F별 BSS, 월별 Brier, prediction mean.
+
+## 제출할 때
+
+ZIP 루트에 `model/` · `script.py`(추론 전용) · `requirements.txt` 세 개만. 결과는 `output/submission.csv`에 `row_id`, `control_success` 순서로.
+
+서버는 **인터넷 없음**, 추론 **10분 / 245,789행**, 제출 **1일 5회**.
+
+**제출 패키지를 만들 때마다 [`AGENTS.md`](AGENTS.md) B1의 6단계 점검을 처음부터 밟는다.** "지난번에 통과했으니 괜찮다"는 근거가 아니다.
+
+> RULES.md 재독 → 행 독립성 기계 검증 → 금지 패턴 스캔 → 오프라인 smoke test → 근거 문서화 → 체크리스트 2개 통과
+
+결과는 `submit/<날짜>/SUBMISSION_LOG.md`에 남긴다. **09.11 코드 검증에서 사람이 코드를 읽는다.**
+
+## 마감
+
+| 08.26 | 09.01 | 09.07 | 09.11 |
+| --- | --- | --- | --- |
+| 팀 병합 | 리더보드 제출 | 코드 및 PPT | 코드 검증 |
+
+## 자주 하는 실수
+
+| 실수 | 왜 |
+| --- | --- |
+| `plan.md` 수시 수정 | 요약본이 로그가 된다. 리뷰 때만 재작성 |
+| `task.jsonl` 기존 줄 수정 / pretty-print | append-only 위반, 파싱 실패 |
+| 리더보드 보고 상수 재조정 | "전체 평가 데이터 평균 이용 보정"이라 위반 |
+| 안 쓰는 분기라고 위험 코드 방치 | 09.11에서 사람이 읽는다. 죽은 코드도 지운다 |
+| test 5행 샘플에 맞춘 하드코딩 | 실제 평가는 245,789행 |
+| `script.py` 절대경로 하드코딩 | `Path(__file__).resolve().parent` 사용 |
+| `data/` 원본 커밋 | 690MB다. `.gitignore`에 있으니 강제 add 금지 |
+
+## cw 라인 결과 (v13 피처셋)
+
+`FEATURES.md` · `schema.json` · `lut/` · `src/`는 cw가 만든 **168피처 파생 세트**(원본에서
+재조합한 피처 96개 + 원본 그대로 72개)와 그 생성 코드다. 원본 데이터는 재배포 금지라
+`features_sample.csv.gz`(5만 행 샘플)만 포함한다.
 
 | 버전 | 구성 | 리더보드 |
 |---|---|---|
 | 베이스라인 | 주최측 제공 | 549.51 |
 | v7 | 72피처 · sklearn GBDT 2계열 결합 | 923.00 |
 | v12 | 80피처(+시즌폼) · 3계열 | 950.00 |
-| **v13** | **168피처 · CatBoost + FT-Transformer + MLP** | **981.00** |
+| v13 | 168피처 · CatBoost + FT-Transformer + MLP | 981.00 |
 
-## 무엇이 통했나
-
-점수의 대부분은 모델이 아니라 **정보를 다시 꺼내는 방식**에서 나왔습니다.
-
-1. **시즌폼** — `asof_pitcher_n`이 시즌을 넘어 통산으로 쌓인다는 점을 이용해,
-   `통산성공수 − 전년말 통산성공수`로 "올 시즌 성적"을 복원했습니다.
-   통산 3,000구 투수가 올해 500구를 던져도 통산 지표는 거의 안 움직이므로,
-   모델이 당해 컨디션을 전혀 못 보고 있었습니다.
-
-2. **TrackMan 릴리스 일관성** — 제구력의 물리적 실체는 구속이 아니라
-   "얼마나 똑같이 반복되는가"입니다. 평균이 아니라 **표준편차**를 쓰고,
-   **구종별로 따로** 잽니다. 섞어서 재면 제구 흔들림이 아니라 구종 개수를 재게 됩니다.
-
-3. **볼카운트 12종 개별** — 3-1(배팅찬스)과 3-0은 투수 심리가 정반대입니다.
-   "3볼"로 묶으면 서로 상쇄돼 신호가 사라집니다.
-
-## 규정 준수
-
-모든 룩업은 **학습 데이터로만** 만들고, 추론 시에는 그 행의 `pitcher_id`로 조회만 합니다.
-평가 데이터의 다른 행을 참조하지 않으며, `test.csv`에 1행만 있을 때와 전체가 있을 때의
-예측이 **완전히 같습니다**(실측 오차 0.00e+00).
-
-## 파일
-
-```
-FEATURES.md            168 피처 전체 명세
-features_sample.csv.gz 파생 96피처 샘플 5만 행 (+ season, control_success)
-schema.json            컬럼 목록 · 결측률 · 기초통계
-lut/season_lut.npz     전년말 통산상태 (pitcher_id / batter_id → n, 성공수)
-lut/domain_lut.npz     TrackMan 프로파일 + 역할 (pitcher_id → 60값)
-src/                   피처 생성 코드
-```
-
-## 재현
-
-원본 데이터를 `../open/data/`에 두고:
+검증은 2024·2022 두 연도에서 각각 측정해 **낮은 쪽으로만** 판정(4전 4승으로 이 방식이
+맞았음). 채택 전 플라시보 검사(투수 대응 무작위 셔플 시 이득 소멸 확인)를 거치고,
+검증 이득이 리더보드에 반영되는 전이율은 **0.62**로 실측됐다. 재현:
 
 ```bash
 python src/build_luts_v13.py    # 룩업 생성 + 학습 피처와의 일치 검증
 python src/build_v13.py --gpu   # 168피처 행렬 구축 + 5시드 검증
 ```
-
-## 검증 방법
-
-- 두 검증 연도(2024, 2022)에서 각각 5시드로 측정하고 **낮은 쪽으로만** 판정합니다.
-  두 해가 갈릴 때 낮은 쪽이 맞은 것이 4전 4승입니다.
-- 채택 전 **플라시보 검사**를 거칩니다. 투수 대응을 무작위로 섞었을 때 이득이
-  사라져야 진짜입니다.
-- 검증 이득이 리더보드에 반영되는 비율(전이율)은 **0.62**로 실측됐습니다.
-
-## 라이선스
-
-코드는 MIT. 데이터 샘플은 대회 데이터에서 파생된 것으로, 대회 목적 외 사용은
-주최측 규정을 따릅니다.

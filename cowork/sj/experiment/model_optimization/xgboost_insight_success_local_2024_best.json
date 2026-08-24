@@ -1,0 +1,40 @@
+{
+  "study_name": "xgboost_insight_success_local_2024",
+  "feature_version": "INSIGHT_PRIOR_SUCCESS",
+  "min_trackman_season_pitches": 500,
+  "best_trial": 0,
+  "best_value": 0.9921647664694809,
+  "best_params": {
+    "half_life": 0.5259510182777523,
+    "n_estimators": 4431,
+    "learning_rate": 0.0030626837708062128,
+    "max_depth": 7,
+    "min_child_weight": 626.0593077812514,
+    "subsample": 0.9736716317454049,
+    "colsample_bytree": 0.7907533296928133,
+    "colsample_bylevel": 0.8524268909223828,
+    "gamma": 0.11551620567906469,
+    "reg_alpha": 0.2421771226109747,
+    "reg_lambda": 505.8374114397891,
+    "max_bin": 512,
+    "max_leaves": 18
+  },
+  "best_user_attrs": {
+    "best_iteration_2024": 2587,
+    "elapsed_sec": 54.70841431617737,
+    "feature_version": "INSIGHT_PRIOR_SUCCESS",
+    "fold_2024": {
+      "brier": 0.24784963114810726,
+      "normalized_brier": 0.9921647664694809,
+      "bss": 783.5233530519071,
+      "logloss": 0.6888294193105203,
+      "auc": 0.5498447548076753,
+      "target_mean": 0.4861049201797189,
+      "pred_mean": 0.49173684242149235,
+      "mean_gap": 0.005631922241773446
+    },
+    "min_trackman_season_pitches": 500,
+    "trackman_cutoff_rule": "season_strict"
+  },
+  "complete_trials": 25
+}

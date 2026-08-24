@@ -1,0 +1,82 @@
+{
+  "1_count_only": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6131,
+    "pr_auc": 0.3677,
+    "logloss": 0.5796,
+    "brier": 0.1962,
+    "ece": 0.0103,
+    "n_feats": 8
+  },
+  "2_situation": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.609,
+    "pr_auc": 0.3776,
+    "logloss": 0.5834,
+    "brier": 0.1975,
+    "ece": 0.0244,
+    "n_feats": 71
+  },
+  "3_basic_hist": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6178,
+    "pr_auc": 0.3789,
+    "logloss": 0.5814,
+    "brier": 0.197,
+    "ece": 0.0241,
+    "n_feats": 121
+  },
+  "4_pitcher_hist": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.619,
+    "pr_auc": 0.3774,
+    "logloss": 0.5822,
+    "brier": 0.1971,
+    "ece": 0.0282,
+    "n_feats": 247
+  },
+  "5_arsenal_release": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6141,
+    "pr_auc": 0.3719,
+    "logloss": 0.5825,
+    "brier": 0.1976,
+    "ece": 0.0229,
+    "n_feats": 290
+  },
+  "6_batter_scout(PP)": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6192,
+    "pr_auc": 0.3803,
+    "logloss": 0.5825,
+    "brier": 0.1974,
+    "ece": 0.032,
+    "n_feats": 320
+  },
+  "7_gameflow(PP)": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6192,
+    "pr_auc": 0.3796,
+    "logloss": 0.5813,
+    "brier": 0.1969,
+    "ece": 0.0259,
+    "n_feats": 337
+  },
+  "8_prior_ab+lineup(PP)": {
+    "n": 94150,
+    "base": 0.2829,
+    "roc_auc": 0.6212,
+    "pr_auc": 0.3823,
+    "logloss": 0.5827,
+    "brier": 0.197,
+    "ece": 0.0335,
+    "n_feats": 342
+  }
+}

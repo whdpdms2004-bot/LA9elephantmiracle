@@ -1,0 +1,86 @@
+[
+  {
+    "config_id": "phy_kme_p8_l2r4_05b8fc3c",
+    "rows": 1475092,
+    "features": 41,
+    "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\oof\\cluster_features_phy_kme_p8_l2r4_05b8fc3c.parquet",
+    "season_coverage": {
+      "2019": 0.0,
+      "2020": 0.49334049224853516,
+      "2021": 0.5745685696601868,
+      "2022": 0.5894889235496521,
+      "2023": 0.6407697796821594,
+      "2024": 0.5733687877655029
+    }
+  },
+  {
+    "config_id": "phy_gmm_p8_l2r4_252c4db5",
+    "rows": 1475092,
+    "features": 41,
+    "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\oof\\cluster_features_phy_gmm_p8_l2r4_252c4db5.parquet",
+    "season_coverage": {
+      "2019": 0.0,
+      "2020": 0.49334049224853516,
+      "2021": 0.5745685696601868,
+      "2022": 0.5894889235496521,
+      "2023": 0.6407697796821594,
+      "2024": 0.5733687877655029
+    }
+  },
+  {
+    "config_id": "com_kme_p8_l2r4_90b74ce1",
+    "rows": 1475092,
+    "features": 41,
+    "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\oof\\cluster_features_com_kme_p8_l2r4_90b74ce1.parquet",
+    "season_coverage": {
+      "2019": 0.0,
+      "2020": 0.49334049224853516,
+      "2021": 0.5745685696601868,
+      "2022": 0.5894889235496521,
+      "2023": 0.6407697796821594,
+      "2024": 0.5733687877655029
+    }
+  },
+  {
+    "config_id": "com_gmm_p8_l2r4_7de7125e",
+    "rows": 1475092,
+    "features": 41,
+    "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\oof\\cluster_features_com_gmm_p8_l2r4_7de7125e.parquet",
+    "season_coverage": {
+      "2019": 0.0,
+      "2020": 0.49334049224853516,
+      "2021": 0.5745685696601868,
+      "2022": 0.5894889235496521,
+      "2023": 0.6407697796821594,
+      "2024": 0.5733687877655029
+    }
+  },
+  {
+    "config_id": "phy_kme_p8_l3r6_2b1090ea",
+    "rows": 1475092,
+    "features": 45,
+    "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\oof\\cluster_features_phy_kme_p8_l3r6_2b1090ea.parquet",
+    "season_coverage": {
+      "2019": 0.0,
+      "2020": 0.49334049224853516,
+      "2021": 0.5745685696601868,
+      "2022": 0.5894889235496521,
+      "2023": 0.6407697796821594,
+      "2024": 0.5733687877655029
+    }
+  },
+  {
+    "config_id": "com_kme_p8_l3r6_a45f07c2",
+    "rows": 1475092,
+    "features": 45,
+    "path": "experiment\\model_optimization\\pitcher_cluster_matchup\\oof\\cluster_features_com_kme_p8_l3r6_a45f07c2.parquet",
+    "season_coverage": {
+      "2019": 0.0,
+      "2020": 0.49334049224853516,
+      "2021": 0.5745685696601868,
+      "2022": 0.5894889235496521,
+      "2023": 0.6407697796821594,
+      "2024": 0.5733687877655029
+    }
+  }
+]
