@@ -1,0 +1,34 @@
+{
+ "target_rate": 0.47469465355297163,
+ "logit_target_C1": -0.10130794309825776,
+ "n_features": 168,
+ "seeds": 3,
+ "ft_epochs": 10,
+ "mlp_epochs": 8,
+ "blend_w_cb": 0.6261134897158638,
+ "blend_w_ft": 0.30319248187007375,
+ "blend_w_mlp": 0.1265031317641427,
+ "blend_source": "train-only: val2024·2022 에서 w*=M^-1A, 두 해 평균 | 전역 배율 1.0447 는 리더보드 점수에서 역산한 A/V",
+ "model_cb": {
+  "logit_scale": 1.0499999999999998,
+  "logit_center_C0": -0.048777143615610016,
+  "cap": 0.2,
+  "target_rate": 0.47469465355297163,
+  "logit_target_C1": -0.10130794309825776
+ },
+ "model_ft": {
+  "logit_scale": 0.8999999999999999,
+  "logit_center_C0": -0.056385597214102745,
+  "cap": 0.2,
+  "target_rate": 0.47469465355297163,
+  "logit_target_C1": -0.10130794309825776
+ },
+ "model_mlp": {
+  "logit_scale": 0.8499999999999999,
+  "logit_center_C0": -0.0460211094468832,
+  "cap": 0.2,
+  "target_rate": 0.47469465355297163,
+  "logit_target_C1": -0.10130794309825776
+ },
+ "blend_scale_c": 1.0446724142080803
+}
