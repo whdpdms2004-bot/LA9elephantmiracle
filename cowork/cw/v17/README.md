@@ -237,7 +237,29 @@ tuning/
 assets/
   pitcher_id_map2.csv TrackMan ID 매핑 (605명)
   params_v13.json     최종 상수
+
+model/                제출 zip 안의 파일과 바이트 단위로 동일 (26 MB)
+  cb.npz         1.34 MB   CatBoost 3시드, 순수 numpy (feature/border/leaf 배열)
+  ft.pt          2.00 MB   FT-Transformer 3시드 state_dict
+  mlp.pt        21.83 MB   MLP 3시드 state_dict
+  prep.npz       0.06 MB   분위수 경계 (신경망 전처리)
+  encodings.npz  0.04 MB   플래툰 스플릿 인코딩
+  season_lut.npz 0.02 MB   2024년 말 통산상태 (시즌폼용)
+  domain_lut.npz 0.26 MB   TrackMan 프로파일 + 역할 룩업
+  params.json              r · 블렌드 가중치 · 계열별 캘리브레이션 상수
 ```
 
-`_work/` 중간 산출물과 모델 가중치는 크기 때문에 저장소에 없다.
-`§2 실행 순서`대로 돌리면 그대로 재생성된다.
+`.gitignore`가 `*.pt`(26줄)와 `*.npz`(34줄)를 막으므로 `git add -f`가 필요하다.
+
+`model/` 만 있으면 **학습 없이 바로 추론된다.**
+
+```bash
+mkdir -p run/model run/data
+cp src/script_v13.py run/script.py
+cp model/* run/model/
+cp <test.csv, sample_submission.csv> run/data/
+cd run && python script.py        # -> output/submission.csv
+```
+
+`_work/` 중간 산출물(X80/X168 행렬, 1.5 GB)만 저장소에 없다.
+다시 학습하려면 `§2 실행 순서`의 [1]~[2]로 재생성한다.
