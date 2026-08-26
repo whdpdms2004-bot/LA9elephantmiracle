@@ -43,9 +43,11 @@ lgb_*.txt
 *.feather
 cowork/**/*.csv
 
-# 팀 결합(Phase E)용 공통 Val2024 예측만 예외.
-# 253,507행 x 2컬럼. 상관 행렬과 결합 가중치 산출에 필요하다.
+# 팀 결합(Phase E)용 공통 Val2024/Val2022 예측만 예외.
+# val2024: 253,507행, val2022: 247,472행. 둘 다 x 2컬럼(row_id, control_success).
+# 상관 행렬과 결합 가중치 산출, val2022는 가중치 안정성 sanity check용.
 !cowork/*/val2024_pred.csv
+!cowork/*/val2022_pred.csv
 *.pdf
 
 # ── 로그 ──────────────────────────────────────────────────
