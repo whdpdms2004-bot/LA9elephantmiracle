@@ -1,0 +1,14 @@
+{
+ "prep": "std",
+ "n_features": 176,
+ "d_in": 352,
+ "seeds": 3,
+ "model_mlp": {
+  "logit_scale": 0.7999999999999998,
+  "logit_center_C0": -0.06122493785029029,
+  "cap": 0.2,
+  "target_rate": 0.47469465355297163,
+  "logit_target_C1": -0.10130794309825776
+ },
+ "train_rows": 1475092
+}
