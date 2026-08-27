@@ -1,0 +1,30 @@
+# 규칙 4 — 제출 zip 은 이 폴더에 보관한다. 루트 .gitignore 의 *.zip 예외.
+!*.zip
+!models/*.zip
+
+# ── 100MB 초과는 GitHub 이 거부한다 ─────────────────────────────────────────
+# 팀 **결합본**은 남의 모듈까지 담아 375MB 가 된다 (챔피언 번들 = cw 11파일 +
+# sj 181파일). 단일 멤버 zip 은 6~54MB 라 문제없다.
+# 결합본은 커밋하지 않는다 — `models/<name>/build_submit_zip.py` 와 각 멤버 zip 이
+# 있으면 언제든 다시 조립할 수 있다. 꼭 저장소에 둬야 하면 Git LFS 를 먼저 설정할 것.
+models/sj_idfreq.zip
+models/sj_grid_w060.zip
+
+# ── val 예측은 **등록된 모델**의 것만 커밋한다 (규칙 3) ─────────────────────
+# 실험 arm 의 val 예측은 판정이 끝나면 results.csv 의 한 행으로 압축된다.
+# 103개 8.6MB 씩 = 898MB 를 공유 저장소에 넣으면 팀원 clone 이 무거워진다.
+# 로컬에는 남겨두고 커밋만 하지 않는다.
+val/*.csv
+!val/cw_v17_base_*.csv
+!val/hw_v12_*.csv
+!val/yn_fa10c_*.csv
+!val/sj_cb_ft_fonly_*.csv
+!val/sj_grid_w060_*.csv
+!val/sj3way_*.csv
+
+# 압축 해제본·중간 산출물은 커밋하지 않는다 (zip 하나로만 보관).
+models/*_extracted/
+__pycache__/
+
+# 라벨 캐시 (대회 원본 파생)
+.cache/

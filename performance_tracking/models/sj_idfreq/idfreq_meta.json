@@ -1,0 +1,20 @@
+{
+ "atoms": "id_freq",
+ "extra_cols": [
+  "pa_pitcher_id_logfreq",
+  "pa_pitcher_id_unseen",
+  "pa_batter_id_logfreq",
+  "pa_batter_id_unseen",
+  "pa_pitcher_team_id_logfreq",
+  "pa_pitcher_team_id_unseen",
+  "pa_batter_team_id_logfreq",
+  "pa_batter_team_id_unseen"
+ ],
+ "n_features": 176,
+ "seeds": 3,
+ "train_rows": 1475092,
+ "train_seasons": [
+  2019,
+  2024
+ ]
+}
