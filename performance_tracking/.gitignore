@@ -25,6 +25,7 @@ val/*.csv
 !val/sj_stdmlp_*.csv
 !val/ye_hand_*.csv
 !val/hw_v12_honest_*.csv
+!val/sj3way_nv_*.csv
 
 # 압축 해제본·중간 산출물은 커밋하지 않는다 (zip 하나로만 보관).
 models/*_extracted/
