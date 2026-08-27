@@ -21,6 +21,9 @@ val/*.csv
 !val/sj_cb_ft_fonly_*.csv
 !val/sj_grid_w060_*.csv
 !val/sj3way_*.csv
+!val/sj_e2var_*.csv
+!val/sj_stdmlp_*.csv
+!val/ye_hand_*.csv
 
 # 압축 해제본·중간 산출물은 커밋하지 않는다 (zip 하나로만 보관).
 models/*_extracted/
