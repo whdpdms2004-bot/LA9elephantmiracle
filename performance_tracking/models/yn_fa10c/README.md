@@ -11,6 +11,15 @@
 - build_val_predictions.py — <=2021→2022, <=2022→2023 raw 예측 생성.
 - verify_pipeline.py — 기존 제출 ZIP과 stats, lookup, 71피처 값·순서를 대조.
 - script_fa10c_inference.py — 기존 제출 ZIP의 추론 코드.
+- sj_a3_adapter.py — SJ가 이미 로드한 CW 168열 행렬만으로 A3를 붙이는 독립 어댑터.
+  `train.csv`·`yn_fa10c.zip` 경로가 없어도 동작한다.
+
+### SJ 독립 어댑터 검증 (2026-08-29)
+
+`sj_a3_adapter.py` 자체 synthetic 검증을 통과했다. 또한 공식 학습 1,475,092행에서
+`pipeline.build_a_features()` 정본과 직접 비교해 열 이름·NaN 마스크가 같고,
+float32 A3 배열의 최대절대차 `0.000e+00` 및 배열 완전 일치를 확인했다.
+실측 생성 시간은 약 2초였다.
 
 ## 개발환경
 
