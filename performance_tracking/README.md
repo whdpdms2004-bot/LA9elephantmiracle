@@ -198,7 +198,12 @@ python performance_tracking/group_by_perform/build_axes.py     # 축 파생 (캐
 python performance_tracking/group_by_perform/group_score.py    # 모델 x 축 x 구간
 python performance_tracking/group_by_perform/recal_transfer.py # 2022 적합 -> 2024 판정
 python performance_tracking/group_by_perform/report.py         # RESULTS.md 생성
+python performance_tracking/group_by_perform/make_map.py       # 구간별 약점 지도 (HTML)
 ```
+
+`make_map.py` 는 축 x 구간의 **AUC 편차를 두 시즌 나란히** 그린 단일 HTML 을 낸다
+(`out/axes-map.html`). `--model` 로 대상을 바꾼다. 한 시즌만 보면 우연을 약점으로
+잡으므로 **두 시즌을 같이 그리는 것이 이 그림의 요점**이다.
 
 규약 전문은 [`group_by_perform/PLAN.md`](group_by_perform/PLAN.md),
 결과는 [`group_by_perform/RESULTS.md`](group_by_perform/RESULTS.md). 네 가지만 여기 옮긴다.

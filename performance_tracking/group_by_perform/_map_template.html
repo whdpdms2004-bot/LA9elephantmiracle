@@ -1,0 +1,317 @@
+<title>구간별 약점 지도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EAEDE8; --surface:#F8F9F6; --surface-2:#E1E6DE;
+  --ink:#141917; --ink-2:#3A443F; --muted:#5F6A64;
+  --rule:#CFD6CB; --rule-soft:#DDE2D8;
+  --accent:#1E5C48;
+  --bad:#A8392A; --bad-soft:#F1DDD8;
+  --good:#2F7D63; --good-soft:#DBE9E1;
+  --warn:#8A6410; --warn-soft:#F0E4C8;
+  --shadow:0 1px 2px rgba(20,25,23,.06), 0 8px 24px -18px rgba(20,25,23,.3);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0E1211; --surface:#161B19; --surface-2:#1E2523;
+  --ink:#E7EBE5; --ink-2:#C3CBC5; --muted:#939E97;
+  --rule:#2A322E; --rule-soft:#222926;
+  --accent:#68B394;
+  --bad:#E58472; --bad-soft:#36211D;
+  --good:#5FB894; --good-soft:#162C24;
+  --warn:#D2A64A; --warn-soft:#2E2717;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1211; --surface:#161B19; --surface-2:#1E2523;
+  --ink:#E7EBE5; --ink-2:#C3CBC5; --muted:#939E97;
+  --rule:#2A322E; --rule-soft:#222926;
+  --accent:#68B394;
+  --bad:#E58472; --bad-soft:#36211D;
+  --good:#5FB894; --good-soft:#162C24;
+  --warn:#D2A64A; --warn-soft:#2E2717;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Gothic A1","IBM Plex Sans KR",system-ui,sans-serif;margin:0;text-wrap:balance}
+.mono,.num{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 90px}
+
+header{padding:52px 0 0;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.eyebrow b{color:var(--accent);font-weight:600}
+h1{font-size:clamp(30px,5.5vw,44px);font-weight:900;line-height:1.14;letter-spacing:-.02em}
+.dek{margin:14px 0 0;font-size:16.5px;color:var(--ink-2);max-width:60ch}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);margin:30px 0 30px;border-radius:3px;overflow:hidden}
+.cell{background:var(--surface);padding:17px 19px}
+.cell .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-bottom:9px}
+.cell .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:26px;font-weight:600;line-height:1;letter-spacing:-.02em;display:block}
+.cell .s{display:block;margin-top:8px;font-size:12px;color:var(--muted);line-height:1.5}
+
+section{padding:44px 0 0}
+section+section{border-top:1px solid var(--rule-soft);margin-top:44px}
+h2{font-size:21px;font-weight:700;letter-spacing:-.01em;display:flex;gap:11px;align-items:baseline;margin-bottom:6px}
+h2 em{font-family:"IBM Plex Mono",monospace;font-style:normal;font-size:11.5px;font-weight:500;color:var(--accent)}
+h3{font-size:15px;font-weight:700;margin:0}
+p{margin:13px 0}
+.lede{color:var(--ink-2);margin-top:2px}
+code{font-family:"IBM Plex Mono",monospace;font-size:.88em;background:var(--surface-2);
+  padding:1px 5px;border-radius:2px;white-space:nowrap}
+
+.legend{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:3px;padding:16px 20px;margin:20px 0}
+.legend dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:7px 16px;font-size:14px}
+.legend dt{font-family:"IBM Plex Mono",monospace;font-weight:600;color:var(--accent);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink-2)}
+
+.scroll{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--rule-soft);vertical-align:middle}
+thead th{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;background:var(--surface-2);border-bottom:1px solid var(--rule);white-space:nowrap}
+tbody tr:last-child td{border-bottom:none}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.top td{background:var(--bad-soft)}
+
+.chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.07em;
+  text-transform:uppercase;padding:2px 7px;border-radius:2px;border:1px solid var(--rule);
+  color:var(--muted);white-space:nowrap;font-weight:500}
+.chip.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);font-weight:600}
+.chip.warn{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);font-weight:600}
+.chip.flat{background:var(--surface-2)}
+.chip.blend{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px}
+.filters button{font-family:"IBM Plex Sans KR",sans-serif;font-size:13px;padding:6px 13px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink-2);border-radius:2px;cursor:pointer;
+  transition:background .15s,color .15s,border-color .15s}
+.filters button:hover{border-color:var(--accent);color:var(--accent)}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:600}
+
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:20px 22px;margin:16px 0;box-shadow:var(--shadow);border-left:3px solid var(--rule)}
+.card.sev-bad{border-left-color:var(--bad)}
+.card.sev-warn{border-left-color:var(--warn)}
+.card.sev-flat{border-left-color:var(--rule)}
+.card-h{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:4px}
+.card-h .rk{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);font-weight:600}
+.card-note{font-size:13px;color:var(--muted);margin:10px 0 0;padding-top:10px;border-top:1px dashed var(--rule)}
+
+.rows{margin:16px 0 0;display:flex;flex-direction:column;gap:3px}
+.row{display:grid;grid-template-columns:104px 1fr 1fr;gap:10px;align-items:center;font-size:12.5px}
+.row .lbl{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-2);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .lbl .sh{color:var(--muted);font-size:10.5px;margin-left:5px}
+.hd{display:grid;grid-template-columns:104px 1fr 1fr;gap:10px;font-family:"IBM Plex Mono",monospace;
+  font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.hd span:nth-child(1){padding-left:2px}
+.track{position:relative;height:19px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+.track .mid{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--rule);z-index:1}
+.track .bar{position:absolute;top:3px;bottom:3px;border-radius:1px}
+.track .bar.neg{background:var(--bad)}
+.track .bar.pos{background:var(--good)}
+.track .val{position:absolute;top:0;right:5px;line-height:19px;font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;color:var(--ink-2);z-index:2;font-variant-numeric:tabular-nums}
+.track .val.l{right:auto;left:5px}
+
+details{margin:14px 0 0}
+summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:500;padding:4px 0}
+summary:hover{text-decoration:underline}
+
+.call{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--warn);
+  border-radius:3px;padding:15px 19px;margin:20px 0;font-size:14px}
+.call.stop{border-left-color:var(--bad)}
+.call .lbl{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--warn);font-weight:600;display:block;margin-bottom:5px}
+.call.stop .lbl{color:var(--bad)}
+.call p{margin:7px 0}.call p:first-of-type{margin-top:0}.call p:last-child{margin-bottom:0}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:620px){.row,.hd{grid-template-columns:88px 1fr}.row>*:nth-child(3),.hd>span:nth-child(3){display:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">팀 LA9 · 최종 제출본 <b>sj_stdmlp</b> · Public 1082.106</p>
+  <h1>어디서 잃고 있나</h1>
+  <p class="dek">결합 가중을 걸어봤던 조건들(볼카운트 · R/F · 월 · 투구수 · 점수차)마다 <strong>BSS 와 AUC 를 갈라서</strong> 봤다. 15축 × 구간, 2024 와 2022 두 시즌.</p>
+  <div class="board">
+    <div class="cell"><span class="k">2024 전체</span><span class="v">915.98</span><span class="s">AUC 0.5538 · n 253,507 · 기저율 0.4861</span></div>
+    <div class="cell"><span class="k">2024 bias</span><span class="v">−0.0027</span><span class="s">예측평균 0.4834 · 보정 양호</span></div>
+    <div class="cell"><span class="k">2022 전체</span><span class="v">2353.1</span><span class="s">AUC 0.5825 · n 247,472 · 기저율 0.5289</span></div>
+    <div class="cell"><span class="k">2022 bias</span><span class="v">−0.0171</span><span class="s">예측평균 0.5118 · 6배 크다</span></div>
+  </div>
+</header>
+
+<section>
+  <h2><em>01</em>읽는 법 — 지표 세 개를 갈라서 본다</h2>
+  <div class="legend">
+    <dl>
+      <dt>AUC</dt><dd><strong>변별력.</strong> 낮으면 순서를 못 매긴다 — <strong>보정으로 못 고친다.</strong></dd>
+      <dt>bias</dt><dd><strong>치우침.</strong> AUC 는 멀쩡한데 bias 만 크면 <strong>구간 상수 하나로 고쳐진다.</strong></dd>
+      <dt>deficit</dt><dd>그 구간이 <strong>먹은 결손의 몫.</strong> 합이 <code>100000 − BSS_all</code> 과 같다.</dd>
+      <dt>bss_local</dt><dd>그 구간 안에서의 BSS. <strong>작고 나쁜 구간에 속기 쉬워</strong> 단독으로 쓰지 않는다.</dd>
+    </dl>
+  </div>
+  <p>아래 막대는 <strong>그 구간 AUC − 전체 AUC</strong> 다. <span style="color:var(--bad);font-weight:600">왼쪽(빨강)이 약한 곳</span>, <span style="color:var(--good);font-weight:600">오른쪽(초록)이 강한 곳</span>. 두 시즌을 나란히 둔 것은 <strong>한 시즌만 보면 우연을 잡기 때문</strong>이다.</p>
+</section>
+
+<section>
+  <h2><em>02</em>축 15개 순위 — AUC 폭이 큰 순</h2>
+  <p class="lede">폭이 크고 <strong>두 시즌 부호가 일치</strong>해야 진짜 약점이다. 부호가 뒤집히면 고칠 대상 자체가 없다.</p>
+  <div class="scroll"><table id="rank">
+    <thead><tr><th class="n">#</th><th>축</th><th class="n">AUC 폭 2024</th><th class="n">AUC 폭 2022</th><th class="n">부호 일치</th><th>판정</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><em>03</em>축별 상세</h2>
+  <div class="filters">
+    <button data-f="all" aria-pressed="true">전체 15축</button>
+    <button data-f="blend" aria-pressed="false">결합가중 시도했던 축</button>
+    <button data-f="stable" aria-pressed="false">안정 약점만</button>
+  </div>
+  <div id="cards"></div>
+</section>
+
+<section>
+  <h2><em>04</em>그래서 무엇을 할 수 있나</h2>
+  <div class="call stop">
+    <span class="lbl">결합 가중으로는 이 지도를 못 쓴다</span>
+    <p><code>cw_v17_base</code> 가 <code>sj_grid_w060</code> 을 <strong>30점 이상 이기는 구간이 0개</strong>다. 구간마다 다른 멤버에게 무게를 주려 해도 <strong>줄 상대가 없다.</strong> 구간별 보정·구간별 결합가중 둘 다 기각.</p>
+  </div>
+  <div class="call">
+    <span class="lbl">피처가 되려면 관문 3개를 다 넘어야 한다</span>
+    <p><strong>① 두 시즌 안정 · ② test 시점에 계산 가능 · ③ 채울 빈칸이 특정된다.</strong></p>
+    <p>부하비·등판 첫 10구는 ②에서 걸린다 — <code>game_pitch_no</code> 가 <code>test.csv</code> 의 다른 행을 봐야 나온다(행 독립성 위반). 8~10월과 전시즌 1-200 은 ③에서 걸린다 — 어디서 약한지는 알지만 <strong>무엇이 빠졌는지를 모른다.</strong> 월도 전시즌 투구량도 이미 입력에 있다(<code>game_month</code>, <code>asof_pitcher_n</code>).</p>
+  </div>
+  <div class="call stop">
+    <span class="lbl">★ 볼카운트만 빈칸이 이름으로 찍힌다</span>
+    <p><code>asof_pitcher_success_rate</code> 가 <strong>카운트를 섞은 평균 하나</strong>라 “이 투수가 <code>0-2</code> 에서 어떤가” 는 입력에 <strong>아예 없다.</strong> 모델이 그 구간에서만 예측 폭을 15~22% 줄이는 것도 같은 말이다 — <strong>쓸 정보가 없어서 평균으로 수축한다.</strong></p>
+    <p>남은 실행 항목: <strong>투수 × 카운트국면(7) 조건부 <code>asof_*</code> 성공률.</strong> 피처 전이율이 0.06 이라 1차 관문은 전체 BSS 가 아니라 <strong>“2스트라이크 구간 AUC 가 오르는가”</strong> 로 고정했다.</p>
+  </div>
+  <div class="call">
+    <span class="lbl">헤드룸을 기대 이득으로 인용하지 말 것</span>
+    <p>2스트라이크 헤드룸 <strong>+55/+60 은 천장이지 예측이 아니다.</strong> 이 저장소에서 같은 논법이 <code>mix_ent</code> +118 로 이미 한 번 틀렸다.</p>
+  </div>
+</section>
+
+<footer>
+재현: <code>performance_tracking/group_by_perform/</code> — <code>build_axes.py</code> → <code>group_score.py</code> → <code>recal_transfer.py</code> → <code>report.py</code>.
+<code>train.csv</code> 에 경기 ID 가 없어 <code>game_uid</code> 를 복원했다 (시즌당 796~824경기 · 경기당 중앙 300구 · 등판당 중앙 19구, p90 92).
+규약은 <code>group_by_perform/PLAN.md</code>, 전체 결과는 <code>RESULTS.md</code>.
+</footer>
+</div>
+
+<script>
+const D = __DATA__;
+const OV = D.overall, AX = D.axes;
+
+const BLEND = {
+  a1_count:  "구간별 가중 시도 → 정방향 +4.1 / 역방향 −2.0. λ=0.3 수축하면 +1.5/+1.2 로 살아남지만 이득이 작아 미채택.",
+  a5_asofn:  "투구표본수 구간 가중 시도 → 효과 ~0. 챔피언 작성자 보고와 독립 재현이 일치했다.",
+  a13_tens:  "점수차 구간 가중 시도 → −8.8. 기각.",
+  a11_typemo:"F 부분군 라우팅 시도 → 정방향 +8.7 / 역방향 −5.9. λ 수축으로 양방향 생존(+0.8/+2.3)하나 소이득, 미채택."
+};
+const NOTE = {
+  a1_count:  "★ 15축 중 1위이자 유일하게 두 시즌 안정. 0-2 가 AUC 0.5323/0.5316 으로 전체(0.5488/0.5541)보다 크게 낮고 두 시즌 값이 거의 같다. bias 가 −0.001 이라 치우침이 아니라 변별력 문제다.",
+  a2_li:     "통념과 반대다. 6구간 중 4구간이 시즌간 부호 반전이고 AUC 폭이 15축 최소. li≥2.00 은 오히려 두 시즌 다 축 평균 위다 — 고칠 대상 자체가 없다.",
+  a3_load:   "방향은 일관하다(평소 투구수의 75~125% 에서 가장 잘 맞추고 등판 초반이 약하다). 그러나 game_pitch_no 가 행 독립성 위반이라 피처로 못 쓴다.",
+  a3b_gp:    "등판 첫 10구가 두 시즌 다 열세. 같은 이유로 피처가 될 수 없다 — test 시점에 계산하려면 다른 행을 봐야 한다.",
+  a4_prevp:  "축 크기는 4위인데 7구간 중 5구간 부호가 뒤집힌다. 안정적인 건 1-200(주변부 투수) 하나뿐이고, 전시즌 자료가 아예 없는 24% 는 약점이 아니었다.",
+  a11_typemo:"8~10월 블록이 가장 큰 안정 열세다. 다만 game_month 가 이미 입력에 있어 '8월에 약하다' 를 피처로 옮기면 있는 열을 한 번 더 넣는 것이다 — 그래서 피처가 아니라 진단 항목으로 뺐다.",
+  a12_role:  "스윙맨(전시즌 30~70구/경기)이 두 시즌 다 역할 축 최하위. 세 관문은 통과하지만 역할이 asof_* 값들에 간접적으로 이미 배어 있어 빈칸이 덜 뚜렷하고, n 이 14% 라 기대값이 낮다."
+};
+
+function verdict(a){
+  if (a.spread24 < 0.010) return ["flat","격차 없음"];
+  if (a.stable >= 0.70)   return ["bad","안정 약점"];
+  return ["warn","시즌간 뒤집힘"];
+}
+const f4 = v => (v>=0?"+":"−") + Math.abs(v).toFixed(4);
+const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+/* ---------- 순위표 ---------- */
+document.querySelector("#rank tbody").innerHTML = AX.map(a=>{
+  const [cls,txt] = verdict(a);
+  const blend = BLEND[a.axis] ? ' <span class="chip blend">결합시도</span>' : "";
+  return `<tr class="${a.rank<=3?"top":""}">
+    <td class="n">${a.rank}</td>
+    <td>${esc(a.title)}${blend}</td>
+    <td class="n">${a.spread24.toFixed(4)}</td>
+    <td class="n">${a.spread22.toFixed(4)}</td>
+    <td class="n">${Math.round(a.stable*100)}%</td>
+    <td><span class="chip ${cls}">${txt}</span></td></tr>`;
+}).join("");
+
+/* ---------- 축 카드 ---------- */
+function barRow(b, season, scale){
+  const o = OV[season], x = b[season];
+  const d = x.auc - o.auc;
+  const w = Math.min(49, Math.abs(d)/scale*49);
+  const neg = d < 0;
+  const style = neg ? `right:50%;width:${w}%` : `left:50%;width:${w}%`;
+  return `<div class="track"><span class="mid"></span>
+    <span class="bar ${neg?"neg":"pos"}" style="${style}"></span>
+    <span class="val ${neg?"":"l"}">${f4(d)}</span></div>`;
+}
+function card(a){
+  const [cls,txt] = verdict(a);
+  let scale = 0;
+  for (const b of a.bins) for (const s of ["2024","2022"])
+    scale = Math.max(scale, Math.abs(b[s].auc - OV[s].auc));
+  scale = Math.max(scale, 1e-4);
+
+  const rows = a.bins.map(b=>`<div class="row">
+      <span class="lbl">${esc(b.bin)}<span class="sh">${(b["2024"].share*100).toFixed(1)}%</span></span>
+      ${barRow(b,"2024",scale)}${barRow(b,"2022",scale)}
+    </div>`).join("");
+
+  const tbl = `<div class="scroll"><table><thead><tr>
+      <th>구간</th><th class="n">n 비중</th>
+      <th class="n">AUC 24</th><th class="n">BSS 24</th><th class="n">deficit 24</th><th class="n">bias 24</th>
+      <th class="n">AUC 22</th><th class="n">BSS 22</th></tr></thead><tbody>${
+    a.bins.map(b=>{const x=b["2024"],y=b["2022"];return `<tr>
+      <td class="mono">${esc(b.bin)}</td><td class="n">${(x.share*100).toFixed(1)}%</td>
+      <td class="n">${x.auc.toFixed(4)}</td><td class="n">${x.bss.toFixed(0)}</td>
+      <td class="n">${(x.deficit/1000).toFixed(1)}k</td><td class="n">${x.bias>=0?"+":"−"}${Math.abs(x.bias).toFixed(4)}</td>
+      <td class="n">${y.auc.toFixed(4)}</td><td class="n">${y.bss.toFixed(0)}</td></tr>`;}).join("")
+  }</tbody></table></div>`;
+
+  return `<div class="card sev-${cls}" data-axis="${a.axis}" data-stable="${a.stable>=0.70&&a.spread24>=0.010?1:0}" data-blend="${BLEND[a.axis]?1:0}">
+    <div class="card-h"><span class="rk">#${a.rank}</span><h3>${esc(a.title)}</h3>
+      <span class="chip ${cls}">${txt}</span>
+      ${BLEND[a.axis]?'<span class="chip blend">결합시도</span>':""}
+      <span class="chip">AUC 폭 ${a.spread24.toFixed(4)}</span></div>
+    <div class="hd"><span>구간 · n비중</span><span>ΔAUC 2024</span><span>ΔAUC 2022</span></div>
+    <div class="rows">${rows}</div>
+    ${NOTE[a.axis]?`<p class="card-note">${esc(NOTE[a.axis])}</p>`:""}
+    ${BLEND[a.axis]?`<p class="card-note"><strong>결합가중을 걸어본 결과</strong> — ${esc(BLEND[a.axis])}</p>`:""}
+    <details><summary>수치 표 열기</summary>${tbl}</details>
+  </div>`;
+}
+document.getElementById("cards").innerHTML = AX.map(card).join("");
+
+/* ---------- 필터 ---------- */
+const btns = document.querySelectorAll(".filters button");
+btns.forEach(btn => btn.addEventListener("click", ()=>{
+  const f = btn.dataset.f;
+  btns.forEach(b => b.setAttribute("aria-pressed", String(b===btn)));
+  document.querySelectorAll("#cards .card").forEach(c=>{
+    const show = f==="all" || (f==="blend" && c.dataset.blend==="1")
+                           || (f==="stable" && c.dataset.stable==="1");
+    c.style.display = show ? "" : "none";
+  });
+}));
+</script>
