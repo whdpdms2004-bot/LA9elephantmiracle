@@ -28,7 +28,8 @@ import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
 PT = REPO / "performance_tracking"
-W_CHAMP = np.array([0.6, 0.4])
+W_CHAMP = np.array([0.45461, 0.64333])
+CENTER_SHIFT = 0.003223
 LAMBDAS = [0.10, 0.20]
 CAP = 0.2
 FIT_MONTHS = (3, 4, 5, 6)
@@ -62,8 +63,8 @@ def main():
     A = np.isin(mo, FIT_MONTHS)
     B = ~A
     r = y.mean()
-    champ0 = np.clip(r + (D[["sj_stdmlp", "sj3way"]].to_numpy(float) - r) @ W_CHAMP,
-                     1e-6, 1 - 1e-6)
+    champ0 = np.clip(r + (D[["sj_stdmlp", "sj3way"]].to_numpy(float) - r) @ W_CHAMP
+                     - CENTER_SHIFT, 1e-6, 1 - 1e-6)
     hw0 = D["hw_v12_honest"].to_numpy(float)
 
     instruments = [("무보정 (등록 val 그대로)", None)]
