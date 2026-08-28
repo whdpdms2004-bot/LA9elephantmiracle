@@ -14,9 +14,9 @@
 | 2 | `submit_sj_idfreq_w` | ↑ + cw 내부 가중 재적합 `cb .599→.710` | 1076.719 |
 | 3 | `submit_sj_idfreq_w_wcw` | ↑ + `w_cw .4546→.5000` (합 1.143) | 1070 ★하락 |
 | 4 | `sj_grid_w064` | ↑2 + cb `depth 5→6` + `w_cw .64/.36`, `shift 0` | 1080.399 |
-| **4b** | `sj_grid_only` | ↑2 + cb `depth 5→6` 만 | **1080.425** ← 채점된 최고 |
-| 5 | `sj_e2var` | ↑4b + cb 시드분산 상보 표본가중 | 미채점 (예상 +3) |
-| **6** | **`sj_stdmlp`** | ↑5 + **mlp 을 z 점수 + 176열로 재학습** + 내부가중 재적합 | **미채점 (예상 1099)** |
+| 4b | `sj_grid_only` | ↑2 + cb `depth 5→6` 만 | 1080.425 |
+| 5 | `sj_e2var` | 4b + cb 시드분산 상보 표본가중 (**stdmlp 의 부분집합**) | 미채점 |
+| **6** | **`sj_stdmlp`** | 4b + **cb2 + mlp z 점수 176열 + 내부가중 재적합** | **1082.106** ← 채점된 최고 |
 
 **4 와 4b 의 차이가 0.026 이다 — 팀 가중 변경은 효과가 없었다.**
 `w_cw` 를 0.4546/0.6433(합 1.098 + shift) 에서 0.64/0.36(합 1.0, shift 0) 으로
@@ -31,15 +31,23 @@
 
 ---
 
-## 2. 현재 1순위
+## 2. 현재 1순위 — `sj_stdmlp` 1082.106
 
 ```text
-cowork/sj/sj_final/submit/submit_sj_stdmlp.zip        미채점 · val 기준 최고
-cowork/sj/sj_final/submit/submit_sj_grid_only.zip     Public 1080.425 (채점된 최고)
+cowork/sj/sj_final/submit/submit_sj_stdmlp.zip        Public 1082.106  ★현재 최고
+cowork/sj/sj_final/submit/submit_sj_grid_only.zip     Public 1080.425
 ```
 
-`sj_stdmlp` 는 배포 순서 재현으로 val2024 **+22.3** · val2022 **+11.0** 이고
-환산율 0.834 로 **Public 예상 1099** 다. 구성·검증은 `models/sj_stdmlp.md`.
+**★ 예상이 크게 빗나갔다. 그게 이 제출의 진짜 소득이다.**
+val2024 **+22.3** · val2022 **+11.0** 을 환산율 0.834 로 곱해 **1091~1099** 라 적었는데
+실측은 **+1.68** 이었다 — 전이율 **0.075**.
+
+0.834 는 `d5→d6` **하이퍼파라미터**에서 잰 값이고, `sj_stdmlp` 은 **모델 교체**다.
+`models/sj_stdmlp.md` §0 이 그것을 "모델 변경 전이율 0.834" 라 부른 것이 오류였다.
+**전이되는 것은 같은 피처·같은 구조에서 용량만 바꾸는 변경뿐이고, 학습 대상·표현·
+피처가 바뀌면 전부 0.06~0.08 로 떨어진다.**
+
+구성·검증은 `models/sj_stdmlp.md`.
 
 **팀 가중은 더 파지 말 것.** 합=1 만 지키면 `w_cw` 0.41~0.64 는 무차별하다.
 **단 cw 내부 가중은 반대다** — 팀 층 `center_shift` 가 스케일을 흡수하므로

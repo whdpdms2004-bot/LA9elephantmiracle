@@ -29,9 +29,21 @@ CACHE = PT / ".cache"
 TRAIN = ROOT / "data" / "train.csv"
 TARGET = "control_success"
 
-SEASONS = (2024, 2022)          # 앞이 주 판정, 뒤가 비하락 조건 (규칙 1)
+# 규칙 1 (2026-08-28 개정) — R/F 를 시즌마다 다르게 본다.
+#   2024   주 판정.     R + F 전체 (all)
+#   2023   비하락 관문.  R 만
+#   2022   비하락 관문.  R 만
+# 2022 의 F 기저율은 0.7087, R 은 0.5037 로 격차가 크다 (2024 는 F 0.4593 · R 0.4897
+# 로 거의 같다). all 로 재면 2022 관문의 약 70% 가 성능이 아니라 game_type 구성을
+# 재게 된다 — sj_grid_w060 이 2022 all 2,490.2 인데 2022 R 만 보면 740.7 이다.
+# 근거: group_by_perform/RESULTS.md §1
+SEASONS = (2024, 2023, 2022)          # 정책상 val 시즌 전체
+REQUIRED_SEASONS = (2024, 2022)       # 지금 자산이 확보된 것. 2023 은 확보 중
 DECISION_SEASON = 2024
-GUARD_SEASON = 2022
+DECISION_SUBGROUP = "all"             # 2024 는 R+F 둘 다
+GUARD_SEASONS = (2023, 2022)          # 비하락 관문 시즌
+GUARD_SUBGROUP = "R"                  # 2022·2023 은 R 만 본다
+GUARD_SEASON = 2022                   # 하위호환 — 구 코드 참조용
 EPS = 1e-7
 
 # README 2절 - 월 블록. 후반이 2025 에서 가장 위험한 구간이다.
@@ -179,5 +191,6 @@ def registered() -> list[str]:
     df = pd.read_csv(RESULTS)
     if "name" not in df.columns:
         return []
+    # 2023 은 아직 대부분의 모델에 없다. 확보된 시즌만으로 등록 여부를 본다.
     return [n for n in df["name"].astype(str).tolist()
-            if all(val_path(n, s).exists() for s in SEASONS)]
+            if all(val_path(n, s).exists() for s in REQUIRED_SEASONS)]

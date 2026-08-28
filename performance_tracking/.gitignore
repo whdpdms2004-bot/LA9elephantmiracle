@@ -36,3 +36,8 @@ __pycache__/
 
 # 라벨 캐시 (대회 원본 파생)
 .cache/
+
+# ── group_by_perform: 축 파생 캐시만 제외. 결과 표는 근거라 커밋한다 ────────
+# axes_*.csv 는 train.csv 파생 35MB x 2 라 커밋하지 않는다.
+# build_axes.py 하나로 언제든 다시 굽는다.
+group_by_perform/out/axes_*.csv
