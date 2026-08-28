@@ -32,14 +32,22 @@ val2024 `631.50 -> 691.59(+60.09)`, val2022 `2380.70 -> 2385.95(+5.25)`였습니
 
 ### 0. 누수 없는 A블록 생성 규칙 (반드시 동일)
 
+- **시작 전 사전확인**:
+  - 이 저장소의 `performance_tracking/models/yn_fa10c/pipeline.py`와
+    `performance_tracking/models/yn_fa10c.zip`이 보이는지 확인합니다.
+  - 공식 `train.csv`는 GitHub에 없으므로 SJ PC의 로컬 원본 경로를 사용합니다.
+  - `performance_tracking/models/sj_stdmlp.zip`(375MB)도 GitHub에 없으므로 SJ PC의
+    로컬 원본을 사용합니다. 둘 중 하나라도 없으면 학습을 시작하지 말고 정확한 누락
+    경로를 이 결과 문서에 먼저 기록합니다.
 - 시즌 S 학습/검증 행의 lookup은 **`season < S` 행만** 사용합니다.
 - 추론(2025)은 train 2019~2024 전체로 cutoff=2024 lookup을 만들어 모델에 저장합니다.
 - lookup은 `pitcher_id`/`batter_id`로 한 행씩 조회합니다. test 다른 행 집계 금지.
 - 미등장 선수는 share/행수 모두 `NaN`으로 둡니다(CatBoost/MLP 결측마스크 처리).
 - 기존 176열을 건드리거나 ID를 교체하지 말고 **맨 끝에 3열 추가**합니다.
-- 원본 구현(이 저장소가 `open/LA9elephantmiracle`에 있을 때):
-  `../experiments/feature_engineering_20260819/build_features.py`의
-  `build_futures_lookup`, `_season_features` A블록을 그대로 참고하면 됩니다.
+- **GitHub에 올라간 정본 구현**:
+  `performance_tracking/models/yn_fa10c/pipeline.py`의 `A_COLS`,
+  `build_futures_lookup`, `build_a_features`, `prepare`를 그대로 사용합니다.
+  배포 lookup·행 독립성 계약은 같은 폴더의 `script_fa10c_inference.py`로 대조합니다.
 
 ### 1. 동일 하이퍼로 성분 ablation (가장 먼저)
 
