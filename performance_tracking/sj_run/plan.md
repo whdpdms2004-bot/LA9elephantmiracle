@@ -130,9 +130,79 @@ cw v16 상수 0.95·0.47353) 같은 라우팅을 적용하고 델타만 비교�
 
 ---
 
+## 3순위 (ye 추가, 2026-08-29) -- model_v3(최고점 노트북)를 실제 배포본과 결합 재검증
+
+**배경**: `cowork/ye/model_v3.ipynb` (M2_contam + f_recent_strong 가중, Public
+840 단독)를 로컬에서 (조기종료 없이 고정 349 iteration, 3시드로) 정직하게
+재현해 `val/ye_hand_{2022,2023,2024}.csv` 를 새로 만들었습니다. 이걸로
+`cw_v17_base` **단독**과 `corr.py --blend` 를 돌려본 결과:
+
+- 오차 상관(pred−y) 2024=0.9992 / 2022=0.9992 — cw 와 사실상 같은 패턴으로 틀림
+- `score_val.py` 자동판정: 2024 all −22.6 · 2022 R −133.2 → **기각**
+
+**근데 이건 `cw_v17_base` 단독(val2024 821.0) 하고만 비교한 겁니다 — 실제 배포
+중인 `sj_stdmlp`(val2024 916.0, cw+sj3way 결합)와는 아직 안 재봤습니다.**
+로컬 자원/시간이 없어 여기서 멈췄는데, GPU 있으면 마저 확인 가능할 것
+같아 올립니다.
+
+**할 일**:
+1. `val/ye_hand_{2022,2023,2024}.csv` (이미 저장소에 있음, 정직 OOF) 를
+   `corr.py -m sj_stdmlp -m ye_hand --blend` 로 실제 배포본 기준 재검증
+2. 오차상관이 여기서도 0.99+ 로 나오면(예상되는 결과) 기각 확정 — 더 붙잡을
+   필요 없음
+3. 혹시 오차상관이 낮게 나오거나 비음수 결합가중이 유의하게 잡히면 그때만
+   `set_blend.py` 로 실제 결합 시도
+4. **참고**: `cowork/ye/model_v3.ipynb` 원본(제 노트북, WEIGHTED_DIRECT +
+   f_recent_strong, notebook 자체 판정)도 `eval_set` 조기종료를 써서(hw 의
+   1순위와 같은 종류의 오염) 로컬 재현본과 수치가 다를 수 있습니다 — 그 노트북
+   숫자(801~804)는 참고만 하고, 새로 만든 `val/ye_hand_*.csv` 쪽을 기준으로
+   써주세요.
+
+**결과 남길 곳**: `performance_tracking/sj_run/results/03_ye_ensemble_recheck.md`
+
+---
+
+## 4순위 (ye 추가) -- model_v3 를 3-way(제구 실패 유형별) 컴포넌트로 재구성 + 재결합
+
+**3순위 결과를 보고, 그래도 안 되면(오차상관 0.99+ 로 다시 기각) 이걸 시도해주세요.**
+
+**배경**: `control_success` 실패는 middle/reverse/outside 세 방식으로 갈리고
+성분이 다릅니다 — 이게 정확히 지금 배포 중인 `sj3way`(cw+sj3way 결합)가 이미
+쓰고 있는 구조입니다(`performance_tracking/models/sj_stdmlp/run_way_3way.py`
+참고 — way 별 확률 최적화·결합 로직이 이미 이 파일에 있습니다). 지금 model_v3
+는 이 구조 없이 **단일 모델**로 학습돼서, 3순위에서 sj3way/cw 와 오차상관이
+높게 나온 게(0.999) 어쩌면 "단일 모델이라 way 간 실수 패턴이 뭉뚱그려져서"일
+수도 있습니다.
+
+**가설**: model_v3(M2_contam)의 피처 표현 자체는 sj3way와 다릅니다(당신이
+쓰는 `CONTAM_FEATURES`·platoon EB 등은 sj 쪽에 없음). 이 다른 표현을 way별로
+쪼개서 학습하면, sj3way 와는 다른 way 에서 다른 방식으로 틀릴 수 있고 —
+그러면 3순위에서 본 것과 달리 낮은 오차상관이 나올 가능성이 있습니다.
+
+**할 일**:
+1. `cowork/ye/model_v3.ipynb` 의 M2_contam 피처 파이프라인(`build_submitted_fold`)
+   을 way(middle/reverse/outside)별로 각각 돌려서, way 마다 최적 설정(기존
+   f_recent_strong 가중 유지할지 way 마다 다르게 할지도 실험)을 찾습니다.
+   `run_way_3way.py` 의 결합 로직(각 way 확률을 최종 control_success 로
+   합치는 방식)을 그대로 참고/재사용해주세요 — 새로 설계하지 말고 있는 것부터.
+2. way별 최적 모델을 찾으면 결합해서 최종 `control_success` 예측을 만듭니다.
+3. **validation은 기본값**: 2024 all 주판정 + 2023 R / 2022 R 관문
+   (`score_val.py`).
+4. 관문을 통과하는 구성이 나오면, **등록된 팀 모델들과 다시 상관 스캔**
+   (`corr.py --blend`) 해서 오차상관이 낮은 상대가 있는지 확인 -> 있으면
+   그 모델과의 결합을 시도합니다.
+
+**결과 남길 곳**: `cowork/ye/` 폴더 아래 (하위 폴더 이름은 알아서 정해주세요,
+예: `cowork/ye/way3_experiment/`). `sj_run/results/` 가 아니라 **여기**로
+남겨주세요 — 개인 실험이라 ye 가 직접 계속 이어갈 예정입니다.
+
+---
+
 ## 공통 요청
-- 남의 파일(모델/등록부)은 건드리지 않고 `sj_run/results/`에만 결과 남겨주세요.
-- 급한 순서는 1(계기 규명) -> 2(F 라우팅) 입니다.
+- 남의 파일(모델/등록부)은 건드리지 않고, 1~3순위는 `sj_run/results/`에·4순위는
+  `cowork/ye/`에 결과 남겨주세요.
+- 급한 순서는 1(계기 규명) -> 2(F 라우팅) -> 3(ye 결합 재검증) -> 4(ye 3-way
+  재구성, 3이 안 되면) 입니다.
 - 질문/막히는 거 있으면 이 파일에 `## 질문` 섹션 추가해서 적어주세요, 확인할게요.
 
 감사합니다 :)
