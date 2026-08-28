@@ -6,6 +6,126 @@
 
 ---
 
+## ★ 신규 최우선 (yn 요청) -- YN의 1·2군 혼입 3피처를 `sj_stdmlp`에 실제 이식
+
+기존 1~3순위는 결과가 올라왔습니다. **다음 GPU 작업은 이 항목을 먼저** 부탁드립니다.
+기준 챔피언은 혼동 없이 `performance_tracking/models/sj_stdmlp`가 가리키는
+**2멤버(cw 모듈 + sj3way) 제출본**입니다. `final_f2` 3멤버는 쓰지 않습니다.
+
+### 질문과 배경
+
+yn의 Public +24.31을 만든 A블록은 `asof_*` 안에 2군(F) 기록이 얼마나 섞였는지를
+선수별 과거 lookup으로 알려주는 아래 3열입니다.
+
+```
+fe_pitcher_futures_share  과거 시즌 투수 기록 중 game_type==F 비중
+fe_batter_futures_share   과거 시즌 타자 기록 중 game_type==F 비중
+fe_pitcher_prior_n_log    log1p(그 투수의 과거 행 수)
+```
+
+yn 로컬 CPU 재구성에서는 `CW168 + id_freq8 = 176`에 이 3열을 붙인 179열이
+CB 3시드 raw 기준 val2024 `849.49 -> 852.89(+3.41)`였지만 val2022는
+`2464.83 -> 2463.82(-1.01)`였습니다. 반면 stdMLP 단독은 1시드 raw에서
+val2024 `631.50 -> 691.59(+60.09)`, val2022 `2380.70 -> 2385.95(+5.25)`였습니다.
+즉 **CB에는 거의 중립, stdMLP에는 양 폴드 신호**가 보였지만, 원본 ZIP·FT·sj3way가
+없는 재구성이라 제출 판정은 못 합니다. SJ 로컬 원본으로 실제 효과를 닫아주세요.
+
+### 0. 누수 없는 A블록 생성 규칙 (반드시 동일)
+
+- 시즌 S 학습/검증 행의 lookup은 **`season < S` 행만** 사용합니다.
+- 추론(2025)은 train 2019~2024 전체로 cutoff=2024 lookup을 만들어 모델에 저장합니다.
+- lookup은 `pitcher_id`/`batter_id`로 한 행씩 조회합니다. test 다른 행 집계 금지.
+- 미등장 선수는 share/행수 모두 `NaN`으로 둡니다(CatBoost/MLP 결측마스크 처리).
+- 기존 176열을 건드리거나 ID를 교체하지 말고 **맨 끝에 3열 추가**합니다.
+- 원본 구현(이 저장소가 `open/LA9elephantmiracle`에 있을 때):
+  `../experiments/feature_engineering_20260819/build_features.py`의
+  `build_futures_lookup`, `_season_features` A블록을 그대로 참고하면 됩니다.
+
+### 1. 동일 하이퍼로 성분 ablation (가장 먼저)
+
+기준 `sj_stdmlp`의 FT와 sj3way는 그대로 고정하고, cw 모듈 안에서 아래 네 구성을
+같은 시드·같은 배포 보정·같은 기존 결합가중으로 비교합니다.
+
+1. `BASE176`: 현행 CB176 + stdMLP176
+2. `A_CB`: CB179(A3 추가) + 현행 stdMLP176
+3. `A_MLP`: 현행 CB176 + stdMLP179(A3 추가)
+4. `A_BOTH`: CB179 + stdMLP179
+
+평가 fold 라벨로 calibration/가중/early stopping을 적합하지 마세요. 먼저 **현행 ZIP의
+고정 보정상수·고정 결합가중**으로 모델 변화만 비교하고, raw 성분 Brier/BSS도 함께
+남겨주세요. `BASE176`이 등록 val과 다르면 숫자를 억지로 맞추지 말고 차이부터 기록합니다.
+
+### 2. 179열 하이퍼 스크린
+
+1단계에서 A_MLP 또는 A_BOTH가 살아 있을 때만 진행합니다. 3시드 스크린 후 양 폴드
+후보만 8시드로 확인합니다.
+
+**CB179** (FT 고정, stdMLP는 1단계 승자 고정):
+
+```
+d6 / l2=10000 / lr=.02 / 3000  (기준)
+d6 / l2=10000 / lr=.03 / 2000
+d6 / l2=10000 / lr=.05 / 1500
+d6 / l2=3000  / lr=.03 / 2000
+d6 / l2=30000 / lr=.03 / 2000
+```
+
+**stdMLP179** (robust z + 결측마스크, CB는 승자 고정):
+
+```
+width384 / depth3 / drop=.30 / epoch8  (현행 대응)
+width256 / depth2 / drop=.30 / epoch8
+width384 / depth3 / drop=.40 / epoch6
+```
+
+소수시드는 스크린일 뿐 채택 판정으로 쓰지 말고, 최종 후보는 동일 실행 내 8시드로
+BASE와 paired 비교해주세요.
+
+### 3. 판정 관문
+
+사용자 요구를 우선해 아래를 **전부** 만족해야 제출 후보입니다.
+
+1. val2024 all BSS **900 이상**
+2. 동일 계기 BASE 대비 val2024 all **상승**
+3. 동일 계기 BASE 대비 val2022 all **상승**
+4. 팀 기본 관문 val2022 R·val2023 R **비하락**
+
+각 fold마다 all/R/F의 `n`, Brier, BSS, pred mean, label mean, bias를 기록합니다.
+등록 CSV 계기와 배포순서 계기가 갈리므로 **어느 예측 배열을 채점했는지 파일명까지**
+명시합니다.
+
+### 4. 실제 챔피언 위 F 라우팅 (마지막에만)
+
+3단계 승자 **실제 전체 파이프라인 예측** 위에서만 정직 `hw_v12_honest`를 F행에
+추가합니다. prediction-surgery 추정치를 최종값으로 쓰지 마세요.
+
+```
+R: 승자 그대로
+F: (1-L)*승자 + L*hw_v12_honest
+L in {0.00, 0.10, 0.20}
+```
+
+기존 `results/02_f_routing_verify.md`와 같은 월3~6/월7~10 양방향 및 bootstrap 400회
+CI를 다시 냅니다. 2순위에서 확인된 챔피언 혼동을 피하려고, 이 실험의 기준은 처음에
+명시한 `sj_stdmlp` 2멤버입니다.
+
+### 5. 통과할 때만 ZIP 생성
+
+- 가장 보수적인 통과점부터 사용합니다(우선 L=.10, L=.20은 이득이 명확할 때만).
+- 원본 `sj_stdmlp` ZIP을 복사해 새 이름으로 만들고 원본은 수정하지 않습니다.
+- A3 cutoff=2024 lookup, CB/MLP 모델, 필요하면 HW 모듈을 포함합니다.
+- `check_submit.py`, 실제 `script.py` smoke test, 한 행/전체 행 독립성, 행순서·배치크기
+  불변, 600초 제한을 모두 확인합니다.
+- ZIP은 커밋하지 말고 로컬 절대경로·크기·SHA-256·내부 엔트리 목록을 결과 문서에 적습니다.
+
+### 결과 위치
+
+- 보고서: `performance_tracking/sj_run/results/04_yn_a3_on_sj_stdmlp.md`
+- 재현 코드/작은 로그: `performance_tracking/sj_run/results/yn_a3/`
+- 4줄 요약: 무엇을 돌림 / 2022·2024 수치 / 관문 판정 / ZIP 생성 여부와 SHA
+
+---
+
 ## 1순위 (급함) -- 148점 계기 불일치 검증
 
 **배경**: `val/sj_grid_w060_2022.csv` (등록값 2,490.2)와 `sj_stdmlp.md`의
