@@ -116,6 +116,47 @@ def bin_metrics(y: np.ndarray, p: np.ndarray, null_all: float, n_all: int) -> di
 # --------------------------------------------------------------------------- #
 # 자료
 # --------------------------------------------------------------------------- #
+def fit_weights(P: np.ndarray, y: np.ndarray, w0: np.ndarray | None = None) -> np.ndarray:
+    """비음수·합=1 에서 Brier 최소.
+
+    자유해의 음수 가중은 전이되지 않는다 (COLLAB_final_submissions.md §4-4).
+    예측 분산이 라벨 분산의 1% 미만이라 Brier 원척도에서는 기울기가 SLSQP 기본
+    tol 아래로 깔린다 - 1e6 배로 세우고 해석적 jac 을 준다. 안 그러면 초기점을
+    그대로 돌려받는다 (실제로 그렇게 0.25 4개가 나온 적이 있다).
+    """
+    from scipy.optimize import minimize
+    k = P.shape[1]
+    S = 1e6
+    f = lambda w: S * float(np.mean((P @ w - y) ** 2))
+    jac = lambda w: S * 2.0 * (P.T @ (P @ w - y)) / len(y)
+    cons = [{"type": "eq", "fun": lambda w: w.sum() - 1, "jac": lambda w: np.ones(k)}]
+    starts = [np.full(k, 1 / k)]
+    if w0 is not None:
+        starts.insert(0, np.asarray(w0, float))
+
+    # SLSQP 는 이미 최적점에 있어도 "Positive directional derivative" 로 실패를
+    # 돌려준다. 실패했다고 버리지 말고 **목적함수로** 후보를 고른다.
+    best, best_f = None, np.inf
+    for s0 in starts:
+        try:
+            r = minimize(f, s0, method="SLSQP", jac=jac, bounds=[(0, 1)] * k,
+                         constraints=cons, options={"maxiter": 500, "ftol": 1e-12})
+        except Exception:
+            continue
+        for cand in (r.x, s0):
+            w = np.clip(cand, 0, 1)
+            t = w.sum()
+            if t <= 0:
+                continue
+            w = w / t
+            v = f(w)
+            if v < best_f:
+                best, best_f = w, v
+    if best is None:
+        raise RuntimeError("가중 적합 실패: 실행 가능한 후보가 없다")
+    return best
+
+
 def load_axes(season: int) -> pd.DataFrame:
     p = OUT / f"axes_{season}.csv"
     if not p.exists():
