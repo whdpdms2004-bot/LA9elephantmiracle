@@ -330,13 +330,96 @@ cw v16 상수 0.95·0.47353) 같은 라우팅을 적용하고 델타만 비교�
 예: `cowork/ye/way3_experiment/`). `sj_run/results/` 가 아니라 **여기**로
 남겨주세요 — 개인 실험이라 ye 가 직접 계속 이어갈 예정입니다.
 
+> ★ **2026-08-29 취소 (ye)**: DECK.md §2.1 을 다시 보니 **sj 모듈 자체가 이미
+> "3WAY 모델"**입니다 — 제구 실패를 middle/reverse/outside 로 나눠 각각 학습하는
+> 구조가 이미 챔피언 안에 들어가 있습니다. model_v3 위에 같은 구조를 새로 얹어도
+> 이미 있는 걸 재발명하는 것이라 기대값이 낮습니다. **착수 안 함 — 5순위로
+> 우선순위를 옮깁니다.**
+
+---
+
+## 5순위 (ye 추가, 2026-08-29) -- CatBoost 챔피언 하이퍼파라미터 미탐색 축 (GPU 필요)
+
+**배경**: 승주님이 별도로 주신 지시서(요지: 피처·표현·멤버구성·팀결합가중은 전부
+고정, CatBoost 학습 하이퍼만 본다)를 그대로 따릅니다. 로컬(CPU, GPU 없음)에서
+직접 조립·검증까지는 했는데, `iterations=3000`이 CPU 로는 anchor 1개조차
+10분+ 걸려서 실전 그리드가 불가능합니다. GPU 있으면 몇 분 안에 끝날 일이라
+넘깁니다.
+
+### 이미 확인한 것 — `results.csv` + `cowork/cw/v17/tuning/tune_cb.py`(R1~R5) 검색
+
+| 축 | 상태 |
+|---|---|
+| depth(3~8) | 탐색됨. 7/8 은 val2022 하락으로 기각(D2), 5→6 채택 |
+| lr×iterations | 탐색됨. 60 근처가 최적선, 그 위는 손해 |
+| l2_leaf_reg(6~30000) | 탐색됨. 10000 근처에서 사실상 수렴 |
+| 시즌가중 | 탐색됨. 전부 기각 |
+| **random_strength** | **미탐색 — 5라운드 내내 단 한 번도 안 나옴** |
+| **min_data_in_leaf** | **미탐색** |
+| **border_count** | **미탐색** (128 은 GPU 디바이스 고정값일 뿐, 탐색 대상 아니었음) |
+| bootstrap_type+subsample | R2 에서 **딱 한 번** 스치듯 테스트(`Bernoulli, subsample=0.66`) 후 R3부터 안 나타남 — 로그 자체가 없어 결과 불명. 재확인 가치 있음 |
+
+즉 지시서의 Group A(random_strength)·B(border_count)·D(min_data_in_leaf)는
+진짜 미탐색, Group C(bootstrap)는 "한 번 했지만 결론이 안 남은" 상태입니다.
+
+### 준비해 둔 것 — `run_arm.py` 없이 돌아가는 자체완결 파이프라인
+
+`run_arm.py`가 이 저장소에 없어서(항목 M 때와 같은 문제) `build_final_cb.py`
+등 기존 스크립트를 그대로는 못 씁니다. 대신 **이미 존재하는 조각만 이어붙여서**
+`run_arm.py` 의존 없이 176피처(X168+id_freq8)를 처음부터 재구성하는 스크립트를
+만들어 로컬에서 검증했습니다 (168 = common.py 72 + season_form.py 8 + TrackMan/
+count/role/missing 88, +id_freq 8 = 정확히 176로 맞아떨어짐, 22초 완료 — 새로
+설계한 게 아니라 `cowork/cw/v17/src/*.py` + `models/sj_stdmlp/atoms.py` 원본
+그대로).
+
+```
+cowork/ye/cat_hpo_final/build_features.py   피처 재구성 (한 번만, 가벼움 — CPU 22초)
+cowork/ye/cat_hpo_final/run_hpo.py          그리드서치 본체 (--gpu 옵션 추가해둠)
+```
+
+**할 일**:
+1. `git pull` 후 `python cowork/ye/cat_hpo_final/build_features.py` 한 번
+   (data/train.csv·trackman_history.csv 필요, `work/` 아래 X168.npy 등 생성)
+2. `python cowork/ye/cat_hpo_final/run_hpo.py --anchor-only --gpu` 로 anchor
+   (depth6·l2=10000·lr=.02·it=3000, 3시드) 먼저 검증 — **등록된 val 이나
+   sj_stdmlp.md 의 cb 단독 벤치마크와 크게 다르면 재구성이 잘못된 것이니 여기서
+   멈추고 알려주세요.**
+
+   ★ **CPU 로 먼저 1개 시드만 돌려봤는데(fold2024) 단독 BSS=855.5 로, 예상
+   벤치마크(id_freq 이후 대략 900 대)보다 꽤 낮게 나왔습니다.** 의심되는 원인:
+   `train_v13.py` 의 `calib()` 함수가 **평가 시즌 라벨(yv)로 로짓 스케일 k 를
+   최적화**해서 문서화된 벤치마크 수치를 냅니다 — 이건 팀이 이미 오염으로
+   판정한 `run_arm.calib` 패턴과 같은 종류로 보여서, 저희 지시서(§2-2, 평가
+   시즌 라벨을 calibration 에 쓰지 말 것)를 지키려고 **의도적으로 안 넣었습니다.**
+   그래서 (a) 이게 원인이라 저희 raw 수치가 원래 더 낮은 게 맞는 것인지,
+   (b) 아니면 재구성 자체에 다른 문제가 있는 것인지 판단이 필요합니다.
+   **anchor 검증에서 크게 벗어나면 먼저 이 gap 부터 규명해주세요** — calib()
+   유무만 다르게 두고 같은 X176 로 재보면 바로 확인됩니다.
+3. anchor 가 맞으면 `python cowork/ye/cat_hpo_final/run_hpo.py --gpu` 전체
+   실행 (Group A/B/D 8개 후보, one-factor-at-a-time, `results_hpo.csv` 에
+   fold별 all/R BSS 자동 기록됨). Group C(bootstrap)도 포함돼 있는데, 이미
+   한 번 스친 축이라 우선순위는 A/B/D 다음으로 둬도 됩니다.
+4. **정직 규칙 이미 반영됨**: eval_set/조기종료 안 씀, 폴드마다 고정
+   iteration 으로만 학습. 판정 기준(2024 all 상승 + 2023R·2022R 비하락,
+   +3 미만은 보류)도 지시서 그대로입니다.
+5. 상위 1~2개 후보만 재실행(다른 시드로) 재현되는지 확인.
+6. **CW 스택 최종 확인은 승주님 쪽 인프라가 필요합니다** — 새 CB + 기존 FT
+   + 기존 stdMLP + 기존 내부가중으로 실제 cw 예측을 만드는 건
+   `patch_cw_script.py`/`build_submit_zip.py` 계열을 쓰셔야 할 것 같아
+   CB 단독 스크리닝까지만 여기서 하고 넘겨드립니다. **팀 결합가중·CW 내부가중은
+   재적합하지 마세요** — 지시서 원칙 그대로입니다.
+
+**결과 남길 곳**: `cowork/ye/cat_hpo_final/results_hpo.csv` (자동 생성) +
+`performance_tracking/sj_run/results/05_cb_hpo.md` (지시서 §14 형식대로:
+기준선/제외한 것/새 결과표/재실행결과/CW스택결과/최종추천 6개 섹션)
+
 ---
 
 ## 공통 요청
-- 남의 파일(모델/등록부)은 건드리지 않고, 1~3순위는 `sj_run/results/`에·4순위는
-  `cowork/ye/`에 결과 남겨주세요.
-- 급한 순서는 1(계기 규명) -> 2(F 라우팅) -> 3(ye 결합 재검증) -> 4(ye 3-way
-  재구성, 3이 안 되면) 입니다.
+- 남의 파일(모델/등록부)은 건드리지 않고, 1~3·5순위는 `sj_run/results/`에·
+  4순위(취소됨)는 원래 `cowork/ye/` 예정이었습니다.
+- 급한 순서는 1(계기 규명) -> 2(F 라우팅) -> 3(ye 결합 재검증) -> 5(CB 하이퍼,
+  4는 취소) 입니다.
 - 질문/막히는 거 있으면 이 파일에 `## 질문` 섹션 추가해서 적어주세요, 확인할게요.
 
 감사합니다 :)
