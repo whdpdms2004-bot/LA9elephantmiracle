@@ -9,10 +9,13 @@
 
 ## 무엇을 재나
 
-    R행: 챔피언 그대로       p = r + 0.6*(p_cw모듈 - r) + 0.4*(p_sj3way - r)
+    R행: 챔피언 그대로       p = r + 0.45461*(p_cw모듈 - r) + 0.64333*(p_sj3way - r) - 0.003223
     F행: 챔피언에 hw 를 L    p_F = (1-L)*p_champ + L*p_hw
 
-챔피언 가중 {0.6, 0.4} 은 **리더보드로 검증된 고정값**(Public 1080.425)이다.
+챔피언 가중은 **배포본 그대로**다 (build_submit_zip.py:10, DECK D4 "한 번도 안 바꿨다").
+★ 2026-08-29 정정: 처음엔 {0.6, 0.4}로 잘못 썼다. 그건 sj_grid_w060.md 의 *후보*이고,
+채택된 제출 4b 는 팀 가중을 바꾸지 않았다. 기준선이 바뀌면 결론도 바뀐다 --
+역방향이 +0.17 에서 -1.32 로 뒤집힌다.
 재적합 기준선을 쓰면 기준선의 전이오차가 이득으로 둔갑한다 -- 항목 P 가 정확히
 그 함정에서 뒤집혔다(`group_by_perform/RESULTS.md` §9). 그래서 고정값을 쓴다.
 
@@ -34,7 +37,8 @@ import pandas as pd
 
 REPO = Path(__file__).resolve().parents[2]
 PT = REPO / "performance_tracking"
-W_CHAMP = np.array([0.6, 0.4])      # 리더보드 검증 고정값
+W_CHAMP = np.array([0.45461, 0.64333])   # build_submit_zip.py:10 · DECK D4 "한 번도 안 바꿨다"
+CENTER_SHIFT = 0.003223
 LAMBDAS = [0.10, 0.20]
 N_BOOT = 400
 FIT_MONTHS = (3, 4, 5, 6)
@@ -62,7 +66,7 @@ def build(season, cw_member, sj_member, hw_member="hw_v12_honest"):
     y = D["y"].to_numpy(float)
     r = y.mean()
     P = D[[cw_member, sj_member]].to_numpy(float)
-    champ = np.clip(r + (P - r) @ W_CHAMP, 1e-6, 1 - 1e-6)
+    champ = np.clip(r + (P - r) @ W_CHAMP - CENTER_SHIFT, 1e-6, 1 - 1e-6)
     return D, y, champ, D[hw_member].to_numpy(float)
 
 
@@ -74,7 +78,7 @@ def route(champ, hw, F, L):
 
 def main():
     print("=" * 78)
-    print("2024 -- 챔피언 = 0.6*sj_stdmlp + 0.4*sj3way (고정, 리더보드 검증값)")
+    print("2024 -- 챔피언 = 0.45461*sj_stdmlp + 0.64333*sj3way - 0.003223 (배포본)")
     print("=" * 78)
     D, y, champ, hw = build(2024, "sj_stdmlp", "sj3way")
     F = (D["game_type"] == "F").to_numpy()
