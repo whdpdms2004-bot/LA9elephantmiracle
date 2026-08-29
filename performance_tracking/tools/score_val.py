@@ -24,6 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import numpy as np
 import pandas as pd
 
 from common import (DECISION_SEASON, DECISION_SUBGROUP, GUARD_SEASONS,
@@ -32,7 +33,22 @@ from common import (DECISION_SEASON, DECISION_SUBGROUP, GUARD_SEASONS,
                     score, val_path)
 
 # 규칙 1 판정 여유. 시드 산포보다 작은 차이를 상승으로 읽지 않는다.
+#
+# ★ 2026-08-29 (hw) — TOL 0.0 은 위 주석의 의도를 구현하지 못한다.
+#   PROGRESS_workflow §3.5 가 같은 구성 재실행에서 ±2 BSS 를 실측했는데
+#   (CatBoost GPU 비결정성), TOL 0.0 은 -0.1 도 "하락" 으로 읽어 기각한다.
+#   그래서 항목 M 이 "2022 R +2.58 / -1.55, 둘 다 CI 가 0 포함" 인데도 base
+#   구성에 따라 기각으로 찍힌다. sj 가 그 커밋에 직접 적었다 —
+#   "관문 문구가 '없음' 과 '실패' 를 구분하지 못했다. 다음 관문을 쓸 때 고칠 점."
+#
+#   TOL 을 상수로 올리지는 않는다. 잡음 바닥이 구성마다 다르기 때문이다
+#   (항목 M arm 은 재실행 ΔBSS +0.0000 으로 결정론적, depth6+시드분산은 ±2).
+#   대신 폴드 표본오차의 **페어드 부트스트랩 CI** 를 같이 찍어 "하락" 과
+#   "무증거" 를 구분한다. 판정 규칙 자체는 안 바꿨다 — 엄격 판정을 그대로
+#   내고 CI 판정을 나란히 보여준다.
 TOL = 0.0
+N_BOOT = 400
+BOOT_SEED = 20260829
 
 
 def check_layout(name: str) -> list[str]:
@@ -56,6 +72,44 @@ def optional_missing(name: str) -> list[int]:
             if s not in REQUIRED_SEASONS and not val_path(name, s).exists()]
 
 
+def paired_delta_ci(name, base, season, subgroup, n_boot=N_BOOT):
+    """(후보 - 기준) BSS 델타의 페어드 행 부트스트랩 CI.
+
+    같은 행을 두 예측에 동시에 리샘플하므로 폴드 표본오차만 남고 모델 간
+    공통 변동은 상쇄된다. 재학습 잡음(PROGRESS_workflow §3.5 의 ±2 BSS)은
+    여기 안 잡힌다 -- 그건 같은 구성을 다시 학습해야 나오는 값이라 val 파일
+    하나로는 잴 수 없다. 그래서 이 CI 는 하한이다.
+    """
+    lab = load_labels(season)
+    y = lab["y"].to_numpy(np.float64)
+    pa = np.clip(load_pred(name, season, lab), 1e-9, 1 - 1e-9)
+    pb = np.clip(load_pred(base, season, lab), 1e-9, 1 - 1e-9)
+    if subgroup in ("R", "F"):
+        m = lab["game_type"].to_numpy() == subgroup
+        y, pa, pb = y[m], pa[m], pb[m]
+
+    def _bss(yy, pp):
+        r = yy.mean()
+        return 100000.0 * (1.0 - ((pp - yy) ** 2).mean() / (r * (1.0 - r)))
+
+    rng = np.random.default_rng(BOOT_SEED)
+    n = len(y)
+    ds = np.empty(n_boot)
+    for k in range(n_boot):
+        i = rng.integers(0, n, n)
+        ds[k] = _bss(y[i], pa[i]) - _bss(y[i], pb[i])
+    lo, hi = np.percentile(ds, [2.5, 97.5])
+    return float(ds.mean()), float(lo), float(hi)
+
+
+def ci_label(lo, hi):
+    if lo > 0:
+        return "유의하게 상승"
+    if hi < 0:
+        return "유의하게 하락"
+    return "무증거 (CI 0 포함)"
+
+
 def evaluate(name: str) -> dict[int, dict]:
     """있는 시즌만 채점한다. 없는 시즌은 키 자체가 없다."""
     out = {}
@@ -76,6 +130,8 @@ def main() -> int:
     ap.add_argument("--date", default="", help="제출일 (기본: 오늘)")
     ap.add_argument("--skip-layout", action="store_true",
                     help="md/zip/폴더 점검 생략 (채점만 먼저 볼 때)")
+    ap.add_argument("--no-ci", action="store_true",
+                    help="페어드 부트스트랩 CI 생략 (빠르게 숫자만 볼 때)")
     a = ap.parse_args()
 
     missing = check_layout(a.name)
@@ -114,16 +170,26 @@ def main() -> int:
             return 1
         d_dec = (cur[DECISION_SEASON][DECISION_SUBGROUP]
                  - base[DECISION_SEASON][DECISION_SUBGROUP])
-        print(f"\n== vs {a.baseline}")
+        print()
+        print(f"== vs {a.baseline}")
+
+        cs = None
+        if not a.no_ci:
+            cs = paired_delta_ci(a.name, a.baseline,
+                                 DECISION_SEASON, DECISION_SUBGROUP)
+        tail = (f"  [{cs[1]:+,.1f}, {cs[2]:+,.1f}] {ci_label(cs[1], cs[2])}"
+                if cs else "")
         print(f"  {DECISION_SEASON} {DECISION_SUBGROUP:<3} "
               f"{base[DECISION_SEASON][DECISION_SUBGROUP]:>10,.1f} -> "
               f"{cur[DECISION_SEASON][DECISION_SUBGROUP]:>10,.1f}  "
-              f"({d_dec:+,.1f})   [주 판정]")
+              f"({d_dec:+,.1f})   [주 판정]{tail}")
 
         up_dec = d_dec > TOL
-        why, unknown = [], []
+        why, unknown, soft = [], [], []
         if not up_dec:
             why.append(f"{DECISION_SEASON} 미상승")
+            if cs and cs[2] > 0:
+                soft.append(f"{DECISION_SEASON} 미상승")
         for gs in GUARD_SEASONS:
             if gs not in cur or gs not in base:
                 unknown.append(str(gs))
@@ -131,17 +197,36 @@ def main() -> int:
                       f"{'':>10} -> {'':>10}   (미확인)      [비하락 관문]")
                 continue
             dg = cur[gs][GUARD_SUBGROUP] - base[gs][GUARD_SUBGROUP]
+            cg = None
+            if not a.no_ci:
+                cg = paired_delta_ci(a.name, a.baseline, gs, GUARD_SUBGROUP)
+            tail = (f"  [{cg[1]:+,.1f}, {cg[2]:+,.1f}] {ci_label(cg[1], cg[2])}"
+                    if cg else "")
             print(f"  {gs} {GUARD_SUBGROUP:<3} "
                   f"{base[gs][GUARD_SUBGROUP]:>10,.1f} -> "
-                  f"{cur[gs][GUARD_SUBGROUP]:>10,.1f}  ({dg:+,.1f})   [비하락 관문]")
+                  f"{cur[gs][GUARD_SUBGROUP]:>10,.1f}  ({dg:+,.1f})   [비하락 관문]{tail}")
             if dg < -TOL:
                 why.append(f"{gs} R 하락")
+                if cg and cg[2] > 0:
+                    soft.append(f"{gs} R 하락")
 
         verdict = "채택" if not why else "기각"
         if verdict == "채택" and unknown:
             verdict = "조건부채택"
-            why.append(f"{'·'.join(unknown)} 미확인")
-        print(f"\n  판정: {verdict}" + (f" - {', '.join(why)}" if why else ""))
+            why.append(f"{chr(183).join(unknown)} 미확인")
+        print()
+        print(f"  판정(엄격, TOL={TOL}): {verdict}"
+              + (f" - {', '.join(why)}" if why else ""))
+
+        if not a.no_ci and why:
+            blocking = [w for w in why if "미확인" not in w]
+            hard = [w for w in blocking if w not in soft]
+            if blocking and not hard:
+                print(f"  판정(CI):  기각 사유가 전부 무증거 - {', '.join(soft)}")
+                print("             '나빠졌다' 가 아니라 '아무 일도 없었다' 다. "
+                      "val 을 더 파도 갈리지 않는다.")
+            elif soft:
+                print(f"  판정(CI):  무증거 {', '.join(soft)} / 유의 {', '.join(hard)}")
 
     if a.register:
         date = a.date or pd.Timestamp.now(tz="Asia/Seoul").strftime("%Y-%m-%d")
