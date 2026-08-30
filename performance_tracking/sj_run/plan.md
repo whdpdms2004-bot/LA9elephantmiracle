@@ -457,6 +457,35 @@ cowork/ye/cat_hpo_final/run_hpo.py          그리드서치 본체 (--gpu 옵션
 
 ---
 
+## 6순위 (ye 추가, 2026-08-30) -- 잔여신호 후보(form1×pitcherlvl) 결합 검증 완료, 기각
+
+**배경**: residual_signal_mining 스캔에서 찾은 유일한 후보를 CB 단독(176→177피처)
+으로 먼저 테스트했더니 fold2024 R Δ+4.03, fold2022 R Δ-0.67로 시즌별 방향이
+엇갈렸습니다(cowork/ye/residual_signal_mining/ 참고). 근사가 아니라 실제 배포
+calibration 상수로 확인이 필요해, hw가 확인해준 정확한 model_cb 상수
+(results/06_cb_calib_constants_for_ye.md)로 실제 챔피언에 직접 주입해 재검증했습니다.
+
+**방법**: 동일 seed(11)로 WITHOUT(176)/WITH(177) CB 각각 학습 (모델·예측 저장) →
+실제 apply_calibration 적용 → delta_cb = calib(WITH) - calib(WITHOUT) →
+new_final = old_final(val/sj_stdmlp_{fold}.csv, 실제 챔피언 전체 OOF) +
+w_cw*w_cb*delta_cb (w_cw=0.45460948805435714, w_cb=0.7432, 가중 재적합 없음).
+cw_v17_base 로 근사-혼합하지 않았습니다.
+
+**결과** (실제 챔피언 결합 기준):
+```
+fold2024: all 916.0->915.8 (Δ-0.22) · R 933.1->934.1 (Δ+1.08) · F 462.4->452.4 (Δ-9.96)
+fold2022(R관문): all 2353.1->2350.7 (Δ-2.38) · R 668.1->665.2 (Δ-2.89, 관문 위반)
+```
+
+**결론: 기각.** CB 단독의 R 신호(+4.03)가 결합가중(w_cw*w_cb=0.338)에서 +1.08로
+대부분 희석되고, F는 오히려 더 나빠지며(-9.96), 2022 R 관문을 명확히 위반합니다.
+근사 없이 정확한 상수로 실측한 결과라 추가 확인은 불필요해 보입니다.
+
+**재현**: `cowork/ye/cat_hpo_final/champion_delta_injection.py`
+(모델/예측 아티팩트는 `artifacts/`, gitignore 대상이라 로컬에만 있음)
+
+---
+
 ## 공통 요청
 - 남의 파일(모델/등록부)은 건드리지 않고, 1~3·5순위는 `sj_run/results/`에·
   4순위(취소됨)는 원래 `cowork/ye/` 예정이었습니다.
